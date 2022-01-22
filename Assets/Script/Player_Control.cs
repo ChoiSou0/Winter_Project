@@ -62,6 +62,11 @@ public class Player_Control : MonoBehaviour
             CurrentDashTimer = StartDashTimer;
             Player_Rigid.velocity = Vector2.zero;
             DashDirection = (int)h;
+
+            if (Dash_Cnt == 0)
+            {
+                Invoke("Dash_Full", Dash_FullTime);
+            }
         }
 
         if (isDashing)
@@ -76,12 +81,6 @@ public class Player_Control : MonoBehaviour
             }
         }
         // Update is called once per frame
-
-
-        if (Dash_Cnt == 0)
-        {
-            Invoke("Dash_Full", Dash_FullTime);
-        }
 
         
     }
