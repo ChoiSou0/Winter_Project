@@ -13,7 +13,7 @@ InputManager:
     positiveButton: right
     altNegativeButton: a
     altPositiveButton: d
-    gravity: 3
+    gravity: 1
     dead: 0.001
     sensitivity: 3
     snap: 1
@@ -233,8 +233,8 @@ InputManager:
     m_Name: Jump
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: joystick button 3
+    negativeButton: c
+    positiveButton: c
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
