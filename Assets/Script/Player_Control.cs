@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player_Control : MonoBehaviour
 {
+    //[SerializeField] public LayerMask Nocheck;
+
     private Rigidbody2D Player_Rigid;
 
     public float Player_Speed = 5f;
@@ -80,7 +82,17 @@ public class Player_Control : MonoBehaviour
                 isDashing = false;
             }
         }
-        // Update is called once per frame
+        // Attack
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            RaycastHit2D Skill_A_hit = Physics2D.BoxCast(transform.position, 
+                new Vector2(8, 1), 0, new Vector2(1, 0), 0);
+
+            if (Skill_A_hit.transform != null && Skill_A_hit.transform.tag == "Enermy")
+            {
+                Destroy(Skill_A_hit.transform.gameObject);
+            }
+        }
 
         
     }
