@@ -32,7 +32,6 @@ public class Monster1_Control : MonoBehaviour
 
         float distance = Vector2.Distance(target.position, target.position);
 
-        this.transform.position = new Vector2(transform.position.x + (direcotion.x * velocity / 3),
-            transform.position.y + (direcotion.y * velocity / 3));
+        this.transform.position = new Vector2(transform.position.x + (direcotion.x * velocity / 3), 1);
     }
 }

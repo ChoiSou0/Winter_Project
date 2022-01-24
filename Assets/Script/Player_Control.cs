@@ -7,6 +7,9 @@ public class Player_Control : MonoBehaviour
     //[SerializeField] public LayerMask Nocheck;
 
     private Rigidbody2D Player_Rigid;
+    private SpriteRenderer Player_Renderer;
+
+    public GameObject Camera;
 
     public float Player_Speed = 5f;
     public float Player_Jumpforce = 5f;
@@ -15,6 +18,7 @@ public class Player_Control : MonoBehaviour
     public float Floor;
     
     public bool Player_Jumping;
+    public int Jump_Cnt;
 
     float movX;
     public float Dash_Cnt;
@@ -26,36 +30,71 @@ public class Player_Control : MonoBehaviour
     float CurrentDashTimer;
     float DashDirection;
 
-    bool isGrounded = false;
+    bool World = false;
     bool isDashing;
 
 
-    private bool Isdash = false;
+    private bool IsDel = false;
 
+    private RaycastHit2D RayHit;
 
     // Start is called before the first frame update
     void Start()
     {
         Player_Rigid = GetComponent<Rigidbody2D>();
+        Player_Renderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
+        // Move
+        #region
+        // Move
         float h = Input.GetAxisRaw("Horizontal");
 
         Player_Rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
-        if (Player_Rigid.velocity.x > Player_Speed)
-            Player_Rigid.velocity = new Vector2(Player_Speed, Player_Rigid.velocity.y);
-        else if (Player_Rigid.velocity.x < Player_Speed * (-1))
-            Player_Rigid.velocity = new Vector2(Player_Speed * (-1), Player_Rigid.velocity.y);
+        if (this.Player_Renderer.flipY == false)
+        {
+            if (Player_Rigid.velocity.x > Player_Speed)
+                Player_Rigid.velocity = new Vector2(Player_Speed, Player_Rigid.velocity.y);
+            else if (Player_Rigid.velocity.x < Player_Speed * (-1))
+                Player_Rigid.velocity = new Vector2(Player_Speed * (-1), Player_Rigid.velocity.y);
+        }
+        else if (this.Player_Renderer.flipY == true)
+        {
+            if (Player_Rigid.velocity.x > Player_Speed)
+                Player_Rigid.velocity = new Vector2(Player_Speed, -Player_Rigid.velocity.y);
+            else if (Player_Rigid.velocity.x < Player_Speed * (-1))
+                Player_Rigid.velocity = new Vector2(Player_Speed * (-1), -Player_Rigid.velocity.y);
+        }
+        #endregion
 
         // Jump
-        if (Input.GetButtonDown("Jump") && Player_Jumping == false)
+        #region
+        // Jump
+        if (Input.GetKeyDown(KeyCode.C) && Jump_Cnt > 0 && Player_Jumping == false)
         {
-            Player_Rigid.AddForce(Vector2.up * Player_Jumpforce, ForceMode2D.Impulse);
-        } 
+            if (this.transform.position.y > 0)
+            {
+                Player_Jumping = true;
+                Jump_Cnt--;
+                Player_Rigid.AddForce(Vector2.up * Player_Jumpforce, ForceMode2D.Impulse);
+                Player_Jumping = false;
+            }
+            else if (this.transform.position.y < 0)
+            {
+                Player_Jumping = true;
+                Jump_Cnt--;
+                Player_Rigid.AddForce(Vector2.down * Player_Jumpforce, ForceMode2D.Impulse);
+                Player_Jumping = false;
+            }
+        }
+        
+        #endregion
 
+        // Dash
+        #region
         // Dash
         if (Input.GetKeyDown(KeyCode.Z) && h != 0 && Dash_Cnt > 0)
         {
@@ -82,8 +121,32 @@ public class Player_Control : MonoBehaviour
                 isDashing = false;
             }
         }
+        #endregion
+
+        // The World
+        if (Input.GetKeyDown(KeyCode.LeftShift) && World == false /*&& IsDel == false*/)
+        {
+            World = true;
+            this.Player_Renderer.flipY = true;
+            this.transform.position = new Vector2(this.transform.position.x, -this.transform.position.y);
+            this.Player_Rigid.gravityScale = -5;
+            Camera.transform.position = new Vector3(Camera.transform.position.x, -Camera.transform.position.y, -10);
+            //Invoke("Del", 3);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftShift) && World == true /*&& IsDel == true*/)
+        {
+            World = false;
+            this.Player_Renderer.flipY = false;
+            this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y);
+            this.Player_Rigid.gravityScale = 5;
+            Camera.transform.position = new Vector3(Camera.transform.position.x, Camera.transform.position.y, -10);
+            //Invoke("Del", 3);
+        }
+
+
+
         // Attack
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.X))
         {
             RaycastHit2D Skill_A_hit = Physics2D.BoxCast(transform.position, 
                 new Vector2(8, 1), 0, new Vector2(1, 0), 0);
@@ -97,26 +160,50 @@ public class Player_Control : MonoBehaviour
         
     }
 
-    void FixedUpdate()
+    private void OnCollisionEnter2D(Collision2D collision2D)
     {
-        Debug.DrawRay(Player_Rigid.position, Vector2.down, new Color(0, 1, 0));
-
-        RaycastHit2D RayHit = Physics2D.Raycast(Player_Rigid.position, Vector2.down, 1, LayerMask.GetMask("Ground"));
-
-        if (RayHit.collider != null && RayHit.distance < 0.5f)
+        if (collision2D.gameObject.tag == "Ground")
         {
-            Debug.Log("G");
+            Debug.Log("¶¥");
+            Jump_Cnt = 2;
             Player_Jumping = false;
         }
         else
         {
+            Debug.Log("Á¡ÇÁÁß");
             Player_Jumping = true;
         }
+    }
+
+    void FixedUpdate()
+    {
+        //Debug.DrawRay(Player_Rigid.position, Vector2.down, new Color(0, 1, 0));
+
+        //RaycastHit2D RayHit = Physics2D.Raycast(Player_Rigid.position, Vector2.down, 0.5f, LayerMask.GetMask("Ground"));
+
+
+        //if (RayHit.collider != null /*&& RayHit.distance < 0.5f*/)
+        //{
+        //    Debug.Log("G");
+        //    Player_Jumping = false;
+        //}
+        //else
+        //{
+        //    Debug.Log("D");
+        //    Player_Jumping = true;
+        //}
+
+
     }
 
     void Dash_Full()
     {
         Dash_Cnt = 2;
+    }
+
+    void Del()
+    {
+        Debug.Log("The World Del");
     }
     
 }
