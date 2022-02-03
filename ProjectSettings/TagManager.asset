@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enermy
   - Ground
+  - Attack
+  - Wolf
+  - Bite
   layers:
   - Default
   - TransparentFX
@@ -15,10 +18,10 @@ TagManager:
   - UI
   - Ground
   - Enermy
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Attack
+  - Range
+  - Bite
   - 
   - 
   - 

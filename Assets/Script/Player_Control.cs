@@ -10,7 +10,10 @@ public class Player_Control : MonoBehaviour
     private SpriteRenderer Player_Renderer;
 
     public GameObject Camera;
+    public GameObject Attack;
 
+    public int Player_Hp;
+    public int Player_Power;
     public float Player_Speed = 5f;
     public float Player_Jumpforce = 5f;
     public int Player_Life = 3;
@@ -33,16 +36,15 @@ public class Player_Control : MonoBehaviour
     bool World = false;
     bool isDashing;
 
-
-    private bool IsDel = false;
-
-    private RaycastHit2D RayHit;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         Player_Rigid = GetComponent<Rigidbody2D>();
         Player_Renderer = GetComponent<SpriteRenderer>();
+
+        Attack.SetActive(false);
     }
 
     void Update()
@@ -54,20 +56,22 @@ public class Player_Control : MonoBehaviour
 
         Player_Rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
-        if (this.Player_Renderer.flipY == false)
+        if (Player_Rigid.velocity.x > 0)
         {
-            if (Player_Rigid.velocity.x > Player_Speed)
-                Player_Rigid.velocity = new Vector2(Player_Speed, Player_Rigid.velocity.y);
-            else if (Player_Rigid.velocity.x < Player_Speed * (-1))
-                Player_Rigid.velocity = new Vector2(Player_Speed * (-1), Player_Rigid.velocity.y);
+            Player_Renderer.flipX = false;
+            Attack.transform.localPosition = new Vector2(2, 0);
         }
-        else if (this.Player_Renderer.flipY == true)
+        else if (Player_Rigid.velocity.x < 0)
         {
-            if (Player_Rigid.velocity.x > Player_Speed)
-                Player_Rigid.velocity = new Vector2(Player_Speed, -Player_Rigid.velocity.y);
-            else if (Player_Rigid.velocity.x < Player_Speed * (-1))
-                Player_Rigid.velocity = new Vector2(Player_Speed * (-1), -Player_Rigid.velocity.y);
+            Player_Renderer.flipX = true;
+            Attack.transform.localPosition = new Vector2(-2, 0);
         }
+
+        if (Player_Rigid.velocity.x > Player_Speed)
+            Player_Rigid.velocity = new Vector2(Player_Speed, Player_Rigid.velocity.y);
+        else if (Player_Rigid.velocity.x < Player_Speed * (-1))
+            Player_Rigid.velocity = new Vector2(Player_Speed * (-1), Player_Rigid.velocity.y);
+
         #endregion
 
         // Jump
@@ -124,37 +128,50 @@ public class Player_Control : MonoBehaviour
         #endregion
 
         // The World
-        if (Input.GetKeyDown(KeyCode.LeftShift) && World == false /*&& IsDel == false*/)
-        {
-            World = true;
-            this.Player_Renderer.flipY = true;
-            this.transform.position = new Vector2(this.transform.position.x, -this.transform.position.y);
-            this.Player_Rigid.gravityScale = -5;
-            Camera.transform.position = new Vector3(Camera.transform.position.x, -Camera.transform.position.y, -10);
-            //Invoke("Del", 3);
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftShift) && World == true /*&& IsDel == true*/)
-        {
-            World = false;
-            this.Player_Renderer.flipY = false;
-            this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y);
-            this.Player_Rigid.gravityScale = 5;
-            Camera.transform.position = new Vector3(Camera.transform.position.x, Camera.transform.position.y, -10);
-            //Invoke("Del", 3);
-        }
+        //if (Input.GetKeyDown(KeyCode.LeftShift) && World == false /*&& IsDel == false*/)
+        //{
+        //    World = true;
+        //    this.Player_Renderer.flipY = true;
+        //    this.transform.position = new Vector2(this.transform.position.x, -this.transform.position.y);
+        //    this.Player_Rigid.gravityScale = -5;
+        //    Camera.transform.position = new Vector3(Camera.transform.position.x, -Camera.transform.position.y, -10);
+        //    //Invoke("Del", 3);
+        //}
+        //else if (Input.GetKeyDown(KeyCode.LeftShift) && World == true /*&& IsDel == true*/)
+        //{
+        //    World = false;
+        //    this.Player_Renderer.flipY = false;
+        //    this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y);
+        //    this.Player_Rigid.gravityScale = 5;
+        //    Camera.transform.position = new Vector3(Camera.transform.position.x, Camera.transform.position.y, -10);
+        //    //Invoke("Del", 3);
+        //}
 
 
 
         // Attack
         if (Input.GetKeyDown(KeyCode.X))
         {
-            RaycastHit2D Skill_A_hit = Physics2D.BoxCast(transform.position, 
-                new Vector2(8, 1), 0, new Vector2(1, 0), 0);
+            //RaycastHit2D Skill_A_hit = Physics2D.BoxCast(transform.position, 
+            //    new Vector2(8, 1), 0, new Vector2(1, 0), 0);
 
-            if (Skill_A_hit.transform != null && Skill_A_hit.transform.tag == "Enermy")
+            //if (Skill_A_hit.transform != null && Skill_A_hit.transform.tag == "Enermy")
+            //{
+            //    Destroy(Skill_A_hit.transform.gameObject);
+            //}
+
+            Attack.gameObject.SetActive(true);
+
+            if (Player_Renderer.flipX == false)
             {
-                Destroy(Skill_A_hit.transform.gameObject);
+                Attack.transform.localPosition = new Vector2(2, 0);
             }
+            else if (Player_Renderer.flipX == true)
+            {
+                Attack.transform.localPosition = new Vector2(-2, 0);
+            }
+
+            Invoke("Attack_Del", 0.1f);
         }
 
         
@@ -204,6 +221,11 @@ public class Player_Control : MonoBehaviour
     void Del()
     {
         Debug.Log("The World Del");
+    }
+
+    void Attack_Del()
+    {
+        Attack.gameObject.SetActive(false);
     }
     
 }
