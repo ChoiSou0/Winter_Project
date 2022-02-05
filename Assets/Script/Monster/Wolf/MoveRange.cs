@@ -8,13 +8,13 @@ public class MoveRange : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        WolfMove = false;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        transform.localPosition = new Vector2(0, 0);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
