@@ -5,7 +5,6 @@ using UnityEngine;
 public class AttackRange : MonoBehaviour
 {
     public bool Wolf_Attack = false;
-    private bool Deal;
     // Start is called before the first frame update
     void Start()
     {

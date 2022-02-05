@@ -58,6 +58,8 @@ public class Wolf_Control : MonoBehaviour
             RGB -= Time.deltaTime;
             Debug.Log(RGB);
             spriteRenderer.color = new Color(1, 1, 1, RGB);
+            RGB -= Speed * 100;
+            spriteRenderer.color = new Color(255, 255, 255, RGB);
             this.gameObject.transform.position = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
             if (RGB <= 0)
             {
