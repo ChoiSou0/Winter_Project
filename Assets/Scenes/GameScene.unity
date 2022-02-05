@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 146212272}
   - component: {fileID: 146212271}
   - component: {fileID: 146212270}
+  - component: {fileID: 146212275}
   m_Layer: 7
   m_Name: Wolf
   m_TagString: Wolf
@@ -293,6 +294,12 @@ MonoBehaviour:
   Speed: 0.01
   Hp: 100
   Power: 10
+  RGB: 255
+  Ding: 0
+  Hold: 0
+  moveVec: 0
+  moveMax: 0
+  moving: 0
   BackTime: 0
   Attacked: 0
   OneAttack: 0
@@ -404,7 +411,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 146212269}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7, y: 1, z: 0}
+  m_LocalPosition: {x: -8, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1912865691}
@@ -413,6 +420,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &146212275
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146212269}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ef3c42cd0537a4444a5ed9acab9fa99f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &564265315
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,7 +664,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579178050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 8, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 129855297}
@@ -1020,7 +1046,7 @@ GameObject:
   - component: {fileID: 1699502805}
   - component: {fileID: 1699502804}
   - component: {fileID: 1699502803}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Wolf_Move_Range
   m_TagString: Untagged
   m_Icon: {fileID: 0}

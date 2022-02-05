@@ -7,6 +7,7 @@ public class Wolf_Control : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D Wolf_rigid;
     private Player_Control playerControl;
+    private Animator animator;
 
     private AttackRange attackRange;
     private MoveRange moveRange;
@@ -19,9 +20,14 @@ public class Wolf_Control : MonoBehaviour
     public float Speed;
     public int Hp;
     public int Power;
-
+    public float RGB = 255;
+    public bool Ding;
+    
     public float Hold;
-
+    public int moveVec;
+    public float moveMax;
+    public bool moving;
+    
     public float BackTime;
     public bool Attacked = false;
     public bool OneAttack = false;
@@ -36,8 +42,11 @@ public class Wolf_Control : MonoBehaviour
         attackRange = GameObject.Find("Wolf_Attack_Range").GetComponent<AttackRange>();
         moveRange = GameObject.Find("Wolf_Move_Range").GetComponent<MoveRange>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         Wolf_rigid = GetComponent<Rigidbody2D>();
         Bite.SetActive(false);
+        moveVec = -1;
+        RGB = 1;
     }
 
     // Update is called once per frame
@@ -45,36 +54,42 @@ public class Wolf_Control : MonoBehaviour
     {
         if (Hp <= 0)
         {
-            Destroy(this.gameObject);
+            Ding = true;
+            RGB -= Time.deltaTime;
+            Debug.Log(RGB);
+            spriteRenderer.color = new Color(1, 1, 1, RGB);
+            this.gameObject.transform.position = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
+            if (RGB <= 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
 
-        if (moveRange.WolfMove == false)
+        if (moveRange.WolfMove == false && Ding == false)
         {
-            if (target.transform.position.x > this.transform.position.x)
+            if (moving == false)
             {
-                this.spriteRenderer.flipX = true;
-                while ()
-                {
-                    this.transform.position = new Vector2(transform.position.x - , transform.position.y);
-                }
+                this.transform.position = new Vector2(transform.position.x + (Speed * moveVec), transform.position.y);
+                moveMax += Time.deltaTime;
             }
-            else
+
+            if (moveMax >= 3)
             {
-                this.spriteRenderer.flipX = false;
-                while ()
-                {
-                    this.transform.position = new Vector2(transform.position.x + , transform.position.y);
-                }
+                moving = true;
+                //animator.SetBool("isIdle", true);
+                Invoke("Idle", 1f);
+                moveMax -= 0.1f;
             }
+
         }
 
-        if (attackRange.Wolf_Attack == true && Backing == false && OneAttack == false)
+        // Attack And Follow
+        if (attackRange.Wolf_Attack == true && Backing == false && OneAttack == false && moveRange.WolfMove == true && Ding == false)
         {
             AttackBite();
             OneAttack = true;
         }
-
-        else if (attackRange.Wolf_Attack == false && Attacked == false && Backing == false)
+        else if (attackRange.Wolf_Attack == false && Attacked == false && Backing == false && moveRange.WolfMove == true && Ding == false)
         {
             FollowTarget();
         }
@@ -87,12 +102,12 @@ public class Wolf_Control : MonoBehaviour
         if (target.transform.position.x > this.transform.position.x)
         {
             this.spriteRenderer.flipX = true;
-            this.transform.position = new Vector2(transform.position.x + Speed, 1);
+            this.transform.position = new Vector2(transform.position.x + Speed, transform.position.y);
         }
         else
         {
             this.spriteRenderer.flipX = false;
-            this.transform.position = new Vector2(transform.position.x - Speed, 1);
+            this.transform.position = new Vector2(transform.position.x - Speed, transform.position.y);
         }
 
         
@@ -160,4 +175,21 @@ public class Wolf_Control : MonoBehaviour
         OneAttack = false;
         Bite.SetActive(false);
     }
+
+    void Idle()
+    {
+        if (moveVec > 0)
+        {
+            spriteRenderer.flipX = false;
+            moveVec = -1;
+        }
+        else if (moveVec < 0)
+        {
+            spriteRenderer.flipX = true;
+            moveVec = 1;
+        }
+        moveMax = 0;
+        moving = false;
+    }
+    
 }
