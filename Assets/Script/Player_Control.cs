@@ -62,12 +62,12 @@ public class Player_Control : MonoBehaviour
         if (Player_Rigid.velocity.x > 0)
         {
             Player_Renderer.flipX = false;
-            Attack.transform.localPosition = new Vector2(2, 0);
+            Attack.transform.localPosition = new Vector2(1, 0);
         }
         else if (Player_Rigid.velocity.x < 0)
         {
             Player_Renderer.flipX = true;
-            Attack.transform.localPosition = new Vector2(-2, 0);
+            Attack.transform.localPosition = new Vector2(-1, 0);
         }
 
         if (Player_Rigid.velocity.x > Player_Speed)
@@ -169,11 +169,11 @@ public class Player_Control : MonoBehaviour
 
             if (Player_Renderer.flipX == false)
             {
-                Attack.transform.localPosition = new Vector2(2, 0);
+                Attack.transform.localPosition = new Vector2(1, 0);
             }
             else if (Player_Renderer.flipX == true)
             {
-                Attack.transform.localPosition = new Vector2(-2, 0);
+                Attack.transform.localPosition = new Vector2(-1, 0);
             }
 
             Invoke("Attack_Del", 0.1f);
