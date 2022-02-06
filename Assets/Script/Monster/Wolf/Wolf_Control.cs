@@ -19,7 +19,7 @@ public class Wolf_Control : MonoBehaviour
     public float velocity;
     public float Speed;
     public int Hp;
-    public int Power;
+    public float Wolf_Power;
     public float RGB = 255;
     public bool Ding;
     
@@ -55,11 +55,14 @@ public class Wolf_Control : MonoBehaviour
         if (Hp <= 0)
         {
             Ding = true;
+            animator.SetBool("isDied", true);
+            animator.SetBool("isIdle", false);
+            animator.SetBool("isAttack", false);
+            animator.SetBool("isHit", false);
+            animator.SetBool("isRun", false);
             RGB -= Time.deltaTime;
             Debug.Log(RGB);
             spriteRenderer.color = new Color(1, 1, 1, RGB);
-            RGB -= Speed * 100;
-            spriteRenderer.color = new Color(255, 255, 255, RGB);
             this.gameObject.transform.position = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
             if (RGB <= 0)
             {
@@ -71,12 +74,16 @@ public class Wolf_Control : MonoBehaviour
         {
             if (moving == false)
             {
+                animator.SetBool("isRun", true);
+                animator.SetBool("isIdle", false);
                 this.transform.position = new Vector2(transform.position.x + (Speed * moveVec), transform.position.y);
                 moveMax += Time.deltaTime;
             }
 
             if (moveMax >= 3)
             {
+                animator.SetBool("isRun", false);
+                animator.SetBool("isIdle", true);
                 moving = true;
                 //animator.SetBool("isIdle", true);
                 Invoke("Idle", 1f);
@@ -99,6 +106,7 @@ public class Wolf_Control : MonoBehaviour
 
     void FollowTarget()
     {
+        animator.SetBool("isRun", true);
         target = GameObject.Find("Player").transform;
 
         if (target.transform.position.x > this.transform.position.x)

@@ -17,9 +17,9 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text_time[0].text = ((int)time / 3600).ToString();
-        text_time[1].text = ((int)time / 60 % 60).ToString();
-        text_time[2].text = ((int)time % 60).ToString();
+        //text_time[0].text = ((int)time / 3600).ToString();
+        //text_time[1].text = ((int)time / 60 % 60).ToString();
+        //text_time[2].text = ((int)time % 60).ToString();
     }
 
     void TimerInvoke()
@@ -30,7 +30,7 @@ public class Timer : MonoBehaviour
             if (Minute == 0)
             {
                 CancelInvoke("TimerInvoke");
-                return 0; 
+                return; 
             }
             else
             {

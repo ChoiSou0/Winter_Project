@@ -8,11 +8,12 @@ public class Player_Control : MonoBehaviour
 
     private Rigidbody2D Player_Rigid;
     private SpriteRenderer Player_Renderer;
+    private Wolf_Control wolf_Control;
 
     public GameObject Camera;
     public GameObject Attack;
 
-    public int Player_Hp;
+    public float Player_Hp;
     public int Player_Power;
     public float Player_Speed = 5f;
     public float Player_Jumpforce = 5f;
@@ -24,6 +25,7 @@ public class Player_Control : MonoBehaviour
     public int Jump_Cnt;
 
     float movX;
+    bool Dashing;
     public float Dash_Cnt;
     public float Dash_FullTime;
 
@@ -43,6 +45,7 @@ public class Player_Control : MonoBehaviour
     {
         Player_Rigid = GetComponent<Rigidbody2D>();
         Player_Renderer = GetComponent<SpriteRenderer>();
+        wolf_Control = GameObject.Find("Wolf").GetComponent<Wolf_Control>();
 
         Attack.SetActive(false);
     }
@@ -116,6 +119,7 @@ public class Player_Control : MonoBehaviour
 
         if (isDashing)
         {
+            Dashing = true;
             Player_Rigid.velocity = transform.right * DashDirection * DashForce;
 
             CurrentDashTimer -= Time.deltaTime;
@@ -123,6 +127,7 @@ public class Player_Control : MonoBehaviour
             if (CurrentDashTimer <= 0)
             {
                 isDashing = false;
+                Dashing = false;
             }
         }
         #endregion
@@ -189,6 +194,16 @@ public class Player_Control : MonoBehaviour
         {
             Debug.Log("Á¡ÇÁÁß");
             Player_Jumping = true;
+        }
+
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Bite" && Dashing == false)
+        {
+            Player_Hp -= wolf_Control.Wolf_Power;
         }
     }
 
