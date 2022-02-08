@@ -9,6 +9,7 @@ public class Player_Control : MonoBehaviour
     private Rigidbody2D Player_Rigid;
     private SpriteRenderer Player_Renderer;
     private Wolf_Control wolf_Control;
+    private Bangtan_Ctrl bangtan_Ctrl;
 
     public GameObject Camera;
     public GameObject Attack;
@@ -46,6 +47,7 @@ public class Player_Control : MonoBehaviour
         Player_Rigid = GetComponent<Rigidbody2D>();
         Player_Renderer = GetComponent<SpriteRenderer>();
         wolf_Control = GameObject.Find("Wolf").GetComponent<Wolf_Control>();
+        bangtan_Ctrl = GameObject.Find("Bangtan").GetComponent<Bangtan_Ctrl>();
 
         Attack.SetActive(false);
     }
@@ -204,6 +206,12 @@ public class Player_Control : MonoBehaviour
         if (collision.gameObject.tag == "Bite" && Dashing == false)
         {
             Player_Hp -= wolf_Control.Wolf_Power;
+        }
+
+        if (collision.gameObject.tag == "Bangtan_Attack")
+        {
+            Debug.Log("¸Â¾Ò¾î");
+            Player_Hp -= bangtan_Ctrl.Bangtan_Power;
         }
     }
 
