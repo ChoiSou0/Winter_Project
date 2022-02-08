@@ -208,11 +208,11 @@ public class Player_Control : MonoBehaviour
             Player_Hp -= wolf_Control.Wolf_Power;
         }
 
-        if (collision.gameObject.tag == "Bangtan_Attack")
+        if (collision.gameObject.tag == "Bangtan_Attack" && Dashing == false)
         {
             Debug.Log("¸Â¾Ò¾î");
             Player_Hp -= bangtan_Ctrl.Bangtan_Power;
-        }
+        }  
     }
 
     void FixedUpdate()

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bangtan_Ctrl : MonoBehaviour
 {
     public GameObject Bangtan_Attack;
+    public GameObject Bangtan_Rush;
     public Transform target;
 
     public int Bangtan_Hp;
@@ -17,6 +18,7 @@ public class Bangtan_Ctrl : MonoBehaviour
     public int Vec;
 
     public bool Dashing;
+    public bool Attacking;
 
     private Bangtan_MoveRange moveRange;
     private Bangtan_AttackRange attackRange;
@@ -37,6 +39,7 @@ public class Bangtan_Ctrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Bangtan_Rush.transform.localPosition = new Vector2(0, 0.95f);
         DashTime += Time.deltaTime;
 
         // Rush
@@ -57,33 +60,22 @@ public class Bangtan_Ctrl : MonoBehaviour
 
         if (Dashing == true && DashingTime <= 0.5f)
         {
+            Bangtan_Rush.SetActive(true);
             transform.Translate(Vector2.right * DashPower * Vec * Time.deltaTime);
             DashingTime += Time.deltaTime;
             if (DashingTime >= 0.5f)
             {
                 DashingTime = 0;
                 Dashing = false;
+                Bangtan_Rush.SetActive(false);
             }
 
         }
 
         // Attack
-        if (moveRange.isMove == true && attackRange.Attacked == true && dash_Range.Dashed == true && Dashing == false)
+        if (moveRange.isMove == true && attackRange.Attacked == true && dash_Range.Dashed == true && Dashing == false && Attacking == false)
         {
-            Bangtan_Attack.SetActive(true);
-            if (target.transform.position.x > this.transform.position.x)
-            {
-                spriteRenderer.flipX = true;
-                Bangtan_Attack.transform.localPosition = new Vector2(1.2f, 0.9f);
-            }
-            else
-            {
-                spriteRenderer.flipX = false;
-                Bangtan_Attack.transform.localPosition = new Vector2(-1.2f, 0.9f);
-            }
-
-            
-            Invoke("AttackTime", 0.5f);
+            Attacked();
         }
         else if (moveRange.isMove == true && attackRange.Attacked == false && dash_Range.Dashed == true && Dashing == false)
         {
@@ -119,9 +111,32 @@ public class Bangtan_Ctrl : MonoBehaviour
         }
     }
 
-    void AttackTime()
+    void Attacked()
+    {
+        Bangtan_Attack.SetActive(true);
+        if (target.transform.position.x > this.transform.position.x)
+        {
+            spriteRenderer.flipX = true;
+            Bangtan_Attack.transform.localPosition = new Vector2(1.2f, 0.9f);
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+            Bangtan_Attack.transform.localPosition = new Vector2(-1.2f, 0.9f);
+        }
+
+        Invoke("Attackfalse", 0.1f);
+        Invoke("AttackTime", 0.5f);
+    }
+
+    void Attackfalse()
     {
         Bangtan_Attack.SetActive(false);
+    }
+
+    void AttackTime()
+    {
+        //Bangtan_Attack.SetActive(false);
     }
 
     void Hiting()
