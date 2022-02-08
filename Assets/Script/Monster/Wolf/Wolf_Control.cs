@@ -106,6 +106,10 @@ public class Wolf_Control : MonoBehaviour
 
     void FollowTarget()
     {
+        animator.SetBool("isDied", false);
+        animator.SetBool("isIdle", false);
+        animator.SetBool("isAttack", false);
+        animator.SetBool("isHit", false);
         animator.SetBool("isRun", true);
         target = GameObject.Find("Player").transform;
 
@@ -130,12 +134,17 @@ public class Wolf_Control : MonoBehaviour
             Debug.Log("¸Â¾Ò¾î");
             Hp -= playerControl.Player_Power;
             Backing = true;
+            animator.SetBool("isDied", false);
+            animator.SetBool("isIdle", false);
+            animator.SetBool("isAttack", false);
+            animator.SetBool("isHit", true);
+            animator.SetBool("isRun", false);
 
             if (target.transform.position.x > this.transform.position.x)
             {
                 while (BackTime <= 0.5f)
                 {
-                    transform.position = new Vector2(transform.position.x - (0.01f), transform.position.y);
+                    transform.Translate(Vector2.right * backPower  * -1 * Time.deltaTime);
                     BackTime += Time.deltaTime;
                 }
             }
@@ -143,13 +152,18 @@ public class Wolf_Control : MonoBehaviour
             {
                 while (BackTime <= 0.5f)
                 {
-                    transform.position = new Vector2(transform.position.x + (0.01f), transform.position.y);
+                    transform.Translate(Vector2.right * backPower * Time.deltaTime);
                     BackTime += Time.deltaTime;
                 }
             }
 
             BackTime = 0;
             Backing = false;
+            animator.SetBool("isDied", false);
+            animator.SetBool("isIdle", false);
+            animator.SetBool("isAttack", false);
+            animator.SetBool("isHit", true);
+            animator.SetBool("isRun", false);
 
         }
 
@@ -159,6 +173,11 @@ public class Wolf_Control : MonoBehaviour
     {
         Attacked = true;
         Bite.SetActive(true);
+        animator.SetBool("isDied", false);
+        animator.SetBool("isIdle", false);
+        animator.SetBool("isAttack", true);
+        animator.SetBool("isHit", false);
+        animator.SetBool("isRun", false);
 
         if (target.transform.position.x > this.transform.position.x)
         {
@@ -170,6 +189,11 @@ public class Wolf_Control : MonoBehaviour
         }
 
         //Bite.SetActive(false);
+        animator.SetBool("isDied", false);
+        animator.SetBool("isIdle", false);
+        animator.SetBool("isAttack", true);
+        animator.SetBool("isHit", false);
+        animator.SetBool("isRun", false);
         Invoke("Del", 2);
     }
 

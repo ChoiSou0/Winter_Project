@@ -9,6 +9,8 @@ TagManager:
   - Attack
   - Wolf
   - Bite
+  - Bangtan_Attack
+  - Bangtan_Rush
   layers:
   - Default
   - TransparentFX
