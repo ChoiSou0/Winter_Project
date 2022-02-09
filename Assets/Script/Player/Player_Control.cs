@@ -52,6 +52,7 @@ public class Player_Control : MonoBehaviour
 
     public int SkillA_Power;
     public int SkillS_Power;
+    public float TheWorldTime;
 
     // Start is called before the first frame update
     void Start()
@@ -68,6 +69,9 @@ public class Player_Control : MonoBehaviour
     {
         Skill_A_Time += Time.deltaTime;
         Skill_S_Time += Time.deltaTime;
+        Skill_D_Time += Time.deltaTime;
+        if (Skill_S_On == true)
+            TheWorldTime += Time.deltaTime;
 
         // Died ¸¸µé¾î¾ßµÊ
         #region
@@ -175,6 +179,11 @@ public class Player_Control : MonoBehaviour
         }
 
         // The World (Skill D)
+        if (Input.GetKeyDown(KeyCode.D) && Skill_D_Time >= 100)
+        {
+            Skill_D_Time = 0;
+            Skill_S_On = true;
+        }
         
 
 

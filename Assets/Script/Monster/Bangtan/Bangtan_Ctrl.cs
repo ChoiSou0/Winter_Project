@@ -51,9 +51,17 @@ public class Bangtan_Ctrl : MonoBehaviour
         Bangtan_Rush.transform.localPosition = new Vector2(0, 0.95f);
         DashTime += Time.deltaTime;
 
-        if (SkillS_Hit == true && SkillS_HitTime <= 1)
+        if (SkillS_Hit == true && SkillS_HitTime >= 1)
         {
-            SkillS_Hited();
+            //transform.Translate(Vector2.right * player_Control.Player_Vec * SkillS_HitPower * Time.deltaTime);
+            transform.position = new Vector2(transform.position.x + player_Control.Player_Vec * SkillS_HitPower * Time.deltaTime, transform.position.y);
+            SkillS_HitTime -= Time.deltaTime;
+
+            if (SkillS_HitTime <= 0)
+            {
+                SkillS_Hit = false;
+                SkillS_HitTime = 0;
+            }
         }
 
         if (Hited == false)
@@ -188,19 +196,6 @@ public class Bangtan_Ctrl : MonoBehaviour
 
         Invoke("Attackfalse", 0.05f);
     }
-
-    void SkillS_Hited()
-    {
-        transform.Translate(Vector2.right * player_Control.Player_Vec * SkillS_HitPower * Time.deltaTime);
-        SkillS_HitTime += Time.deltaTime;
-
-        if (SkillS_HitTime >= 1)
-        {
-            SkillS_Hit = false;
-            SkillS_HitTime = 0;
-        }
-
-    }    
 
     void Attackfalse()
     {
