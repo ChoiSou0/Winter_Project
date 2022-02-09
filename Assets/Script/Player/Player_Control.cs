@@ -13,6 +13,8 @@ public class Player_Control : MonoBehaviour
 
     public GameObject Camera;
     public GameObject Attack;
+    public GameObject Skill_A;
+    public GameObject SKill_S;
 
     public float Player_Hp;
     public int Player_Power;
@@ -25,7 +27,6 @@ public class Player_Control : MonoBehaviour
     public bool Player_Jumping;
     public int Jump_Cnt;
 
-    float movX;
     bool Dashing;
     public float Dash_Cnt;
     public float Dash_FullTime;
@@ -36,10 +37,21 @@ public class Player_Control : MonoBehaviour
     float CurrentDashTimer;
     float DashDirection;
 
-    bool World = false;
     bool isDashing;
 
-    
+    public int Player_Vec;
+
+    // Skill
+    public float Skill_A_Time;
+    public float Skill_S_Time;
+    public float Skill_D_Time;
+
+    public bool Skill_A_On;
+    public bool Skill_S_On;
+    public bool Skill_D_On;
+
+    public int SkillA_Power;
+    public int SkillS_Power;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +66,13 @@ public class Player_Control : MonoBehaviour
 
     void Update()
     {
+        Skill_A_Time += Time.deltaTime;
+        Skill_S_Time += Time.deltaTime;
+
+        // Died 만들어야됨
+        #region
+        #endregion
+
         // Move
         #region
         // Move
@@ -61,12 +80,12 @@ public class Player_Control : MonoBehaviour
 
         Player_Rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
-        if (Player_Rigid.velocity.x > 0)
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             Player_Renderer.flipX = false;
             Attack.transform.localPosition = new Vector2(1, 0);
         }
-        else if (Player_Rigid.velocity.x < 0)
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             Player_Renderer.flipX = true;
             Attack.transform.localPosition = new Vector2(-1, 0);
@@ -134,25 +153,29 @@ public class Player_Control : MonoBehaviour
         }
         #endregion
 
-        // The World
-        //if (Input.GetKeyDown(KeyCode.LeftShift) && World == false /*&& IsDel == false*/)
-        //{
-        //    World = true;
-        //    this.Player_Renderer.flipY = true;
-        //    this.transform.position = new Vector2(this.transform.position.x, -this.transform.position.y);
-        //    this.Player_Rigid.gravityScale = -5;
-        //    Camera.transform.position = new Vector3(Camera.transform.position.x, -Camera.transform.position.y, -10);
-        //    //Invoke("Del", 3);
-        //}
-        //else if (Input.GetKeyDown(KeyCode.LeftShift) && World == true /*&& IsDel == true*/)
-        //{
-        //    World = false;
-        //    this.Player_Renderer.flipY = false;
-        //    this.transform.position = new Vector2(this.transform.position.x, this.transform.position.y);
-        //    this.Player_Rigid.gravityScale = 5;
-        //    Camera.transform.position = new Vector3(Camera.transform.position.x, Camera.transform.position.y, -10);
-        //    //Invoke("Del", 3);
-        //}
+        // Skill(A)
+        if (Input.GetKeyDown(KeyCode.A) && Skill_A_Time >= 7)
+        {
+            Skill_A_Time = 0;
+            if (Player_Renderer.flipX == false)
+                Player_Vec = 1;
+            else if (Player_Renderer.flipX == true)
+                Player_Vec = -1;
+
+            Instantiate(Skill_A, new Vector2(transform.localPosition.x, transform.localPosition.y + 0.5f), Quaternion.identity);
+            Skill_A_On = true;
+        }
+
+        // Skill(S)
+        if (Input.GetKeyDown(KeyCode.S) && Skill_S_Time >= 14)
+        {
+            Skill_S_Time = 0;
+            Instantiate(SKill_S, new Vector2(transform.localPosition.x, transform.localPosition.y + 0.5f), Quaternion.identity);
+            Skill_S_On = true;
+        }
+
+        // The World (Skill D)
+        
 
 
 
@@ -171,11 +194,11 @@ public class Player_Control : MonoBehaviour
 
             if (Player_Renderer.flipX == false)
             {
-                Attack.transform.localPosition = new Vector2(1, 0);
+                Attack.transform.localPosition = new Vector2(1, 0.5f);
             }
             else if (Player_Renderer.flipX == true)
             {
-                Attack.transform.localPosition = new Vector2(-1, 0);
+                Attack.transform.localPosition = new Vector2(-1, 0.5f);
             }
 
             Invoke("Attack_Del", 0.1f);
@@ -210,9 +233,13 @@ public class Player_Control : MonoBehaviour
 
         if (collision.gameObject.tag == "Bangtan_Attack" && Dashing == false)
         {
-            Debug.Log("맞았어");
             Player_Hp -= bangtan_Ctrl.Bangtan_Power;
         }  
+
+        if (collision.gameObject.tag == "Bangtan_Rush" && Dashing == false)
+        {
+            Player_Hp -= 15;
+        }
     }
 
     void FixedUpdate()

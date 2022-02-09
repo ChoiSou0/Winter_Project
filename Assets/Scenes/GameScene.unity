@@ -259,7 +259,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129855296}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalPosition: {x: 1, y: 0.5, z: 0}
   m_LocalScale: {x: 3, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 579178054}
@@ -936,10 +936,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.5}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 0.73333335, y: 0.96666664}
     newSize: {x: 2.2, y: 2.9}
     adaptiveTilingThreshold: 0.5
@@ -947,7 +947,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.73, y: 0.935}
   m_EdgeRadius: 0
 --- !u!50 &579178052
 Rigidbody2D:
@@ -1029,7 +1029,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579178050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.96, y: 1.49, z: 0}
+  m_LocalPosition: {x: 2.96, y: 1, z: 0}
   m_LocalScale: {x: 1.9, y: 2, z: 1}
   m_Children:
   - {fileID: 129855297}
@@ -1050,6 +1050,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Camera: {fileID: 621067862}
   Attack: {fileID: 129855296}
+  Skill_A: {fileID: 6225358512591057782, guid: d9990ef53a46005418d2eac9bb2b59d9, type: 3}
+  SKill_S: {fileID: 2307123391433634370, guid: e05884c6a65ccc243aa43b0e51f4ca51, type: 3}
   Player_Hp: 100
   Player_Power: 12
   Player_Speed: 5
@@ -1062,6 +1064,15 @@ MonoBehaviour:
   Dash_FullTime: 3
   DashForce: 30
   StartDashTimer: 0.2
+  Player_Vec: 0
+  Skill_A_Time: 0
+  Skill_S_Time: 0
+  Skill_D_Time: 0
+  Skill_A_On: 0
+  Skill_S_On: 0
+  Skill_D_On: 0
+  SkillA_Power: 100
+  SkillS_Power: 60
 --- !u!1 &615710781
 GameObject:
   m_ObjectHideFlags: 0
@@ -1705,7 +1716,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.53283864, g: 0.13585795, b: 0.6698113, a: 0.36078432}
+  m_Color: {r: 0.53283864, g: 0.13585795, b: 0.6698113, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2351,9 +2362,16 @@ MonoBehaviour:
   DashTime: 0
   DashingTime: 0
   DashPower: 15
+  AttackTime: 0
+  RGB: 0
+  SkillS_HitTime: 1
+  SkillS_HitPower: 10
   Vec: 0
   Dashing: 0
+  Hited: 0
   Attacking: 0
+  Ding: 0
+  SkillS_Hit: 0
 --- !u!95 &921849528
 Animator:
   serializedVersion: 3
@@ -2578,7 +2596,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -2
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.22745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4086,7 +4104,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.22745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
