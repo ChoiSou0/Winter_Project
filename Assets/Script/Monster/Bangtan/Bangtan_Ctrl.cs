@@ -17,6 +17,7 @@ public class Bangtan_Ctrl : MonoBehaviour
     public float DashPower;
     public float AttackTime;
     public float RGB;
+    public float HitTime;
     public float SkillS_HitTime;
     public float SkillS_HitPower;
     public int Vec;
@@ -25,6 +26,7 @@ public class Bangtan_Ctrl : MonoBehaviour
     public bool Hited;
     public bool Attacking;
     public bool Ding;
+    public bool Moving;
     public bool SkillS_Hit;
 
     private Bangtan_MoveRange moveRange;
@@ -51,22 +53,28 @@ public class Bangtan_Ctrl : MonoBehaviour
         Bangtan_Rush.transform.localPosition = new Vector2(0, 0.95f);
         DashTime += Time.deltaTime;
 
-        if (SkillS_Hit == true && SkillS_HitTime >= 1)
+        if (SkillS_Hit == true && SkillS_HitTime <= 1)
         {
-            //transform.Translate(Vector2.right * player_Control.Player_Vec * SkillS_HitPower * Time.deltaTime);
-            transform.position = new Vector2(transform.position.x + player_Control.Player_Vec * SkillS_HitPower * Time.deltaTime, transform.position.y);
-            SkillS_HitTime -= Time.deltaTime;
+            transform.Translate(Vector2.right * player_Control.Player_Vec * SkillS_HitPower * Time.deltaTime);
+            SkillS_HitTime += Time.deltaTime;
 
-            if (SkillS_HitTime <= 0)
+            if (SkillS_HitTime >= 1)
             {
+                spriteRenderer.color = new Color(1, 1, 1, 1);
                 SkillS_Hit = false;
                 SkillS_HitTime = 0;
+                Moving = true;
             }
         }
 
-        if (Hited == false)
+        if (Hited == false && HitTime <= 0.5f)
         {
-            spriteRenderer.color = new Color(1, 1, 1, 1);
+            HitTime += Time.deltaTime;
+            if (HitTime >= 0.5f)
+            {
+                spriteRenderer.color = new Color(1, 1, 1, 1);
+                Hited = false;
+            }
         }
 
         // Die
@@ -101,6 +109,7 @@ public class Bangtan_Ctrl : MonoBehaviour
 
         if (Dashing == true && DashingTime <= 0.5f && SkillS_Hit == false)
         {
+            Moving = false;
             Bangtan_Rush.SetActive(true);
             transform.Translate(Vector2.right * DashPower * Vec * Time.deltaTime);
             DashingTime += Time.deltaTime;
@@ -109,6 +118,7 @@ public class Bangtan_Ctrl : MonoBehaviour
                 DashingTime = 0;
                 Dashing = false;
                 Bangtan_Rush.SetActive(false);
+                Moving = true;
             }
 
         }
@@ -116,11 +126,13 @@ public class Bangtan_Ctrl : MonoBehaviour
         // Attack
         if (Attacking == true && AttackTime <= 0.5f && SkillS_Hit == false)
         {
+            Moving = false;
             AttackTime += Time.deltaTime;
             if (AttackTime >= 0.5f)
             {
                 AttackTime = 0;
                 Attacking = false;
+                Moving = true;
             }
         }
 
@@ -128,7 +140,7 @@ public class Bangtan_Ctrl : MonoBehaviour
         {
             Attacked();
         }
-        else if (moveRange.isMove == true && attackRange.Attacked == false && dash_Range.Dashed == true && Dashing == false && Ding == false && SkillS_Hit == false)
+        else if (moveRange.isMove == true && attackRange.Attacked == false && Dashing == false && Attacking == false && Ding == false && SkillS_Hit == false && Moving == true)
         {
             FollowPlayer();
         }
@@ -138,6 +150,7 @@ public class Bangtan_Ctrl : MonoBehaviour
     void FollowPlayer()
     {
         target = GameObject.Find("Player").transform;
+        Moving = true;
 
         if (target.transform.position.x > this.transform.position.x)
         {
@@ -154,29 +167,44 @@ public class Bangtan_Ctrl : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.gameObject.tag == "Attack")
         {
-            Hited = true;
             spriteRenderer.color = new Color(1, 0, 0, 1);
+            Hited = true;
             Bangtan_Hp -= player_Control.Player_Power - Amur;
         }
 
         if (collision.gameObject.tag == "Skill_A")
         {
-            Hited = true;
             spriteRenderer.color = new Color(1, 0, 0, 1);
+            Hited = true;
             Bangtan_Hp -= player_Control.SkillA_Power + player_Control.Player_Power - Amur;
         }
 
         if (collision.gameObject.tag == "Skill_S")
         {
-            Hited = true;
-            SkillS_Hit = true;
+            if (Dashing == true)
+            {
+                DashingTime = 0;
+                Dashing = false;
+                Bangtan_Rush.SetActive(false);
+            }
+
+            if (Attacking == true)
+            {
+                Bangtan_Attack.SetActive(false);
+                Attacking = false;
+            }
+
+            if (Moving == true)
+            {
+                Moving = false;
+            }
+
             spriteRenderer.color = new Color(1, 0, 0, 1);
+            SkillS_Hit = true;
             Bangtan_Hp -= player_Control.SkillS_Power + player_Control.Player_Power - Amur;
         }
-        Invoke("Hiting", 0.5f);
     }
 
     void Attacked()
@@ -186,12 +214,12 @@ public class Bangtan_Ctrl : MonoBehaviour
         if (target.transform.position.x > this.transform.position.x)
         {
             spriteRenderer.flipX = true;
-            Bangtan_Attack.transform.localPosition = new Vector2(1.2f, 0.9f);
+            Bangtan_Attack.transform.localPosition = new Vector2(0.9f, 0.9f);
         }
         else
         {
             spriteRenderer.flipX = false;
-            Bangtan_Attack.transform.localPosition = new Vector2(-1.2f, 0.9f);
+            Bangtan_Attack.transform.localPosition = new Vector2(-0.9f, 0.9f);
         }
 
         Invoke("Attackfalse", 0.05f);
@@ -202,9 +230,4 @@ public class Bangtan_Ctrl : MonoBehaviour
         Bangtan_Attack.SetActive(false);
     }
 
-    void Hiting()
-    {
-        spriteRenderer.color = new Color(1, 1, 1, 1);
-        Hited = false;
-    }
 }

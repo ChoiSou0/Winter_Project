@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_Control : MonoBehaviour
 {
-    //[SerializeField] public LayerMask Nocheck;
+    private DeBufer_Magic deBuf;
 
     private Rigidbody2D Player_Rigid;
     private SpriteRenderer Player_Renderer;
@@ -39,7 +39,12 @@ public class Player_Control : MonoBehaviour
 
     bool isDashing;
 
+    public int Player_MoveVec;
     public int Player_Vec;
+
+    public bool DeBuf;
+    public float DotDeal_Time;
+    public float DotTime;
 
     // Skill
     public float Skill_A_Time;
@@ -57,6 +62,7 @@ public class Player_Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        deBuf = GameObject.Find("DeBufer_Magic").GetComponent<DeBufer_Magic>();
         Player_Rigid = GetComponent<Rigidbody2D>();
         Player_Renderer = GetComponent<SpriteRenderer>();
         wolf_Control = GameObject.Find("Wolf").GetComponent<Wolf_Control>();
@@ -73,6 +79,34 @@ public class Player_Control : MonoBehaviour
         if (Skill_S_On == true)
             TheWorldTime += Time.deltaTime;
 
+        // DeBuf
+        if (deBuf.Magiced == true)
+        {
+            Player_Speed = 0.005f;
+            DotDeal_Time += Time.deltaTime;
+            if (DotDeal_Time >= 1)
+            {
+                DotDeal_Time = 0;
+                Player_Hp -= 4;
+            }
+        }
+
+        if (deBuf.Magiced == false && DotTime <= 2)
+        {
+            DotTime += Time.deltaTime;
+            DotDeal_Time += Time.deltaTime;
+            if (DotDeal_Time >= 1)
+            {
+                DotDeal_Time = 0;
+                Player_Hp -= 4;
+            }
+
+            if (DotTime >= 2)
+            {
+                Player_Speed = 0.01f;
+            }
+        }
+
         // Died ¸¸µé¾î¾ßµÊ
         #region
         #endregion
@@ -82,17 +116,22 @@ public class Player_Control : MonoBehaviour
         // Move
         float h = Input.GetAxisRaw("Horizontal");
 
-        Player_Rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+        if (Skill_S_On == false)
+        {
+            Player_Rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            Player_Renderer.flipX = false;
-            Attack.transform.localPosition = new Vector2(1, 0);
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            Player_Renderer.flipX = true;
-            Attack.transform.localPosition = new Vector2(-1, 0);
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                Player_Renderer.flipX = false;
+                Attack.transform.localPosition = new Vector2(1, 0);
+                Player_MoveVec = 1;
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                Player_Renderer.flipX = true;
+                Attack.transform.localPosition = new Vector2(-1, 0);
+                Player_MoveVec = -1;
+            }
         }
 
         if (Player_Rigid.velocity.x > Player_Speed)
@@ -128,7 +167,7 @@ public class Player_Control : MonoBehaviour
         // Dash
         #region
         // Dash
-        if (Input.GetKeyDown(KeyCode.Z) && h != 0 && Dash_Cnt > 0)
+        if (Input.GetKeyDown(KeyCode.Z) && Dash_Cnt > 0)
         {
             Dash_Cnt -= 1;
             isDashing = true;
@@ -145,7 +184,7 @@ public class Player_Control : MonoBehaviour
         if (isDashing)
         {
             Dashing = true;
-            Player_Rigid.velocity = transform.right * DashDirection * DashForce;
+            transform.Translate(Vector2.right * Player_MoveVec * DashForce * Time.deltaTime);
 
             CurrentDashTimer -= Time.deltaTime;
 
@@ -174,6 +213,11 @@ public class Player_Control : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) && Skill_S_Time >= 14)
         {
             Skill_S_Time = 0;
+            if (Player_Renderer.flipX == false)
+                Player_Vec = 1;
+            else if (Player_Renderer.flipX == true)
+                Player_Vec = -1;
+
             Instantiate(SKill_S, new Vector2(transform.localPosition.x, transform.localPosition.y + 0.5f), Quaternion.identity);
             Skill_S_On = true;
         }
@@ -198,6 +242,10 @@ public class Player_Control : MonoBehaviour
             //{
             //    Destroy(Skill_A_hit.transform.gameObject);
             //}
+            if (Player_Renderer.flipX == false)
+                Player_Vec = 1;
+            else if (Player_Renderer.flipX == true)
+                Player_Vec = -1;
 
             Attack.gameObject.SetActive(true);
 
@@ -249,6 +297,7 @@ public class Player_Control : MonoBehaviour
         {
             Player_Hp -= 15;
         }
+
     }
 
     void FixedUpdate()
