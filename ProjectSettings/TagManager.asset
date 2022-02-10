@@ -14,6 +14,8 @@ TagManager:
   - Skill_A
   - Skill_S
   - Skill_D
+  - DeBufer_Attack
+  - DeBufer_Magic
   layers:
   - Default
   - TransparentFX
