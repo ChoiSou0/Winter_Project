@@ -26,7 +26,6 @@ public class Bangtan_Ctrl : MonoBehaviour
     public bool Hited;
     public bool Attacking;
     public bool Ding;
-    public bool Moving;
     public bool SkillS_Hit;
 
     private Bangtan_MoveRange moveRange;
@@ -63,15 +62,15 @@ public class Bangtan_Ctrl : MonoBehaviour
                 spriteRenderer.color = new Color(1, 1, 1, 1);
                 SkillS_Hit = false;
                 SkillS_HitTime = 0;
-                Moving = true;
             }
         }
 
-        if (Hited == false && HitTime <= 0.5f)
+        if (Hited == true && HitTime <= 0.5f)
         {
             HitTime += Time.deltaTime;
             if (HitTime >= 0.5f)
             {
+                HitTime = 0;
                 spriteRenderer.color = new Color(1, 1, 1, 1);
                 Hited = false;
             }
@@ -109,7 +108,6 @@ public class Bangtan_Ctrl : MonoBehaviour
 
         if (Dashing == true && DashingTime <= 0.5f && SkillS_Hit == false)
         {
-            Moving = false;
             Bangtan_Rush.SetActive(true);
             transform.Translate(Vector2.right * DashPower * Vec * Time.deltaTime);
             DashingTime += Time.deltaTime;
@@ -118,7 +116,6 @@ public class Bangtan_Ctrl : MonoBehaviour
                 DashingTime = 0;
                 Dashing = false;
                 Bangtan_Rush.SetActive(false);
-                Moving = true;
             }
 
         }
@@ -126,13 +123,11 @@ public class Bangtan_Ctrl : MonoBehaviour
         // Attack
         if (Attacking == true && AttackTime <= 0.5f && SkillS_Hit == false)
         {
-            Moving = false;
             AttackTime += Time.deltaTime;
             if (AttackTime >= 0.5f)
             {
                 AttackTime = 0;
                 Attacking = false;
-                Moving = true;
             }
         }
 
@@ -140,7 +135,7 @@ public class Bangtan_Ctrl : MonoBehaviour
         {
             Attacked();
         }
-        else if (moveRange.isMove == true && attackRange.Attacked == false && Dashing == false && Attacking == false && Ding == false && SkillS_Hit == false && Moving == true)
+        else if (moveRange.isMove == true && attackRange.Attacked == false && Dashing == false && Attacking == false && Ding == false && SkillS_Hit == false)
         {
             FollowPlayer();
         }
@@ -150,7 +145,6 @@ public class Bangtan_Ctrl : MonoBehaviour
     void FollowPlayer()
     {
         target = GameObject.Find("Player").transform;
-        Moving = true;
 
         if (target.transform.position.x > this.transform.position.x)
         {
@@ -194,11 +188,6 @@ public class Bangtan_Ctrl : MonoBehaviour
             {
                 Bangtan_Attack.SetActive(false);
                 Attacking = false;
-            }
-
-            if (Moving == true)
-            {
-                Moving = false;
             }
 
             spriteRenderer.color = new Color(1, 0, 0, 1);

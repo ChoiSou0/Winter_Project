@@ -5,32 +5,27 @@ using UnityEngine;
 public class DeBufer_Magic : MonoBehaviour
 {
     private Player_Control player;
-    public bool Magiced;
+    private DeBufer_Ctrl deBuferCtrl;
     public float LifeTime;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player_Control>();
+        deBuferCtrl = GameObject.Find("DeBufer").GetComponent<DeBufer_Ctrl>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        LifeTime = Time.deltaTime;
+        deBuferCtrl.Magicing = false;
+
+        LifeTime += Time.deltaTime;
 
         if (LifeTime >= 5)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
+
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        Magiced = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        Magiced = false;
-    }
 }

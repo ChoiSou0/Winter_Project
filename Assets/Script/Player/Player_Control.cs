@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player_Control : MonoBehaviour
 {
-    private DeBufer_Magic deBuf;
+    private DeBufer_Magic deBuf_Magic;
 
     private Rigidbody2D Player_Rigid;
     private SpriteRenderer Player_Renderer;
@@ -43,6 +43,7 @@ public class Player_Control : MonoBehaviour
     public int Player_Vec;
 
     public bool DeBuf;
+    public bool DeBuf_Damge;
     public float DotDeal_Time;
     public float DotTime;
 
@@ -62,7 +63,6 @@ public class Player_Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        deBuf = GameObject.Find("DeBufer_Magic").GetComponent<DeBufer_Magic>();
         Player_Rigid = GetComponent<Rigidbody2D>();
         Player_Renderer = GetComponent<SpriteRenderer>();
         wolf_Control = GameObject.Find("Wolf").GetComponent<Wolf_Control>();
@@ -80,9 +80,9 @@ public class Player_Control : MonoBehaviour
             TheWorldTime += Time.deltaTime;
 
         // DeBuf
-        if (deBuf.Magiced == true)
+        if (DeBuf == true && DotDeal_Time <= 1)
         {
-            Player_Speed = 0.005f;
+            Player_Speed = 2.5f;
             DotDeal_Time += Time.deltaTime;
             if (DotDeal_Time >= 1)
             {
@@ -91,10 +91,11 @@ public class Player_Control : MonoBehaviour
             }
         }
 
-        if (deBuf.Magiced == false && DotTime <= 2)
+        if (DeBuf == false && DeBuf_Damge == true && DotTime <= 2)
         {
-            DotTime += Time.deltaTime;
             DotDeal_Time += Time.deltaTime;
+            DotTime += Time.deltaTime;
+
             if (DotDeal_Time >= 1)
             {
                 DotDeal_Time = 0;
@@ -103,7 +104,9 @@ public class Player_Control : MonoBehaviour
 
             if (DotTime >= 2)
             {
-                Player_Speed = 0.01f;
+                DotTime = 0;
+                DeBuf_Damge = false;
+                Player_Speed = 5;
             }
         }
 
@@ -298,6 +301,21 @@ public class Player_Control : MonoBehaviour
             Player_Hp -= 15;
         }
 
+        if (collision.gameObject.tag == "DeBufer_Magic")
+        {
+            DeBuf_Damge = true;
+            DeBuf = true;
+            Debug.Log("매직에 닿음");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "DeBufer_Magic")
+        {
+            Debug.Log("매직풀림");
+            DeBuf = false;
+        }
     }
 
     void FixedUpdate()

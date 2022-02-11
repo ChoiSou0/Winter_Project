@@ -68,12 +68,13 @@ public class DeBufer_Ctrl : MonoBehaviour
         if (MagicTime >= 60 && Magicing == false)
         {
             MagicTime = 0;
+            //DeBufer_Magic.transform.position = new Vector2(player.transform.position.x, player.transform.position.y + 0.5f);
             Instantiate(DeBufer_Magic, new Vector2(target.transform.position.x, target.transform.position.y + 0.5f), Quaternion.identity);
             Magicing = true;
         }
 
         // Tel
-        if (telRange.Teling == true && Ding == false)
+        if (moveRange.isMove == true && telRange.Teling == true && Ding == false)
         {
             float TelPos = Random.Range(1, 4);
 
