@@ -6,9 +6,9 @@ public class SkillS_Ctrl : MonoBehaviour
 {
     private Transform SkillA_tranform;
     private Player_Control player;
-    public float LifeTime = 2;
+    public float LifeTime = 1;
     public float SkillA_Scale;
-    public float Speed = 10;
+    public float Speed = 20;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,7 @@ public class SkillS_Ctrl : MonoBehaviour
         {
             transform.position = new Vector2(player.transform.position.x, player.transform.position.y + 0.5f);
             SkillA_Scale += Time.deltaTime * Speed;
-            if (SkillA_Scale <= 6)
+            if (SkillA_Scale <= 14)
                 SkillA_tranform.localScale = new Vector3(SkillA_Scale, SkillA_Scale, 1);
             LifeTime -= Time.deltaTime;
         }

@@ -21,6 +21,8 @@ public class DeBufer_Ctrl : MonoBehaviour
     public int DeBufer_Amur;
     public int DeBufer_Power;
 
+    public int TelRandom;
+    public float TelTime;
     public float AttackTime;
     public float NukBack_Time;
     public float NukBack_Power;
@@ -49,6 +51,7 @@ public class DeBufer_Ctrl : MonoBehaviour
     void Update()
     {
         MagicTime += Time.deltaTime;
+        TelTime += Time.deltaTime;
 
         // Die
         if (DeBufer_Hp <= 0)
@@ -65,7 +68,7 @@ public class DeBufer_Ctrl : MonoBehaviour
         }
 
         // Magic
-        if (MagicTime >= 60 && Magicing == false)
+        if (MagicTime >= 60 && Magicing == false && moveRange.isMove == true)
         {
             MagicTime = 0;
             //DeBufer_Magic.transform.position = new Vector2(player.transform.position.x, player.transform.position.y + 0.5f);
@@ -74,18 +77,22 @@ public class DeBufer_Ctrl : MonoBehaviour
         }
 
         // Tel
-        if (moveRange.isMove == true && telRange.Teling == true && Ding == false)
+        if (TelTime >= 5 && moveRange.isMove == true && telRange.Teling == true && Ding == false)
         {
             float TelPos = Random.Range(1, 4);
+            TelRandom = Random.Range(1, 3);
 
-            if (target.transform.position.x > this.transform.position.x)
+            if (TelRandom == 1)
             {
                 transform.position = new Vector2(target.position.x - TelPos, target.position.y);
+
             }
-            else
-            {
+            if (TelRandom == 2)
+            { 
                 transform.position = new Vector2(target.position.x + TelPos, target.position.y);
+
             }
+
         }
 
         // Hit

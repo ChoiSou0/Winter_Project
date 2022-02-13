@@ -18,6 +18,7 @@ public class Bangtan_Ctrl : MonoBehaviour
     public float AttackTime;
     public float RGB;
     public float HitTime;
+    public int SkillS_Vec;
     public float SkillS_HitTime;
     public float SkillS_HitPower;
     public int Vec;
@@ -54,7 +55,7 @@ public class Bangtan_Ctrl : MonoBehaviour
 
         if (SkillS_Hit == true && SkillS_HitTime <= 1)
         {
-            transform.Translate(Vector2.right * player_Control.Player_Vec * SkillS_HitPower * Time.deltaTime);
+            transform.Translate(Vector2.right * SkillS_Vec * SkillS_HitPower * Time.deltaTime);
             SkillS_HitTime += Time.deltaTime;
 
             if (SkillS_HitTime >= 1)
@@ -188,6 +189,15 @@ public class Bangtan_Ctrl : MonoBehaviour
             {
                 Bangtan_Attack.SetActive(false);
                 Attacking = false;
+            }
+
+            if (target.transform.position.x > this.transform.position.x)
+            {
+                SkillS_Vec = -1;
+            }
+            else
+            {
+                SkillS_Vec = 1;
             }
 
             spriteRenderer.color = new Color(1, 0, 0, 1);

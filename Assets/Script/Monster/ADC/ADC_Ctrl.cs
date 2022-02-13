@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ADC_Ctrl : MonoBehaviour
 {
+    private GameManager gameManager;
     private SpriteRenderer spriteRenderer;
     private Player_Control player;
 
@@ -21,10 +22,6 @@ public class ADC_Ctrl : MonoBehaviour
     public float Casting;
     public bool Cast;
 
-    public bool FireBall1_On;
-    public bool FireBall2_On;
-    public bool FireBall3_On;
-
     public bool Hited;
     public float BackTime;
     public float BackSpeed;
@@ -36,6 +33,7 @@ public class ADC_Ctrl : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player_Control>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         target = GameObject.Find("Player").transform;
@@ -78,27 +76,40 @@ public class ADC_Ctrl : MonoBehaviour
         #endregion
 
         // casting
-        if (Casting <= 3 && Cast == true)
+        if (Casting <= 8 && Cast == true)
         {
             Casting += Time.deltaTime;
 
             if (Casting >= 1)
             {
                 FireBall1.SetActive(true);
-                FireBall1_On = true;
             }
 
             if (Casting >= 2)
             {
                 FireBall2.SetActive(true);
-                FireBall2_On = true;
             }
 
             if (Casting >= 3)
             {
                 FireBall3.SetActive(true);
-                FireBall3_On = true;
             }
+
+            if (Casting >= 6)
+            {
+                gameManager.FireBall1_On = true;
+            }
+
+            if (Casting >= 7)
+            {
+                gameManager.FireBall2_On = true;
+            }
+
+            if (Casting >= 8)
+            {
+                gameManager.FireBall3_On = true;
+            }
+
         }
 
         // see

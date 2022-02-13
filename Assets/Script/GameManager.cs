@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public bool FireBall1_On;
+    public bool FireBall2_On;
+    public bool FireBall3_On;
+
     // Start is called before the first frame update
     void Start()
     {

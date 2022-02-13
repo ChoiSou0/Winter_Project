@@ -125,7 +125,7 @@ public class Player_Control : MonoBehaviour
         {
             Player_Rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.RightArrow))
             {
                 ani.SetBool("isRun", true);
                 ani.SetBool("isIdle", false);
@@ -133,13 +133,19 @@ public class Player_Control : MonoBehaviour
                 Attack.transform.localPosition = new Vector2(1, 0);
                 Player_MoveVec = 1;
             }
-            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            else if (Input.GetKey(KeyCode.LeftArrow))
             {
                 ani.SetBool("isRun", true);
                 ani.SetBool("isIdle", false);
                 Player_Renderer.flipX = true;
                 Attack.transform.localPosition = new Vector2(-1, 0);
                 Player_MoveVec = -1;
+            }
+            else if (h == 0)
+            {
+                Debug.Log("포크 짜증나");
+                ani.SetBool("isIdle", true);
+                ani.SetBool("isRun", false);
             }
         }
 
