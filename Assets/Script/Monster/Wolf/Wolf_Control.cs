@@ -19,7 +19,7 @@ public class Wolf_Control : MonoBehaviour
     public float velocity;
     public float Speed;
     public int Hp;
-    public int Power;
+    public float Wolf_Power;
     public float RGB = 255;
     public bool Ding;
     
@@ -46,16 +46,39 @@ public class Wolf_Control : MonoBehaviour
         Wolf_rigid = GetComponent<Rigidbody2D>();
         Bite.SetActive(false);
         moveVec = -1;
+        RGB = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Backing == true && BackTime <= 0.5f)
+        {
+            BackTime += Time.deltaTime;
+            transform.Translate(Vector2.right * playerControl.Player_Vec * backPower * Time.deltaTime);
+            if (BackTime >= 0.1f)
+            {
+                animator.SetBool("isHit", false);
+            }
+
+            if (BackTime >= 0.5f)
+            {
+                Backing = false;
+                BackTime = 0;
+            }
+        }
+
         if (Hp <= 0)
         {
             Ding = true;
-            RGB -= Speed * 100;
-            spriteRenderer.color = new Color(255, 255, 255, RGB);
+            animator.SetBool("isDied", true);
+            animator.SetBool("isIdle", false);
+            animator.SetBool("isAttack", false);
+            animator.SetBool("isHit", false);
+            animator.SetBool("isRun", false);
+            RGB -= Time.deltaTime;
+            Debug.Log(RGB);
+            spriteRenderer.color = new Color(1, 1, 1, RGB);
             this.gameObject.transform.position = new Vector2(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
             if (RGB <= 0)
             {
@@ -67,12 +90,16 @@ public class Wolf_Control : MonoBehaviour
         {
             if (moving == false)
             {
+                animator.SetBool("isRun", true);
+                animator.SetBool("isIdle", false);
                 this.transform.position = new Vector2(transform.position.x + (Speed * moveVec), transform.position.y);
                 moveMax += Time.deltaTime;
             }
 
             if (moveMax >= 3)
             {
+                animator.SetBool("isRun", false);
+                animator.SetBool("isIdle", true);
                 moving = true;
                 //animator.SetBool("isIdle", true);
                 Invoke("Idle", 1f);
@@ -95,6 +122,7 @@ public class Wolf_Control : MonoBehaviour
 
     void FollowTarget()
     {
+        animator.SetBool("isRun", true);
         target = GameObject.Find("Player").transform;
 
         if (target.transform.position.x > this.transform.position.x)
@@ -117,28 +145,9 @@ public class Wolf_Control : MonoBehaviour
         {
             Debug.Log("¸Â¾Ò¾î");
             Hp -= playerControl.Player_Power;
+            animator.SetBool("isHit", true);
             Backing = true;
-
-            if (target.transform.position.x > this.transform.position.x)
-            {
-                while (BackTime <= 0.5f)
-                {
-                    transform.position = new Vector2(transform.position.x - (0.01f), transform.position.y);
-                    BackTime += Time.deltaTime;
-                }
-            }
-            else
-            {
-                while (BackTime <= 0.5f)
-                {
-                    transform.position = new Vector2(transform.position.x + (0.01f), transform.position.y);
-                    BackTime += Time.deltaTime;
-                }
-            }
-
-            BackTime = 0;
-            Backing = false;
-
+           
         }
 
     }
@@ -147,6 +156,11 @@ public class Wolf_Control : MonoBehaviour
     {
         Attacked = true;
         Bite.SetActive(true);
+        animator.SetBool("isDied", false);
+        animator.SetBool("isIdle", false);
+        animator.SetBool("isAttack", true);
+        animator.SetBool("isHit", false);
+        animator.SetBool("isRun", false);
 
         if (target.transform.position.x > this.transform.position.x)
         {
@@ -158,6 +172,11 @@ public class Wolf_Control : MonoBehaviour
         }
 
         //Bite.SetActive(false);
+        animator.SetBool("isDied", false);
+        animator.SetBool("isIdle", false);
+        animator.SetBool("isAttack", true);
+        animator.SetBool("isHit", false);
+        animator.SetBool("isRun", false);
         Invoke("Del", 2);
     }
 

@@ -9,6 +9,13 @@ TagManager:
   - Attack
   - Wolf
   - Bite
+  - Bangtan_Attack
+  - Bangtan_Rush
+  - Skill_A
+  - Skill_S
+  - Skill_D
+  - DeBufer_Attack
+  - DeBufer_Magic
   layers:
   - Default
   - TransparentFX
