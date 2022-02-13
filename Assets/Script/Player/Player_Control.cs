@@ -10,6 +10,7 @@ public class Player_Control : MonoBehaviour
     private SpriteRenderer Player_Renderer;
     private Wolf_Control wolf_Control;
     private Bangtan_Ctrl bangtan_Ctrl;
+    private Animator ani;
 
     public GameObject Camera;
     public GameObject Attack;
@@ -65,6 +66,7 @@ public class Player_Control : MonoBehaviour
     {
         Player_Rigid = GetComponent<Rigidbody2D>();
         Player_Renderer = GetComponent<SpriteRenderer>();
+        ani = GetComponent<Animator>();
         wolf_Control = GameObject.Find("Wolf").GetComponent<Wolf_Control>();
         bangtan_Ctrl = GameObject.Find("Bangtan").GetComponent<Bangtan_Ctrl>();
 
@@ -125,12 +127,16 @@ public class Player_Control : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.RightArrow))
             {
+                ani.SetBool("isRun", true);
+                ani.SetBool("isIdle", false);
                 Player_Renderer.flipX = false;
                 Attack.transform.localPosition = new Vector2(1, 0);
                 Player_MoveVec = 1;
             }
             else if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
+                ani.SetBool("isRun", true);
+                ani.SetBool("isIdle", false);
                 Player_Renderer.flipX = true;
                 Attack.transform.localPosition = new Vector2(-1, 0);
                 Player_MoveVec = -1;
@@ -138,9 +144,13 @@ public class Player_Control : MonoBehaviour
         }
 
         if (Player_Rigid.velocity.x > Player_Speed)
+        {
             Player_Rigid.velocity = new Vector2(Player_Speed, Player_Rigid.velocity.y);
+        }
         else if (Player_Rigid.velocity.x < Player_Speed * (-1))
+        {
             Player_Rigid.velocity = new Vector2(Player_Speed * (-1), Player_Rigid.velocity.y);
+        }
 
         #endregion
 

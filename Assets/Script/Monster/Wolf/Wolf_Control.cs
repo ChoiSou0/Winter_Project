@@ -52,6 +52,22 @@ public class Wolf_Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Backing == true && BackTime <= 0.5f)
+        {
+            BackTime += Time.deltaTime;
+            transform.Translate(Vector2.right * playerControl.Player_Vec * backPower * Time.deltaTime);
+            if (BackTime >= 0.1f)
+            {
+                animator.SetBool("isHit", false);
+            }
+
+            if (BackTime >= 0.5f)
+            {
+                Backing = false;
+                BackTime = 0;
+            }
+        }
+
         if (Hp <= 0)
         {
             Ding = true;
@@ -106,10 +122,6 @@ public class Wolf_Control : MonoBehaviour
 
     void FollowTarget()
     {
-        animator.SetBool("isDied", false);
-        animator.SetBool("isIdle", false);
-        animator.SetBool("isAttack", false);
-        animator.SetBool("isHit", false);
         animator.SetBool("isRun", true);
         target = GameObject.Find("Player").transform;
 
@@ -133,38 +145,9 @@ public class Wolf_Control : MonoBehaviour
         {
             Debug.Log("¸Â¾Ò¾î");
             Hp -= playerControl.Player_Power;
+            animator.SetBool("isHit", true);
             Backing = true;
-            animator.SetBool("isDied", false);
-            animator.SetBool("isIdle", false);
-            animator.SetBool("isAttack", false);
-            animator.SetBool("isHit", true);
-            animator.SetBool("isRun", false);
-
-            if (target.transform.position.x > this.transform.position.x)
-            {
-                while (BackTime <= 0.5f)
-                {
-                    transform.Translate(Vector2.right * backPower  * -1 * Time.deltaTime);
-                    BackTime += Time.deltaTime;
-                }
-            }
-            else
-            {
-                while (BackTime <= 0.5f)
-                {
-                    transform.Translate(Vector2.right * backPower * Time.deltaTime);
-                    BackTime += Time.deltaTime;
-                }
-            }
-
-            BackTime = 0;
-            Backing = false;
-            animator.SetBool("isDied", false);
-            animator.SetBool("isIdle", false);
-            animator.SetBool("isAttack", false);
-            animator.SetBool("isHit", true);
-            animator.SetBool("isRun", false);
-
+           
         }
 
     }
