@@ -32,6 +32,7 @@ public class Wolf_Control : MonoBehaviour
     public bool Attacked = false;
     public bool OneAttack = false;
     public bool Backing = false;
+    public float AttackTime;
 
     public float backPower;
 
@@ -108,6 +109,15 @@ public class Wolf_Control : MonoBehaviour
 
         }
 
+        if (Attacked == true && AttackTime <= 2)
+        {
+            AttackTime += Time.deltaTime;
+
+            if (AttackTime >= 0.1f)
+                animator.SetBool("isAttack", false);
+
+        }
+
         // Attack And Follow
         if (attackRange.Wolf_Attack == true && Backing == false && OneAttack == false && moveRange.WolfMove == true && Ding == false)
         {
@@ -156,28 +166,9 @@ public class Wolf_Control : MonoBehaviour
     {
         Attacked = true;
         Bite.SetActive(true);
-        animator.SetBool("isDied", false);
-        animator.SetBool("isIdle", false);
         animator.SetBool("isAttack", true);
-        animator.SetBool("isHit", false);
-        animator.SetBool("isRun", false);
-
-        if (target.transform.position.x > this.transform.position.x)
-        {
-            Bite.transform.localPosition = new Vector2(1.3f, 0);
-        }
-        else
-        {
-            Bite.transform.localPosition = new Vector2(-1.3f, 0);
-        }
 
         //Bite.SetActive(false);
-        animator.SetBool("isDied", false);
-        animator.SetBool("isIdle", false);
-        animator.SetBool("isAttack", true);
-        animator.SetBool("isHit", false);
-        animator.SetBool("isRun", false);
-        Invoke("Del", 2);
     }
 
     void Nukback()
