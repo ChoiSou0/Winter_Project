@@ -9,6 +9,7 @@ public class DeBufer_Ctrl : MonoBehaviour
     private DeBufer_TelRange telRange;
     private Player_Control player_Ctrl;
     private SpriteRenderer spriteRenderer;
+    private GameManager gameManager;
 
     public Transform target;
 
@@ -42,6 +43,7 @@ public class DeBufer_Ctrl : MonoBehaviour
         moveRange = GameObject.Find("DeBufer_Move_Range").GetComponent<DeBufer_MoveRange>();
         telRange = GameObject.Find("DeBufer_Tel_Range").GetComponent<DeBufer_TelRange>();
         player_Ctrl = GameObject.Find("Player").GetComponent<Player_Control>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         target = GameObject.Find("Player").transform;
@@ -68,7 +70,7 @@ public class DeBufer_Ctrl : MonoBehaviour
         }
 
         // Magic
-        if (MagicTime >= 60 && Magicing == false && moveRange.isMove == true)
+        if (MagicTime >= 60 && Magicing == false && moveRange.isMove == true && gameManager.Skill_D_On == false)
         {
             MagicTime = 0;
             //DeBufer_Magic.transform.position = new Vector2(player.transform.position.x, player.transform.position.y + 0.5f);
@@ -77,7 +79,7 @@ public class DeBufer_Ctrl : MonoBehaviour
         }
 
         // Tel
-        if (TelTime >= 5 && moveRange.isMove == true && telRange.Teling == true && Ding == false)
+        if (TelTime >= 5 && moveRange.isMove == true && telRange.Teling == true && Ding == false && gameManager.Skill_D_On == false)
         {
             float TelPos = Random.Range(1, 4);
             TelRandom = Random.Range(1, 3);
@@ -136,11 +138,11 @@ public class DeBufer_Ctrl : MonoBehaviour
 
         // Attack and Move
         #region
-        if (moveRange.isMove == true && attackRange.StartAttack == true && Attacking == false && Hiting == false && SkillS_Hiting == false && Ding == false)
+        if (moveRange.isMove == true && attackRange.StartAttack == true && Attacking == false && Hiting == false && SkillS_Hiting == false && Ding == false && gameManager.Skill_D_On == false)
         {
             Attack();
         }
-        else if (moveRange.isMove == true && attackRange.StartAttack == false && Attacking == false && Hiting == false && SkillS_Hiting == false && Ding == false)
+        else if (moveRange.isMove == true && attackRange.StartAttack == false && Attacking == false && Hiting == false && SkillS_Hiting == false && Ding == false && gameManager.Skill_D_On == false)
         {
             Follow();
         }

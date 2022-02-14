@@ -11,17 +11,23 @@ public class Player_Control : MonoBehaviour
     private Wolf_Control wolf_Control;
     private Bangtan_Ctrl bangtan_Ctrl;
     private Animator ani;
+    private GameManager gameManager;
 
     public GameObject Camera;
     public GameObject Attack;
     public GameObject Skill_A;
     public GameObject SKill_S;
 
+    public float Player_MaxHp;
     public float Player_Hp;
     public int Player_Power;
     public float Player_Speed = 5f;
     public float Player_Jumpforce = 5f;
     public int Player_Life = 3;
+    public int ATK_Motion;
+    public float AttackTime;
+    public float DelTime;
+    public bool Attacking;
 
     public float Floor;
     
@@ -55,11 +61,12 @@ public class Player_Control : MonoBehaviour
 
     public bool Skill_A_On;
     public bool Skill_S_On;
-    public bool Skill_D_On;
+
+    public float Magic_ani_Time;
+    public bool Magic_ani;
 
     public int SkillA_Power;
     public int SkillS_Power;
-    public float TheWorldTime;
 
     // Start is called before the first frame update
     void Start()
@@ -69,8 +76,11 @@ public class Player_Control : MonoBehaviour
         ani = GetComponent<Animator>();
         wolf_Control = GameObject.Find("Wolf").GetComponent<Wolf_Control>();
         bangtan_Ctrl = GameObject.Find("Bangtan").GetComponent<Bangtan_Ctrl>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         Attack.SetActive(false);
+
+        ATK_Motion = 1;
     }
 
     void Update()
@@ -78,8 +88,25 @@ public class Player_Control : MonoBehaviour
         Skill_A_Time += Time.deltaTime;
         Skill_S_Time += Time.deltaTime;
         Skill_D_Time += Time.deltaTime;
-        if (Skill_S_On == true)
-            TheWorldTime += Time.deltaTime;
+        DelTime += Time.deltaTime;
+
+        //if (gameManager.Skill_D_On == true)
+        //{
+        //    Magic_ani = true;
+        //}
+
+        //if (Magic_ani_Time <= 0.1f && Magic_ani == true)
+        //{
+        //    Magic_ani_Time += Time.deltaTime;
+
+        //    if (Magic_ani_Time >= 0.1f)
+        //    {
+        //        ani.SetBool("isMagic", false);
+        //        ani.SetBool("isIdle", true);
+        //        Magic_ani_Time = 0;
+        //        Magic_ani = false;
+        //    }
+        //}
 
         // DeBuf
         if (DeBuf == true && DotDeal_Time <= 1)
@@ -130,7 +157,7 @@ public class Player_Control : MonoBehaviour
                 ani.SetBool("isRun", true);
                 ani.SetBool("isIdle", false);
                 Player_Renderer.flipX = false;
-                Attack.transform.localPosition = new Vector2(1, 0);
+                Attack.transform.localPosition = new Vector2(0.5f, 0.5f);
                 Player_MoveVec = 1;
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
@@ -138,12 +165,11 @@ public class Player_Control : MonoBehaviour
                 ani.SetBool("isRun", true);
                 ani.SetBool("isIdle", false);
                 Player_Renderer.flipX = true;
-                Attack.transform.localPosition = new Vector2(-1, 0);
+                Attack.transform.localPosition = new Vector2(-0.5f, 0.5f);
                 Player_MoveVec = -1;
             }
             else if (h == 0)
             {
-                Debug.Log("포크 짜증나");
                 ani.SetBool("isIdle", true);
                 ani.SetBool("isRun", false);
             }
@@ -202,6 +228,7 @@ public class Player_Control : MonoBehaviour
 
         if (isDashing)
         {
+            ani.SetBool("isDash", true);
             Dashing = true;
             transform.Translate(Vector2.right * Player_MoveVec * DashForce * Time.deltaTime);
 
@@ -209,6 +236,7 @@ public class Player_Control : MonoBehaviour
 
             if (CurrentDashTimer <= 0)
             {
+                ani.SetBool("isDash", false);
                 isDashing = false;
                 Dashing = false;
             }
@@ -224,7 +252,7 @@ public class Player_Control : MonoBehaviour
             else if (Player_Renderer.flipX == true)
                 Player_Vec = -1;
 
-            Instantiate(Skill_A, new Vector2(transform.localPosition.x, transform.localPosition.y + 0.5f), Quaternion.identity);
+            Instantiate(Skill_A, new Vector2(transform.localPosition.x, transform.localPosition.y + 1f), Quaternion.identity);
             Skill_A_On = true;
         }
 
@@ -237,7 +265,7 @@ public class Player_Control : MonoBehaviour
             else if (Player_Renderer.flipX == true)
                 Player_Vec = -1;
 
-            Instantiate(SKill_S, new Vector2(transform.localPosition.x, transform.localPosition.y + 0.5f), Quaternion.identity);
+            Instantiate(SKill_S, new Vector2(transform.localPosition.x, transform.localPosition.y + 1f), Quaternion.identity);
             Skill_S_On = true;
         }
 
@@ -245,14 +273,29 @@ public class Player_Control : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D) && Skill_D_Time >= 100)
         {
             Skill_D_Time = 0;
-            Skill_S_On = true;
+            gameManager.Skill_D_On = true;
         }
         
 
+        if (Attacking == true && AttackTime <= 0.1f)
+        {
+            AttackTime += Time.deltaTime;
 
+            if (AttackTime >= 0.1f)
+            {
+                AttackTime = 0;
+                Attacking = false;
+                ani.SetBool("isAttack1", false);
+                ani.SetBool("isAttack2", false);
+                Attack.SetActive(false);
+
+                if (ATK_Motion == 3)
+                    ATK_Motion = 1;
+            }
+        }
 
         // Attack
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && DelTime >= 0.8f)
         {
             //RaycastHit2D Skill_A_hit = Physics2D.BoxCast(transform.position, 
             //    new Vector2(8, 1), 0, new Vector2(1, 0), 0);
@@ -261,6 +304,8 @@ public class Player_Control : MonoBehaviour
             //{
             //    Destroy(Skill_A_hit.transform.gameObject);
             //}
+            DelTime = 0;
+
             if (Player_Renderer.flipX == false)
                 Player_Vec = 1;
             else if (Player_Renderer.flipX == true)
@@ -270,14 +315,21 @@ public class Player_Control : MonoBehaviour
 
             if (Player_Renderer.flipX == false)
             {
-                Attack.transform.localPosition = new Vector2(1, 0.5f);
+                Attack.transform.localPosition = new Vector2(0.5f, 0.5f);
             }
             else if (Player_Renderer.flipX == true)
             {
-                Attack.transform.localPosition = new Vector2(-1, 0.5f);
+                Attack.transform.localPosition = new Vector2(-0.5f, 0.5f);
             }
 
-            Invoke("Attack_Del", 0.1f);
+            if (ATK_Motion == 1)
+                ani.SetBool("isAttack1", true);
+            else if (ATK_Motion == 2)
+                ani.SetBool("isAttack2", true);
+
+            ATK_Motion++;
+
+            Attacking = true;
         }
 
         
@@ -364,10 +416,4 @@ public class Player_Control : MonoBehaviour
     {
         Debug.Log("The World Del");
     }
-
-    void Attack_Del()
-    {
-        Attack.gameObject.SetActive(false);
-    }
-    
 }

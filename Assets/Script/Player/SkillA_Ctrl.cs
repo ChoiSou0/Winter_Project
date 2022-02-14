@@ -23,12 +23,12 @@ public class SkillA_Ctrl : MonoBehaviour
         {
             if (player.Player_Vec > 0)
             {
-                spriteRenderer.flipX = false;
+                spriteRenderer.flipX = true;
                 transform.Translate(Vector2.right * Speed * 1 * Time.deltaTime);
             }
             else if (player.Player_Vec < 0)
             {
-                spriteRenderer.flipX = true;
+                spriteRenderer.flipX = false;
                 transform.Translate(Vector2.right * Speed * -1 * Time.deltaTime);
             }
 

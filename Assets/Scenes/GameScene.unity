@@ -250,7 +250,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &129855297
 Transform:
   m_ObjectHideFlags: 0
@@ -259,8 +259,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 129855296}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.5, z: 0}
-  m_LocalScale: {x: 3, y: 1, z: 1}
+  m_LocalPosition: {x: 0.5, y: 0.5, z: 0}
+  m_LocalScale: {x: 1.8, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 579178054}
   m_RootOrder: 0
@@ -863,6 +863,8 @@ MonoBehaviour:
   FireBall1_On: 0
   FireBall2_On: 0
   FireBall3_On: 0
+  Skill_D_On: 0
+  TheWorldTime: 0
 --- !u!4 &431562455
 Transform:
   m_ObjectHideFlags: 0
@@ -1029,7 +1031,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450721690}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.54, y: 0.7, z: 0}
+  m_LocalPosition: {x: 10.06, y: 5.63, z: 0}
   m_LocalScale: {x: 1.2, y: 1.3, z: 1}
   m_Children:
   - {fileID: 1355075430}
@@ -1494,7 +1496,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579178050}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.77, y: 4.54, z: 0}
+  m_LocalPosition: {x: -2.3, y: 1.07, z: 0}
   m_LocalScale: {x: 1.9, y: 2, z: 1}
   m_Children:
   - {fileID: 129855297}
@@ -1517,11 +1519,16 @@ MonoBehaviour:
   Attack: {fileID: 129855296}
   Skill_A: {fileID: 6225358512591057782, guid: d9990ef53a46005418d2eac9bb2b59d9, type: 3}
   SKill_S: {fileID: 2307123391433634370, guid: e05884c6a65ccc243aa43b0e51f4ca51, type: 3}
+  Player_MaxHp: 100
   Player_Hp: 100
   Player_Power: 12
   Player_Speed: 5
   Player_Jumpforce: 17
   Player_Life: 3
+  ATK_Motion: 0
+  AttackTime: 0
+  DelTime: 0
+  Attacking: 0
   Floor: 0
   Player_Jumping: 0
   Jump_Cnt: 2
@@ -1540,10 +1547,10 @@ MonoBehaviour:
   Skill_D_Time: 0
   Skill_A_On: 0
   Skill_S_On: 0
-  Skill_D_On: 0
+  Magic_ani_Time: 0
+  Magic_ani: 0
   SkillA_Power: 100
   SkillS_Power: 60
-  TheWorldTime: 0
 --- !u!95 &579178056
 Animator:
   serializedVersion: 3
@@ -2553,7 +2560,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798861291}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 39.65, y: 9.81, z: 0}
+  m_LocalPosition: {x: 12.08, y: 15.06, z: 0}
   m_LocalScale: {x: 1.1, y: 1.2, z: 1}
   m_Children:
   - {fileID: 1711305254}
