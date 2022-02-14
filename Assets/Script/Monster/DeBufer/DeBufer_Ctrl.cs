@@ -81,6 +81,7 @@ public class DeBufer_Ctrl : MonoBehaviour
         // Tel
         if (TelTime >= 5 && moveRange.isMove == true && telRange.Teling == true && Ding == false && gameManager.Skill_D_On == false)
         {
+            TelTime = 0;
             float TelPos = Random.Range(1, 4);
             TelRandom = Random.Range(1, 3);
 
@@ -94,7 +95,6 @@ public class DeBufer_Ctrl : MonoBehaviour
                 transform.position = new Vector2(target.position.x + TelPos, target.position.y);
 
             }
-
         }
 
         // Hit

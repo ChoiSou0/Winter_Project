@@ -10,6 +10,7 @@ public class Player_Control : MonoBehaviour
     private SpriteRenderer Player_Renderer;
     private Wolf_Control wolf_Control;
     private Bangtan_Ctrl bangtan_Ctrl;
+    private Player_FallRange fallRange;
     private Animator ani;
     private GameManager gameManager;
 
@@ -32,6 +33,7 @@ public class Player_Control : MonoBehaviour
     public float Floor;
     
     public bool Player_Jumping;
+    public float JumpTime;
     public int Jump_Cnt;
 
     bool Dashing;
@@ -77,6 +79,7 @@ public class Player_Control : MonoBehaviour
         wolf_Control = GameObject.Find("Wolf").GetComponent<Wolf_Control>();
         bangtan_Ctrl = GameObject.Find("Bangtan").GetComponent<Bangtan_Ctrl>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        fallRange = GameObject.Find("Player_Fall_Range").GetComponent<Player_FallRange>();
 
         Attack.SetActive(false);
 
@@ -189,24 +192,37 @@ public class Player_Control : MonoBehaviour
         // Jump
         #region
         // Jump
-        if (Input.GetKeyDown(KeyCode.C) && Jump_Cnt > 0 && Player_Jumping == false)
+        if (Input.GetKeyDown(KeyCode.C) && Jump_Cnt > 0)
         {
+            ani.SetBool("isJump", true);
             if (this.transform.position.y > 0)
             {
                 Player_Jumping = true;
                 Jump_Cnt--;
                 Player_Rigid.AddForce(Vector2.up * Player_Jumpforce, ForceMode2D.Impulse);
-                Player_Jumping = false;
             }
             else if (this.transform.position.y < 0)
             {
                 Player_Jumping = true;
                 Jump_Cnt--;
                 Player_Rigid.AddForce(Vector2.down * Player_Jumpforce, ForceMode2D.Impulse);
-                Player_Jumping = false;
             }
         }
         
+        if (Player_Jumping == true && JumpTime <= 0.1f)
+        {
+            JumpTime += Time.deltaTime;
+
+            if (JumpTime >= 0.1f)
+            {
+                ani.SetBool("isJump", false);
+            }
+        }
+
+        if (Player_Jumping == true && fallRange.isGround == true)
+        {
+            ani.SetBool("isFall", true);
+        }
         #endregion
 
         // Dash
@@ -339,6 +355,8 @@ public class Player_Control : MonoBehaviour
     {
         if (collision2D.gameObject.tag == "Ground")
         {
+            ani.SetBool("isJump", false);
+            ani.SetBool("isFall", false);
             Debug.Log("¶¥");
             Jump_Cnt = 2;
             Player_Jumping = false;
