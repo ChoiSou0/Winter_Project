@@ -29,6 +29,7 @@ public class Player_Control : MonoBehaviour
     public float AttackTime;
     public float DelTime;
     public bool Attacking;
+    public float ATK_Time = 0.8f;
 
     public float Floor;
     
@@ -311,7 +312,7 @@ public class Player_Control : MonoBehaviour
         }
 
         // Attack
-        if (Input.GetKeyDown(KeyCode.X) && DelTime >= 0.8f)
+        if (Input.GetKeyDown(KeyCode.X) && DelTime >= ATK_Time)
         {
             //RaycastHit2D Skill_A_hit = Physics2D.BoxCast(transform.position, 
             //    new Vector2(8, 1), 0, new Vector2(1, 0), 0);

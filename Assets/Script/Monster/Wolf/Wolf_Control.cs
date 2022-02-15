@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Wolf_Control : MonoBehaviour
 {
+    private GameManager gameManager;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D Wolf_rigid;
     private Player_Control playerControl;
@@ -32,7 +33,12 @@ public class Wolf_Control : MonoBehaviour
     public bool Attacked = false;
     public bool OneAttack = false;
     public bool Backing = false;
+    public float Xpower;
+    public float Ypower;
     public float AttackTime;
+    public int AttackVec;
+    public float KullTime;
+    public bool SkillS_Back;
 
     public float backPower;
 
@@ -42,6 +48,7 @@ public class Wolf_Control : MonoBehaviour
         playerControl = GameObject.Find("Player").GetComponent<Player_Control>();
         attackRange = GameObject.Find("Wolf_Attack_Range").GetComponent<AttackRange>();
         moveRange = GameObject.Find("Wolf_Move_Range").GetComponent<MoveRange>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         Wolf_rigid = GetComponent<Rigidbody2D>();
@@ -53,7 +60,27 @@ public class Wolf_Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Backing == true && BackTime <= 0.5f)
+        Bite.transform.localPosition = new Vector2(-0.2f, 0.5f);
+        if (OneAttack == true)
+            KullTime += Time.deltaTime;
+        if (KullTime >= 2)
+        {
+            OneAttack = false;
+            KullTime = 0;
+        }
+
+        if (gameManager.Skill_D_On == true)
+        {
+            Wolf_rigid.gravityScale = 0;
+            animator.speed = 0;
+        }
+        else
+        {
+            Wolf_rigid.gravityScale = 1;
+            animator.speed = 1;
+        }
+
+        if (Backing == true && BackTime <= 0.5f && gameManager.Skill_D_On == false)
         {
             BackTime += Time.deltaTime;
             transform.Translate(Vector2.right * playerControl.Player_Vec * backPower * Time.deltaTime);
@@ -65,6 +92,22 @@ public class Wolf_Control : MonoBehaviour
             if (BackTime >= 0.5f)
             {
                 Backing = false;
+                BackTime = 0;
+            }
+        }
+
+        if (SkillS_Back == true && BackTime <= 1 && gameManager.Skill_D_On == false)
+        {
+            BackTime += Time.deltaTime;
+            transform.Translate(Vector2.right * playerControl.Player_Vec * backPower * Time.deltaTime);
+            if (BackTime >= 0.1f)
+            {
+                animator.SetBool("isHit", false);
+            }
+
+            if (BackTime >= 1)
+            {
+                SkillS_Back = false;
                 BackTime = 0;
             }
         }
@@ -87,7 +130,7 @@ public class Wolf_Control : MonoBehaviour
             }
         }
 
-        if (moveRange.WolfMove == false && Ding == false)
+        if (moveRange.WolfMove == false && Ding == false && gameManager.Skill_D_On == false)
         {
             if (moving == false)
             {
@@ -109,22 +152,37 @@ public class Wolf_Control : MonoBehaviour
 
         }
 
-        if (Attacked == true && AttackTime <= 2)
+        if (Attacked == true && AttackTime <= 2 && gameManager.Skill_D_On == false)
         {
             AttackTime += Time.deltaTime;
+
+            if (AttackTime <= 0.5f)
+            {
+                transform.Translate(Vector2.right * Xpower * AttackVec * Time.deltaTime);
+
+                if (AttackTime <= 0.25f)
+                    transform.Translate(Vector2.up * Ypower * Time.deltaTime);
+            }
 
             if (AttackTime >= 0.1f)
                 animator.SetBool("isAttack", false);
 
+            if (AttackTime >= 0.5f)
+            {
+                AttackTime = 0;
+                Attacked = false;
+                Bite.SetActive(false);
+            }
+
         }
 
         // Attack And Follow
-        if (attackRange.Wolf_Attack == true && Backing == false && OneAttack == false && moveRange.WolfMove == true && Ding == false)
+        if (attackRange.Wolf_Attack == true && Backing == false && OneAttack == false && moveRange.WolfMove == true && Ding == false && gameManager.Skill_D_On == false)
         {
             AttackBite();
             OneAttack = true;
         }
-        else if (attackRange.Wolf_Attack == false && Attacked == false && Backing == false && moveRange.WolfMove == true && Ding == false)
+        else if (attackRange.Wolf_Attack == false && Attacked == false && Backing == false && moveRange.WolfMove == true && Ding == false && gameManager.Skill_D_On == false)
         {
             FollowTarget();
         }
@@ -153,11 +211,24 @@ public class Wolf_Control : MonoBehaviour
     {
         if (collision2D.gameObject.tag == "Attack")
         {
-            Debug.Log("¸Â¾Ò¾î");
             Hp -= playerControl.Player_Power;
             animator.SetBool("isHit", true);
             Backing = true;
            
+        }
+
+        if (collision2D.gameObject.tag == "Skill_A")
+        {
+            Hp -= playerControl.SkillA_Power + playerControl.Player_Power;
+            animator.SetBool("isHit", true);
+            Backing = true;
+        }
+
+        if (collision2D.gameObject.tag == "Skill_S")
+        {
+            Hp -= playerControl.SkillS_Power + playerControl.Player_Power;
+            animator.SetBool("isHit", true);
+            SkillS_Back = true;
         }
 
     }
@@ -168,20 +239,16 @@ public class Wolf_Control : MonoBehaviour
         Bite.SetActive(true);
         animator.SetBool("isAttack", true);
 
+        if (target.transform.position.x > this.transform.position.x)
+        {
+            AttackVec = 1;
+        }
+        else if (target.transform.position.x < this.transform.position.x)
+        {
+            AttackVec = -1;
+        }
+
         //Bite.SetActive(false);
-    }
-
-    void Nukback()
-    {
-        Wolf_rigid.AddRelativeForce(new Vector2(0f, 0f));
-        Backing = false;
-    }
-
-    void Del()
-    {
-        Attacked = false;
-        OneAttack = false;
-        Bite.SetActive(false);
     }
 
     void Idle()
