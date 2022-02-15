@@ -6,7 +6,7 @@ public class StatusDark : MonoBehaviour
 {
     RectTransform Rect;
 
-    public int num;
+    public bool isStatus;
 
     public float Curtime =0;
 
@@ -19,9 +19,9 @@ public class StatusDark : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (num)
+        switch (isStatus)
         {
-            case 0:
+            case false:
                 Curtime += Time.deltaTime;
                 if (Curtime >= 2)
                 {
@@ -30,7 +30,7 @@ public class StatusDark : MonoBehaviour
                     Curtime = 0;
                 }
                 break;
-            case 1:
+            case true:
                 Rect.anchoredPosition = new Vector3(0, 0, 0);
                 Time.timeScale = 0;
                 break;
