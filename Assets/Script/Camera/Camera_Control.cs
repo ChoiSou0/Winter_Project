@@ -28,8 +28,8 @@ public class Camera_Control : MonoBehaviour
                 transform.position = new Vector3(62.15f, transform.position.y , -10);
             if (this.transform.position.x < -21)
                 transform.position = new Vector3(-21, transform.position.y, -10);
-            if (this.transform.position.y < 5)
-                transform.position = new Vector3(transform.position.x, 5, -10);
+            if (this.transform.position.y < 5.5f)
+                transform.position = new Vector3(transform.position.x, 5.5f, -10);
             if (this.transform.position.y > 21)
                 transform.position = new Vector3(transform.position.x, 21, -10);
 

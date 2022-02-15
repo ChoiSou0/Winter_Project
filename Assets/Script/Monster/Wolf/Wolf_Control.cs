@@ -250,7 +250,7 @@ public class Wolf_Control : MonoBehaviour
             AttackVec = 1;
             this.spriteRenderer.flipX = true;
         }
-        else if (target.transform.position.x < this.transform.position.x)
+        else
         {
             this.spriteRenderer.flipX = false;
             AttackVec = -1;
@@ -266,7 +266,7 @@ public class Wolf_Control : MonoBehaviour
             spriteRenderer.flipX = false;
             moveVec = -1;
         }
-        else if (moveVec < 0)
+        else
         {
             spriteRenderer.flipX = true;
             moveVec = 1;

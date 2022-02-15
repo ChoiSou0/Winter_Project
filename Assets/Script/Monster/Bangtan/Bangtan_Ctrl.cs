@@ -141,6 +141,9 @@ public class Bangtan_Ctrl : MonoBehaviour
             animator.SetBool("isAttack", true);
             AttackTime += Time.deltaTime;
 
+            if (AttackTime >= 0.1f)
+                Bangtan_Attack.SetActive(false);
+
             if (AttackTime >= 1.5f)
             {
                 animator.SetBool("isAttack", false);
@@ -241,12 +244,6 @@ public class Bangtan_Ctrl : MonoBehaviour
             Bangtan_Attack.transform.localPosition = new Vector2(-0.9f, 0.9f);
         }
 
-        Invoke("Attackfalse", 0.05f);
-    }
-
-    void Attackfalse()
-    {
-        Bangtan_Attack.SetActive(false);
     }
 
 }
