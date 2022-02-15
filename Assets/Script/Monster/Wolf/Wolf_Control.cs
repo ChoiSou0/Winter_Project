@@ -80,7 +80,7 @@ public class Wolf_Control : MonoBehaviour
             animator.speed = 1;
         }
 
-        if (Backing == true && BackTime <= 0.5f && gameManager.Skill_D_On == false)
+        if (Backing == true && BackTime <= 0.5f)
         {
             BackTime += Time.deltaTime;
             transform.Translate(Vector2.right * playerControl.Player_Vec * backPower * Time.deltaTime);
@@ -91,12 +91,13 @@ public class Wolf_Control : MonoBehaviour
 
             if (BackTime >= 0.5f)
             {
+                spriteRenderer.color = new Color(1, 1, 1, 1);
                 Backing = false;
                 BackTime = 0;
             }
         }
 
-        if (SkillS_Back == true && BackTime <= 1 && gameManager.Skill_D_On == false)
+        if (SkillS_Back == true && BackTime <= 1)
         {
             BackTime += Time.deltaTime;
             transform.Translate(Vector2.right * playerControl.Player_Vec * backPower * Time.deltaTime);
@@ -107,6 +108,7 @@ public class Wolf_Control : MonoBehaviour
 
             if (BackTime >= 1)
             {
+                spriteRenderer.color = new Color(1, 1, 1, 1);
                 SkillS_Back = false;
                 BackTime = 0;
             }
@@ -182,7 +184,7 @@ public class Wolf_Control : MonoBehaviour
             AttackBite();
             OneAttack = true;
         }
-        else if (attackRange.Wolf_Attack == false && Attacked == false && Backing == false && moveRange.WolfMove == true && Ding == false && gameManager.Skill_D_On == false)
+        else if (Attacked == false && Backing == false && moveRange.WolfMove == true && Ding == false && gameManager.Skill_D_On == false)
         {
             FollowTarget();
         }
@@ -191,6 +193,7 @@ public class Wolf_Control : MonoBehaviour
     void FollowTarget()
     {
         animator.SetBool("isRun", true);
+        animator.SetBool("isIdle", false);
         target = GameObject.Find("Player").transform;
 
         if (target.transform.position.x > this.transform.position.x)
@@ -211,6 +214,7 @@ public class Wolf_Control : MonoBehaviour
     {
         if (collision2D.gameObject.tag == "Attack")
         {
+            spriteRenderer.color = new Color(1, 0, 0, 1);
             Hp -= playerControl.Player_Power;
             animator.SetBool("isHit", true);
             Backing = true;
@@ -219,6 +223,7 @@ public class Wolf_Control : MonoBehaviour
 
         if (collision2D.gameObject.tag == "Skill_A")
         {
+            spriteRenderer.color = new Color(1, 0, 0, 1);
             Hp -= playerControl.SkillA_Power + playerControl.Player_Power;
             animator.SetBool("isHit", true);
             Backing = true;
@@ -226,6 +231,7 @@ public class Wolf_Control : MonoBehaviour
 
         if (collision2D.gameObject.tag == "Skill_S")
         {
+            spriteRenderer.color = new Color(1, 0, 0, 1);
             Hp -= playerControl.SkillS_Power + playerControl.Player_Power;
             animator.SetBool("isHit", true);
             SkillS_Back = true;
@@ -242,9 +248,11 @@ public class Wolf_Control : MonoBehaviour
         if (target.transform.position.x > this.transform.position.x)
         {
             AttackVec = 1;
+            this.spriteRenderer.flipX = true;
         }
         else if (target.transform.position.x < this.transform.position.x)
         {
+            this.spriteRenderer.flipX = false;
             AttackVec = -1;
         }
 

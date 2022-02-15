@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bangtan_Ctrl : MonoBehaviour
 {
+    private Animator animator;
+
     public GameObject Bangtan_Attack;
     public GameObject Bangtan_Rush;
     public Transform target;
@@ -43,6 +45,7 @@ public class Bangtan_Ctrl : MonoBehaviour
         dash_Range = GameObject.Find("Bangtan_Dash_Range").GetComponent <Bangtan_Dash_Range>();
         player_Control = GameObject.Find("Player").GetComponent<Player_Control>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
         RGB = 1;
     }
@@ -55,8 +58,11 @@ public class Bangtan_Ctrl : MonoBehaviour
 
         if (SkillS_Hit == true && SkillS_HitTime <= 1)
         {
+            animator.SetBool("isHit", true);
             transform.Translate(Vector2.right * SkillS_Vec * SkillS_HitPower * Time.deltaTime);
             SkillS_HitTime += Time.deltaTime;
+            if (SkillS_HitTime >= 0.1f)
+                animator.SetBool("isHit", false);
 
             if (SkillS_HitTime >= 1)
             {
@@ -68,7 +74,11 @@ public class Bangtan_Ctrl : MonoBehaviour
 
         if (Hited == true && HitTime <= 0.5f)
         {
+            animator.SetBool("isHit", true);
             HitTime += Time.deltaTime;
+            if (HitTime >= 0.1f)
+                animator.SetBool("isHit", false);
+
             if (HitTime >= 0.5f)
             {
                 HitTime = 0;
@@ -80,6 +90,7 @@ public class Bangtan_Ctrl : MonoBehaviour
         // Die
         if (Bangtan_Hp <= 0)
         {
+            animator.SetBool("isDied", true);
             Ding = true;
             RGB -= Time.deltaTime;
             Debug.Log(RGB);
@@ -92,10 +103,11 @@ public class Bangtan_Ctrl : MonoBehaviour
         }
 
         // Rush
-        if (moveRange.isMove == true && attackRange.Attacked == false && dash_Range.Dashed == true && SkillS_Hit == false)
+        if (moveRange.isMove == true && dash_Range.Dashed == true && SkillS_Hit == false)
         {
             if (DashTime >= 15)
             {
+                animator.SetBool("isRush", true);
                 DashTime = 0;
                 Dashing = true;
                 if (target.transform.position.x > this.transform.position.x)
@@ -112,9 +124,11 @@ public class Bangtan_Ctrl : MonoBehaviour
             Bangtan_Rush.SetActive(true);
             transform.Translate(Vector2.right * DashPower * Vec * Time.deltaTime);
             DashingTime += Time.deltaTime;
+
             if (DashingTime >= 0.5f)
             {
                 DashingTime = 0;
+                animator.SetBool("isRush", false);
                 Dashing = false;
                 Bangtan_Rush.SetActive(false);
             }
@@ -122,21 +136,24 @@ public class Bangtan_Ctrl : MonoBehaviour
         }
 
         // Attack
-        if (Attacking == true && AttackTime <= 0.5f && SkillS_Hit == false)
+        if (Attacking == true && AttackTime <= 1.5f && SkillS_Hit == false)
         {
+            animator.SetBool("isAttack", true);
             AttackTime += Time.deltaTime;
-            if (AttackTime >= 0.5f)
+
+            if (AttackTime >= 1.5f)
             {
+                animator.SetBool("isAttack", false);
                 AttackTime = 0;
                 Attacking = false;
             }
         }
 
-        if (moveRange.isMove == true && attackRange.Attacked == true && dash_Range.Dashed == true && Dashing == false && Attacking == false && Ding == false && SkillS_Hit == false)
+        if (moveRange.isMove == true && attackRange.Attacked == true && Dashing == false && Attacking == false && Ding == false && SkillS_Hit == false)
         {
             Attacked();
         }
-        else if (moveRange.isMove == true && attackRange.Attacked == false && Dashing == false && Attacking == false && Ding == false && SkillS_Hit == false)
+        else if (moveRange.isMove == true && Dashing == false && Attacking == false && Ding == false && SkillS_Hit == false)
         {
             FollowPlayer();
         }
@@ -146,6 +163,9 @@ public class Bangtan_Ctrl : MonoBehaviour
     void FollowPlayer()
     {
         target = GameObject.Find("Player").transform;
+        animator.SetBool("isIdle", false);
+        animator.SetBool("isRun", true);
+        
 
         if (target.transform.position.x > this.transform.position.x)
         {

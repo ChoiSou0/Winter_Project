@@ -2476,8 +2476,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728886754}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 16, y: 4, z: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 16, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 921849526}
   m_RootOrder: 2
@@ -3031,7 +3031,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798861291}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25.03, y: 19.59, z: 0}
+  m_LocalPosition: {x: 7.48, y: 21.25, z: 0}
   m_LocalScale: {x: 1.1, y: 1.2, z: 1}
   m_Children:
   - {fileID: 1711305254}
@@ -3108,8 +3108,10 @@ MonoBehaviour:
   DeBufer_Hp: 100
   DeBufer_Amur: 4
   DeBufer_Power: 14
+  Teling: 0
   TelRandom: 0
   TelTime: 0
+  TelAni: 0
   AttackTime: 0
   NukBack_Time: 0
   NukBack_Power: 1
@@ -3371,6 +3373,7 @@ GameObject:
   - component: {fileID: 921849524}
   - component: {fileID: 921849523}
   - component: {fileID: 921849527}
+  - component: {fileID: 921849528}
   m_Layer: 7
   m_Name: Bangtan
   m_TagString: Untagged
@@ -3484,7 +3487,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 921849522}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.94, y: 12.7, z: 0}
+  m_LocalPosition: {x: 15.47, y: 1.75, z: 0}
   m_LocalScale: {x: 1.5, y: 1.6, z: 1}
   m_Children:
   - {fileID: 2092961434}
@@ -3529,6 +3532,25 @@ MonoBehaviour:
   Attacking: 0
   Ding: 0
   SkillS_Hit: 0
+--- !u!95 &921849528
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921849522}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c28ae00702b675d4e9e93cc8bfb8372b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1039542564
 GameObject:
   m_ObjectHideFlags: 0
