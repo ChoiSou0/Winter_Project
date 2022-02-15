@@ -23,10 +23,10 @@ public class StatusBar : MonoBehaviour
     public void StatusUP()
     {
         SPCount sP = GameObject.Find("SP_Count").GetComponent<SPCount>();
-        Player_Control player = GameObject.Find("Player").GetComponent<Player_Control>();
+ //       Player_Control player = GameObject.Find("Player").GetComponent<Player_Control>();
         if(sP.SP > 0)
         {
-            switch (StatusNUM)
+ /*           switch (StatusNUM)
             {
                 case 1:
                     player.Player_MaxHp += 10;
@@ -35,9 +35,12 @@ public class StatusBar : MonoBehaviour
                     player.Player_Power += 4;
                     break;
                 case 3:
-                    player. += 4;
+                    player.Player_Speed+= 0.5f;
                     break;
-            }
+                case 4:
+                    player.ATK_Time -= 0.07f;
+                    break;
+            }*/
             GetComponentInChildren<Slider>().value++;
             sP.SP--;
         }
