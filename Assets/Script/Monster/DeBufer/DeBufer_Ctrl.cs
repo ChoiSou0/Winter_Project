@@ -56,7 +56,7 @@ public class DeBufer_Ctrl : MonoBehaviour
         TelTime += Time.deltaTime;
 
         // Die
-        if (DeBufer_Hp <= 0)
+        if (DeBufer_Hp <= 0 && gameManager.Skill_D_On == false)
         {
             Ding = true;
             RGB -= Time.deltaTime;
@@ -98,7 +98,7 @@ public class DeBufer_Ctrl : MonoBehaviour
         }
 
         // Hit
-        if (Hiting == true && NukBack_Time <= 0.5f && Ding == false)
+        if (Hiting == true && NukBack_Time <= 0.5f && Ding == false && gameManager.Skill_D_On == false)
         {
             NukBack_Time += Time.deltaTime;
             transform.Translate(Vector2.right * NukBack_Power * player_Ctrl.Player_Vec * Time.deltaTime);
@@ -111,7 +111,7 @@ public class DeBufer_Ctrl : MonoBehaviour
         }
 
         // SkillS_Hit
-        if (SkillS_Hiting == true && NukBack_Time <= 1 && Ding == false)
+        if (SkillS_Hiting == true && NukBack_Time <= 1 && Ding == false && gameManager.Skill_D_On == false)
         {
             NukBack_Time += Time.deltaTime;
             transform.Translate(Vector2.right * NukBack_Power * player_Ctrl.Player_Vec * Time.deltaTime);
@@ -125,7 +125,7 @@ public class DeBufer_Ctrl : MonoBehaviour
 
         // AttackTime
         #region
-        if (Attacking == true && AttackTime <= 1)
+        if (Attacking == true && AttackTime <= 1 && gameManager.Skill_D_On == false)
         {
             AttackTime += Time.deltaTime;
             if (AttackTime >= 1)
