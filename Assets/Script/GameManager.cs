@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public bool FireBall1_On;
     public bool FireBall2_On;
     public bool FireBall3_On;
+    
 
     public bool Skill_D_On;
     public float TheWorldTime;
