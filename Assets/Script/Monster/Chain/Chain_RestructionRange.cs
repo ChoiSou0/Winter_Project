@@ -16,7 +16,7 @@ public class Chain_RestructionRange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = new Vector2(Chain.transform.position.x, Chain.transform.position.y + 0.7f);
+    //    this.transform.position = new Vector2(Chain.transform.position.x, Chain.transform.position.y + 0.7f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

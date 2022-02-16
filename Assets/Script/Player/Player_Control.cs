@@ -301,12 +301,13 @@ public class Player_Control : MonoBehaviour
             {
                 X_cnt -= 1;
 
-                if (X_cnt >= 10)
-                {
-                    X_cnt = 0;
-                    Chaining = false;
-                }
             }
+
+            if (X_cnt == 0)
+            {
+                Chaining = false;
+            }
+
         }
 
         if (Attacking == true && AttackTime <= 0.1f && Chaining == false)
@@ -411,6 +412,7 @@ public class Player_Control : MonoBehaviour
 
         if (collision.gameObject.tag == "Chain_Restruction")
         {
+            X_cnt = 10;
             Chaining = true;
         }
     }

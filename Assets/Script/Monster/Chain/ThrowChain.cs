@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class ThrowChain : MonoBehaviour
 {
-    public Transform target;
+    public GameObject target;
     public float Speed;
     public float LifeTime;
     public int Vec;
     // Start is called before the first frame update
     void Start()
     {
+        target = GameObject.Find("Player");
         if (target.transform.position.x > this.transform.position.x)
         {
             Vec = 1;
@@ -27,7 +28,7 @@ public class ThrowChain : MonoBehaviour
         if (LifeTime <= 4)
         {
             LifeTime += Time.deltaTime;
-            transform.position = new Vector2(transform.position.x + Speed * Vec, transform.position.y);
+            transform.Translate(Vector2.right * Speed * Vec * Time.deltaTime);
 
             if (LifeTime >= 4)
             {

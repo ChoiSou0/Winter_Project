@@ -101,7 +101,7 @@ public class Chain_Ctrl : MonoBehaviour
             animator.SetBool("isRestruction", true);
             NoChain = true;
             Chain_Speed = 0.04f;
-            Instantiate(Chain_Restruction, new Vector2(transform.position.x, transform.position.y + 2f), Quaternion.identity);
+            Instantiate(Chain_Restruction, new Vector2(this.transform.position.x, this.transform.position.y + 2), Quaternion.identity);
             d.Restructioning = false;
            
             

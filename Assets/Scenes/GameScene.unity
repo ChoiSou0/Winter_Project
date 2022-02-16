@@ -1067,7 +1067,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 579178054}
   Chain_Attack: {fileID: 1066844637}
-  Chain_Restruction: {fileID: 1673708172578758162, guid: 2290958e252fd6f4cbb26bd188672dcd, type: 3}
+  Chain_Restruction: {fileID: 19233463709225645, guid: a9ed3082d5b2ecc428d58518dbd1974a, type: 3}
   Chain_Hp: 120
   Chain_Power: 15
   Chain_Amur: 6
@@ -5175,20 +5175,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a15acf210ac167b4eba74b8d36ec565c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 579178054}
-  player: {x: 0, y: 0, z: 0}
-  d: {x: 0, y: 0, z: 0}
+  player: {fileID: 579178050}
+  ADC: {fileID: 450721690}
   FollowPos: 0
   v: {x: 0, y: 0}
   w: {x: 0, y: 0}
-  num1: 0
-  num2: 0
-  num3: 0
-  num4: 0
+  m_Angle: 0
+  Vec: 0
   LifeTime: 0
   Speed: 10
-  xVec: 0
-  yVec: 0
   Follow: 0
 --- !u!1 &1380949508
 GameObject:
