@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bangtan_Ctrl : MonoBehaviour
 {
     private Animator animator;
+    private GameManager gameManager;
 
     public GameObject Bangtan_Attack;
     public GameObject Bangtan_Rush;
@@ -46,6 +47,7 @@ public class Bangtan_Ctrl : MonoBehaviour
         player_Control = GameObject.Find("Player").GetComponent<Player_Control>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         RGB = 1;
     }
@@ -103,7 +105,7 @@ public class Bangtan_Ctrl : MonoBehaviour
         }
 
         // Rush
-        if (moveRange.isMove == true && dash_Range.Dashed == true && SkillS_Hit == false)
+        if (moveRange.isMove == true && dash_Range.Dashed == true && SkillS_Hit == false && gameManager.Skill_D_On == false)
         {
             if (DashTime >= 15)
             {
@@ -119,7 +121,7 @@ public class Bangtan_Ctrl : MonoBehaviour
 
         }
 
-        if (Dashing == true && DashingTime <= 0.5f && SkillS_Hit == false)
+        if (Dashing == true && DashingTime <= 0.5f && SkillS_Hit == false && gameManager.Skill_D_On == false)
         {
             Bangtan_Rush.SetActive(true);
             transform.Translate(Vector2.right * DashPower * Vec * Time.deltaTime);
@@ -136,7 +138,7 @@ public class Bangtan_Ctrl : MonoBehaviour
         }
 
         // Attack
-        if (Attacking == true && AttackTime <= 1.5f && SkillS_Hit == false)
+        if (Attacking == true && AttackTime <= 1.5f && SkillS_Hit == false && gameManager.Skill_D_On == false)
         {
             animator.SetBool("isAttack", true);
             AttackTime += Time.deltaTime;
@@ -152,11 +154,11 @@ public class Bangtan_Ctrl : MonoBehaviour
             }
         }
 
-        if (moveRange.isMove == true && attackRange.Attacked == true && Dashing == false && Attacking == false && Ding == false && SkillS_Hit == false)
+        if (moveRange.isMove == true && attackRange.Attacked == true && Dashing == false && Attacking == false && Ding == false && SkillS_Hit == false && gameManager.Skill_D_On == false)
         {
             Attacked();
         }
-        else if (moveRange.isMove == true && Dashing == false && Attacking == false && Ding == false && SkillS_Hit == false)
+        else if (moveRange.isMove == true && Dashing == false && Attacking == false && Ding == false && SkillS_Hit == false && gameManager.Skill_D_On == false)
         {
             FollowPlayer();
         }

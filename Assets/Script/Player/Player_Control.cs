@@ -57,6 +57,8 @@ public class Player_Control : MonoBehaviour
     public float DotDeal_Time;
     public float DotTime;
 
+    public bool Chaining;
+    public int X_cnt;
     // Skill
     public float Skill_A_Time;
     public float Skill_S_Time;
@@ -152,7 +154,7 @@ public class Player_Control : MonoBehaviour
         // Move
         float h = Input.GetAxisRaw("Horizontal");
 
-        if (Skill_S_On == false)
+        if (Skill_S_On == false && Chaining == false)
         {
             Player_Rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
@@ -193,7 +195,7 @@ public class Player_Control : MonoBehaviour
         // Jump
         #region
         // Jump
-        if (Input.GetKeyDown(KeyCode.C) && Jump_Cnt > 0)
+        if (Input.GetKeyDown(KeyCode.C) && Jump_Cnt > 0 && Chaining == false)
         {
             ani.SetBool("isJump", true);
             if (this.transform.position.y > 0)
@@ -220,7 +222,7 @@ public class Player_Control : MonoBehaviour
             }
         }
 
-        if (Player_Jumping == true && fallRange.isGround == true)
+        if (Player_Jumping == true && fallRange.isGround == true )
         {
             ani.SetBool("isFall", true);
         }
@@ -261,7 +263,7 @@ public class Player_Control : MonoBehaviour
         #endregion
 
         // Skill(A)
-        if (Input.GetKeyDown(KeyCode.A) && Skill_A_Time >= 7)
+        if (Input.GetKeyDown(KeyCode.A) && Skill_A_Time >= 7 && Chaining == false)
         {
             Skill_A_Time = 0;
             if (Player_Renderer.flipX == false)
@@ -274,7 +276,7 @@ public class Player_Control : MonoBehaviour
         }
 
         // Skill(S)
-        if (Input.GetKeyDown(KeyCode.S) && Skill_S_Time >= 14)
+        if (Input.GetKeyDown(KeyCode.S) && Skill_S_Time >= 14 && Chaining == false)
         {
             Skill_S_Time = 0;
             if (Player_Renderer.flipX == false)
@@ -287,14 +289,27 @@ public class Player_Control : MonoBehaviour
         }
 
         // The World (Skill D)
-        if (Input.GetKeyDown(KeyCode.D) && Skill_D_Time >= 100)
+        if (Input.GetKeyDown(KeyCode.D) && Skill_D_Time >= 100 && Chaining == false)
         {
             Skill_D_Time = 0;
             gameManager.Skill_D_On = true;
         }
         
+        if (Chaining == true && X_cnt <= 10)
+        {
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                X_cnt -= 1;
 
-        if (Attacking == true && AttackTime <= 0.1f)
+                if (X_cnt >= 10)
+                {
+                    X_cnt = 0;
+                    Chaining = false;
+                }
+            }
+        }
+
+        if (Attacking == true && AttackTime <= 0.1f && Chaining == false)
         {
             AttackTime += Time.deltaTime;
 
@@ -312,7 +327,7 @@ public class Player_Control : MonoBehaviour
         }
 
         // Attack
-        if (Input.GetKeyDown(KeyCode.X) && DelTime >= ATK_Time)
+        if (Input.GetKeyDown(KeyCode.X) && DelTime >= ATK_Time && Chaining == false)
         {
             //RaycastHit2D Skill_A_hit = Physics2D.BoxCast(transform.position, 
             //    new Vector2(8, 1), 0, new Vector2(1, 0), 0);
@@ -392,7 +407,11 @@ public class Player_Control : MonoBehaviour
         {
             DeBuf_Damge = true;
             DeBuf = true;
-            Debug.Log("¸ÅÁ÷¿¡ ´êÀ½");
+        }
+
+        if (collision.gameObject.tag == "Chain_Restruction")
+        {
+            Chaining = true;
         }
     }
 

@@ -74,7 +74,7 @@ public class DeBufer_Ctrl : MonoBehaviour
         }
 
         // Die
-        if (DeBufer_Hp <= 0 && gameManager.Skill_D_On == false)
+        if (DeBufer_Hp <= 0)
         {
             animator.SetBool("isDied", true);
             Ding = true;
@@ -228,7 +228,7 @@ public class DeBufer_Ctrl : MonoBehaviour
         {
             spriteRenderer.flipX = false;
             DeBufer_Attack.transform.localPosition = new Vector2(-0.6f, 0.9f);
-        }
+        }  
 
     }
     #endregion

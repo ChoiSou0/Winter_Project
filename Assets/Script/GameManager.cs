@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     public bool Skill_D_On;
     public float TheWorldTime;
 
+    public GameObject SkillD;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,10 +25,12 @@ public class GameManager : MonoBehaviour
     {
         if (Skill_D_On == true && TheWorldTime <= 9)
         {
+            SkillD.SetActive(true);
             TheWorldTime += Time.deltaTime;
 
             if (TheWorldTime >= 9)
             {
+                SkillD.SetActive(false);
                 TheWorldTime = 0;
                 Skill_D_On = false;
             }

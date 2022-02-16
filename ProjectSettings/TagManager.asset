@@ -16,6 +16,8 @@ TagManager:
   - Skill_D
   - DeBufer_Attack
   - DeBufer_Magic
+  - Chain_Attack
+  - Chain_Restruction
   layers:
   - Default
   - TransparentFX
@@ -33,7 +35,7 @@ TagManager:
   - NotGround
   - 
   - 
-  - Bullet
+  - Back
   - 
   - 
   - 
