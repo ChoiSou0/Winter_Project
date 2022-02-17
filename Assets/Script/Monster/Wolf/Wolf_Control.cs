@@ -14,7 +14,6 @@ public class Wolf_Control : MonoBehaviour
     private MoveRange moveRange;
 
     public GameObject Bite;
-    public GameObject Move;
 
     public Transform target;
     public float velocity;
@@ -45,10 +44,11 @@ public class Wolf_Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerControl = GameObject.Find("Player").GetComponent<Player_Control>();
-        attackRange = GameObject.Find("Wolf_Attack_Range").GetComponent<AttackRange>();
-        moveRange = GameObject.Find("Wolf_Move_Range").GetComponent<MoveRange>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        playerControl = GameManager.Instance.player;
+        attackRange = GameManager.Instance.wolfAttackRange;
+        moveRange = GameManager.Instance.wolfMoveRange;
+        gameManager = GameManager.Instance;
+        target = GameManager.Instance.target;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         Wolf_rigid = GetComponent<Rigidbody2D>();

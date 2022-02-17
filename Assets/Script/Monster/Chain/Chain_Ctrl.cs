@@ -9,7 +9,7 @@ public class Chain_Ctrl : MonoBehaviour
     private Player_Control player;
     private SpriteRenderer spriteRenderer;
     private Chain_AttackRange attackRange;
-    private Chain_RestructionRange d;
+    private Chain_RestructionRange chain_RestructionRange;
     public Transform target;
 
     public GameObject Chain_Attack;
@@ -39,10 +39,12 @@ public class Chain_Ctrl : MonoBehaviour
     {
         player = GameManager.Instance.player;
         attackRange = GameManager.Instance.chain_AttackRange;
-        d = GameManager.Instance.chain_RestructionRange;
         gameManager = GameManager.Instance;
+        target = GameManager.Instance.target;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+
+        chain_RestructionRange = GameManager.Instance.chain_RestructionRange;
     }
 
     // Update is called once per frame
@@ -100,13 +102,13 @@ public class Chain_Ctrl : MonoBehaviour
 
         }
 
-        if (d.Restructioning == true)
+        if (chain_RestructionRange.Restructioning == true)
         {
             animator.SetBool("isRestruction", true);
             NoChain = true;
             Chain_Speed = 0.04f;
             Instantiate(Chain_Restruction, new Vector2(this.transform.position.x, this.transform.position.y + 2), Quaternion.identity);
-            d.Restructioning = false;
+            chain_RestructionRange.Restructioning = false;
            
             
         }

@@ -19,6 +19,8 @@ TagManager:
   - Chain_Attack
   - Chain_Restruction
   - Door
+  - ADC_Fire
+  - Boss_Sheild
   layers:
   - Default
   - TransparentFX
