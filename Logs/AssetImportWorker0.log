@@ -2984,3 +2984,351 @@ AssetImportParameters requested are different than current active one (requested
   custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
   custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 13528.024149 seconds.
+  path: Assets/Scenes/Z.png
+  artifactKey: Guid(fbe6cfbc27feae94cae5ad931f808d2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Scenes/Z.png using Guid(fbe6cfbc27feae94cae5ad931f808d2b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa2663411bfcd7a1b2dd074e286c3d64') in 0.189913 seconds 
+  Import took 0.263411 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.827958 seconds.
+  path: Assets/Prefab/Wolf/Wolf.prefab
+  artifactKey: Guid(c50f4af2569b86341b98ccff5cda182f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Wolf/Wolf.prefab using Guid(c50f4af2569b86341b98ccff5cda182f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4aaf92858e605a86d55a94a1a731d57c') in 0.041753 seconds 
+  Import took 0.046549 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.383618 seconds.
+  path: Assets/Prefab/DeBufer/DeBufer.prefab
+  artifactKey: Guid(064a7351185db4c459e62576de2f8a13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/DeBufer/DeBufer.prefab using Guid(064a7351185db4c459e62576de2f8a13) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6fdb138f3e384a43306ce2885f334808') in 0.021819 seconds 
+  Import took 0.026297 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.404945 seconds.
+  path: Assets/Prefab/Chain/Chain.prefab
+  artifactKey: Guid(8b244823ca6dfd040a34707576f4cf24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Chain/Chain.prefab using Guid(8b244823ca6dfd040a34707576f4cf24) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '32b953c9aaf72c39982986ef2e60e2fb') in 0.021917 seconds 
+  Import took 0.026104 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000302 seconds.
+  path: Assets/Prefab/Chain/ThrowChain.prefab
+  artifactKey: Guid(a9ed3082d5b2ecc428d58518dbd1974a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Chain/ThrowChain.prefab using Guid(a9ed3082d5b2ecc428d58518dbd1974a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '97b6abd6d3ad975fb37ee6bc7f81c221') in 0.018230 seconds 
+  Import took 0.021572 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.388153 seconds.
+  path: Assets/Prefab/Bangtan/Bangtan.prefab
+  artifactKey: Guid(30128cab541bc824ebe1d4db060f2d51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/Bangtan/Bangtan.prefab using Guid(30128cab541bc824ebe1d4db060f2d51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b65b912ae4b0f180671e71912986e5ff') in 0.020605 seconds 
+  Import took 0.024562 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.524092 seconds.
+  path: Assets/Prefab/ADC/FireBall1.prefab
+  artifactKey: Guid(8bc7f3353185c45459cf5bcd54442529) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/ADC/FireBall1.prefab using Guid(8bc7f3353185c45459cf5bcd54442529) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ef2a79b4bdcec249fd8e8852f2cb5afe') in 0.012386 seconds 
+  Import took 0.016232 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000300 seconds.
+  path: Assets/Prefab/ADC/FireBall2.prefab
+  artifactKey: Guid(debc4be846189974cb901e116f140235) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/ADC/FireBall2.prefab using Guid(debc4be846189974cb901e116f140235) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fcd8f3d6efe2cb3c40de8fe1b417c47d') in 0.013633 seconds 
+  Import took 0.016998 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000339 seconds.
+  path: Assets/Prefab/ADC/FireBall3.prefab
+  artifactKey: Guid(02cdef0b9a379ce409b94d789caed3d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Prefab/ADC/FireBall3.prefab using Guid(02cdef0b9a379ce409b94d789caed3d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b284490d640aede9deecacc415d65bd6') in 0.013388 seconds 
+  Import took 0.017206 seconds .
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.009436 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for Lumin target not found
+Native extension for LinuxStandalone target not found
+Native extension for WindowsStandalone target not found
+Native extension for OSXStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.61 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.034 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1034ms)
+		BeginReloadAssembly (154ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (6ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (55ms)
+		EndReloadAssembly (810ms)
+			LoadAssemblies (139ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (277ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (37ms)
+			SetupLoadedEditorAssemblies (286ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (8ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (1ms)
+				BeforeProcessingInitializeOnLoad (86ms)
+				ProcessInitializeOnLoadAttributes (172ms)
+				ProcessInitializeOnLoadMethodAttributes (8ms)
+				AfterProcessingInitializeOnLoad (11ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (7ms)
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.63 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2326 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 110.3 MB.
+System memory in use after: 110.0 MB.
+
+Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 2856.
+Total: 3.604400 ms (FindLiveObjects: 0.258400 ms CreateObjectMapping: 0.054900 ms MarkObjects: 2.950400 ms  DeleteObjects: 0.339800 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  Time since last request: 464.436281 seconds.
+  path: Assets/Resources/Sound
+  artifactKey: Guid(f246b1b0661da8440b1dd9c54f450d36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound using Guid(f246b1b0661da8440b1dd9c54f450d36) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9e7e38f3c840e16cd35c507532feedc4') in 0.008021 seconds 
+  Import took 0.012478 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 169.918285 seconds.
+  path: Assets/Resources/Sound/Answer.wav
+  artifactKey: Guid(3f67552033b03a44db6470b0892d02ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Answer.wav using Guid(3f67552033b03a44db6470b0892d02ae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd3c5e3fb26ad2584e96fc3847fc4fe44') in 0.088545 seconds 
+  Import took 0.092579 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000314 seconds.
+  path: Assets/Resources/Sound/Knock_Back.wav
+  artifactKey: Guid(753b2521c49650040bc29e3e42215240) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Knock_Back.wav using Guid(753b2521c49650040bc29e3e42215240) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb82b9499f0f512f66870c7ee73eab22') in 0.012334 seconds 
+  Import took 0.016620 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000341 seconds.
+  path: Assets/Resources/Sound/Button_Click.wav
+  artifactKey: Guid(142cd405a8bb0e64c93f7b70f0c94ab9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Button_Click.wav using Guid(142cd405a8bb0e64c93f7b70f0c94ab9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fc349766f480e4687897f7025f47456b') in 0.014711 seconds 
+  Import took 0.019322 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000355 seconds.
+  path: Assets/Resources/Sound/Magic.mp3
+  artifactKey: Guid(8128ed27c875eef469961de67b5514af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Magic.mp3 using Guid(8128ed27c875eef469961de67b5514af) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dc13054de02d87bf06c138f20b28f0fc') in 0.017934 seconds 
+  Import took 0.022038 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000314 seconds.
+  path: Assets/Resources/Sound/Clear.wav
+  artifactKey: Guid(e23aa529475a57d42ae3f44459484db9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Clear.wav using Guid(e23aa529475a57d42ae3f44459484db9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b5f23e48eea2ed0e7f924d1b97f6579b') in 0.012192 seconds 
+  Import took 0.016540 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000285 seconds.
+  path: Assets/Resources/Sound/ESC.wav
+  artifactKey: Guid(18893855deb858148bbb79a625705f1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/ESC.wav using Guid(18893855deb858148bbb79a625705f1b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2e6f07697812df599b8a1130d0c93cee') in 0.011939 seconds 
+  Import took 0.015993 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000447 seconds.
+  path: Assets/Resources/Sound/Ingame.mp3
+  artifactKey: Guid(482039793a2532c44a017a92ebd125e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Ingame.mp3 using Guid(482039793a2532c44a017a92ebd125e6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0d166f784eb07864bbb2ad96217a419a') in 0.012300 seconds 
+  Import took 0.017232 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000338 seconds.
+  path: Assets/Resources/Sound/Attack.flac
+  artifactKey: Guid(56dcbdfcd2a446341bf700d85ea9a725) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Attack.flac using Guid(56dcbdfcd2a446341bf700d85ea9a725) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '52473b7990efa22b5376248221017c64') in 0.016461 seconds 
+  Import took 0.020245 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000290 seconds.
+  path: Assets/Resources/Sound/Chainge.wav
+  artifactKey: Guid(184f695b6c823d345982ef4a19f81c61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Chainge.wav using Guid(184f695b6c823d345982ef4a19f81c61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '706eac8398081abfa0e5b6465a0d89e7') in 0.011185 seconds 
+  Import took 0.014770 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000377 seconds.
+  path: Assets/Resources/Sound/Hit.wav
+  artifactKey: Guid(d213c5ef62b1b3c4bab9d1eda5cca624) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Hit.wav using Guid(d213c5ef62b1b3c4bab9d1eda5cca624) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '83d45a0407084d43018143a12a98a973') in 0.011519 seconds 
+  Import took 0.015031 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000320 seconds.
+  path: Assets/Resources/Sound/Time_Stop.wav
+  artifactKey: Guid(f4c8a16e0b880884da4bd5452877afae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Time_Stop.wav using Guid(f4c8a16e0b880884da4bd5452877afae) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c9f70c205a95494b06a7ac6be83bd9c2') in 0.011496 seconds 
+  Import took 0.015988 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000284 seconds.
+  path: Assets/Resources/Sound/Chain.wav
+  artifactKey: Guid(92a6a06742327994ea74a0d79efea6f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Chain.wav using Guid(92a6a06742327994ea74a0d79efea6f6) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ae085c7bc923a2cfffcd96e463a84555') in 0.011031 seconds 
+  Import took 0.014953 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000296 seconds.
+  path: Assets/Resources/Sound/Fire.wav
+  artifactKey: Guid(d887507081dabb74e8b56f0399dc3557) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Fire.wav using Guid(d887507081dabb74e8b56f0399dc3557) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '876657419d167799409fb43202ef08c9') in 0.011329 seconds 
+  Import took 0.014875 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000248 seconds.
+  path: Assets/Resources/Sound/Mian.mp3
+  artifactKey: Guid(c7a96ef4ca7f0b343a4520f6c7d1a21a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Mian.mp3 using Guid(c7a96ef4ca7f0b343a4520f6c7d1a21a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '73e8f3085b527729484ae9966a58251b') in 0.013855 seconds 
+  Import took 0.017693 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000258 seconds.
+  path: Assets/Resources/Sound/Slash.wav
+  artifactKey: Guid(33e1ff9a186dbb543ab3593b1815c3a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Slash.wav using Guid(33e1ff9a186dbb543ab3593b1815c3a8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1637725267e90ea397886653cb87a709') in 0.013076 seconds 
+  Import took 0.017056 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000506 seconds.
+  path: Assets/Resources/Sound/Destory.wav
+  artifactKey: Guid(cd20ded88e131e24b93df8c995a05026) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Destory.wav using Guid(cd20ded88e131e24b93df8c995a05026) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd0482ce8c6702c7633b75459a6a87e1c') in 0.016506 seconds 
+  Import took 0.022539 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000381 seconds.
+  path: Assets/Resources/Sound/Walk.wav
+  artifactKey: Guid(eb046a533b6f4db4a8fca8f0f68cb7c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Walk.wav using Guid(eb046a533b6f4db4a8fca8f0f68cb7c4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee487bee424b1f4855f334442af6c7da') in 0.027102 seconds 
+  Import took 0.032590 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000371 seconds.
+  path: Assets/Resources/Sound/Boom.mp3
+  artifactKey: Guid(011d29949ad739042ad5cc36e81f2db4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Boom.mp3 using Guid(011d29949ad739042ad5cc36e81f2db4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac0697b311b7e2f867b8f230e0ac299e') in 0.016821 seconds 
+  Import took 0.023305 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000371 seconds.
+  path: Assets/Resources/Sound/Dash.wav
+  artifactKey: Guid(04a11904175e5d0489512996033e9644) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Dash.wav using Guid(04a11904175e5d0489512996033e9644) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a684d01d93900f9ef608686e70fd7f0a') in 0.016036 seconds 
+  Import took 0.021611 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000369 seconds.
+  path: Assets/Resources/Sound/Rush.wav
+  artifactKey: Guid(7fb7f997ae633fc4b93766e9900b84c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Rush.wav using Guid(7fb7f997ae633fc4b93766e9900b84c7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e4e3140e05e5b3286db8579bdab60ca6') in 0.022940 seconds 
+  Import took 0.028435 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000358 seconds.
+  path: Assets/Resources/Sound/Game_Start.mp3
+  artifactKey: Guid(af7e87811b44ec644b7cfe451a1453b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Game_Start.mp3 using Guid(af7e87811b44ec644b7cfe451a1453b9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bab76d1763b7d5984a40d790f743c6c6') in 0.015189 seconds 
+  Import took 0.020717 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000440 seconds.
+  path: Assets/Resources/Sound/Jump.wav
+  artifactKey: Guid(9c03c731127f144498be1a7854bea93c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Jump.wav using Guid(9c03c731127f144498be1a7854bea93c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '05a5a78d5ec0971683733a4f4d43ed19') in 0.015728 seconds 
+  Import took 0.020418 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000459 seconds.
+  path: Assets/Resources/Sound/Nope.wav
+  artifactKey: Guid(f3d8920bc009f0843bf858591f162fc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Nope.wav using Guid(f3d8920bc009f0843bf858591f162fc4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4bed66a0df33d6a205b91247fd3a35f4') in 0.013750 seconds 
+  Import took 0.018925 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000346 seconds.
+  path: Assets/Resources/Sound/Title.wav
+  artifactKey: Guid(21ecdf7a3b1e6b442b96ae685d6253d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Title.wav using Guid(21ecdf7a3b1e6b442b96ae685d6253d0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5092075398db182c5c9e4a63f2fdb757') in 0.016439 seconds 
+  Import took 0.021823 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000396 seconds.
+  path: Assets/Resources/Sound/Magic_circle.mp3
+  artifactKey: Guid(7947aa4d61977244d8069bb9021b7194) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Magic_circle.mp3 using Guid(7947aa4d61977244d8069bb9021b7194) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '74afc74903dffccc4b7fa1984938896a') in 0.013471 seconds 
+  Import took 0.018077 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000367 seconds.
+  path: Assets/Resources/Sound/Climax.mp3
+  artifactKey: Guid(a578fd521bab4b44ebcfa6cef6c3d926) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Resources/Sound/Climax.mp3 using Guid(a578fd521bab4b44ebcfa6cef6c3d926) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '03e909b639923211f977d0c4c51b72b9') in 0.015396 seconds 
+  Import took 0.020020 seconds .
+
