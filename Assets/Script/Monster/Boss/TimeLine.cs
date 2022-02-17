@@ -2,27 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveRange : MonoBehaviour
+public class TimeLine : MonoBehaviour
 {
-    public bool WolfMove;
+    public bool TimeLine_On;
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.localPosition = new Vector2(0, 0);
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-
-            WolfMove = true;
+            if (TimeLine_On == true)
+            {
+                TimeLine_On = false;
+            }
+            else
+            {
+                TimeLine_On = true;
+            }
         }
     }
+
 }

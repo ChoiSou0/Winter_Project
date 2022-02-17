@@ -9,7 +9,7 @@ public class AttackRange : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameManager.Instance.player;
     }
 
     // Update is called once per frame
