@@ -85,12 +85,12 @@ public class Player_Control : MonoBehaviour
         Player_Rigid = GetComponent<Rigidbody2D>();
         Player_Renderer = GetComponent<SpriteRenderer>();
         ani = GetComponent<Animator>();
-        wolf_Control = GameObject.Find("Wolf").GetComponent<Wolf_Control>();
-        bangtan_Ctrl = GameObject.Find("Bangtan").GetComponent<Bangtan_Ctrl>();
-        deBufer_Ctrl = GameObject.Find("DeBufer").GetComponent<DeBufer_Ctrl>();
-        adc_Ctrl = GameObject.Find("ADC").GetComponent<ADC_Ctrl>();
-        chain_Ctrl = GameObject.Find("Chain").GetComponent<Chain_Ctrl>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        wolf_Control = GameManager.Instance.wolf_Control;
+        bangtan_Ctrl = GameManager.Instance.bangtan_Ctrl;
+        deBufer_Ctrl = GameManager.Instance.deBufer_Ctrl;
+        adc_Ctrl = GameManager.Instance.adc_Ctrl;
+        chain_Ctrl = GameManager.Instance.chain_Ctrl;
+        gameManager = GameManager.Instance;
         fallRange = GameObject.Find("Player_Fall_Range").GetComponent<Player_FallRange>();
 
         Attack.SetActive(false);
@@ -256,7 +256,7 @@ public class Player_Control : MonoBehaviour
         // Dash
         #region
         // Dash
-        if (Input.GetKeyDown(KeyCode.Z) && Dash_Cnt > 0)
+        if (Input.GetKeyDown(KeyCode.Z) && Dash_Cnt > 0 && Chaining == false)
         {
             Dash_Cnt -= 1;
             isDashing = true;
@@ -473,6 +473,15 @@ public class Player_Control : MonoBehaviour
             X_cnt = 10;
             Chaining = true;
         }
+
+        if (collision.gameObject.tag == "Boss_Sheild")
+        {
+            CurrentDashTimer = 0;
+            ani.SetBool("isDash", false);
+            isDashing = false;
+            Dashing = false;
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
