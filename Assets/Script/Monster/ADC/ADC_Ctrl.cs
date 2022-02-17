@@ -15,6 +15,10 @@ public class ADC_Ctrl : MonoBehaviour
     public GameObject FireBall2;
     public GameObject FireBall3;
 
+    public bool FireBall1_Spawn;
+    public bool FireBall2_Spawn;
+    public bool FireBall3_Spawn;
+
     public int ADC_Hp;
     public int ADC_Power;
     public int ADC_Amur;
@@ -35,12 +39,12 @@ public class ADC_Ctrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player").GetComponent<Player_Control>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        player = GameManager.Instance.player;
+        gameManager = GameManager.Instance;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
 
-        target = GameObject.Find("Player").transform;
+        target = GameManager.Instance.target;
         Cast = true;
     }
 
@@ -87,13 +91,19 @@ public class ADC_Ctrl : MonoBehaviour
         {
             animator.SetBool("isHit", true);
             SkillS_HitTime += Time.deltaTime;
-            transform.Translate(Vector2.right * BackSpeed * player.Player_Vec * Time.deltaTime);
+            if (SkillS_HitTime <= 1)
+                transform.Translate(Vector2.right * BackSpeed * player.Player_Vec * Time.deltaTime);
+
             if (SkillS_HitTime >= 1)
             {
                 animator.SetBool("isHit", false);
+                spriteRenderer.color = new Color(1, 1, 1, 1);
+            }
+
+            if (SkillS_HitTime >= 4)
+            {
                 SkillS_Hit = false;
                 SkillS_HitTime = 0;
-                spriteRenderer.color = new Color(1, 1, 1, 1);
             }
         }
         #endregion
@@ -104,26 +114,32 @@ public class ADC_Ctrl : MonoBehaviour
         {
             Casting += Time.deltaTime;
 
-            if (Casting >= 1)
+            if (Casting >= 1 && FireBall1_Spawn == false)
             {
+                FireBall1_Spawn = true;
                 animator.SetBool("isCasting", true);
-                FireBall1.SetActive(true);
+                Instantiate(FireBall1, new Vector2(this.transform.position.x + 1.5f, this.transform.position.y + 1.75f), Quaternion.identity);
+                //FireBall1.SetActive(true);
             }
             if (Casting >= 1.1f)
                 animator.SetBool("isCasting", false);
 
-            if (Casting >= 2)
+            if (Casting >= 2 && FireBall2_Spawn == false)
             {
+                FireBall2_Spawn = true;
                 animator.SetBool("isCasting", true);
-                FireBall2.SetActive(true);
+                Instantiate(FireBall2, new Vector2(this.transform.position.x, this.transform.position.y + 3.3f), Quaternion.identity);
+                //FireBall2.SetActive(true);
             }
             if (Casting >= 2.1f)
                 animator.SetBool("isCasting", false);
 
-            if (Casting >= 3)
+            if (Casting >= 3 && FireBall3_Spawn == false)
             {
+                FireBall3_Spawn = true;
                 animator.SetBool("isCasting", true);
-                FireBall3.SetActive(true);
+                Instantiate(FireBall3, new Vector2(this.transform.position.x - 1.5f, this.transform.position.y + 1.75f), Quaternion.identity);
+                //FireBall3.SetActive(true);
             }
             if (Casting >= 3.1f)
                 animator.SetBool("isCasting", false);

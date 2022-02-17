@@ -74,7 +74,7 @@ public class DeBufer_Ctrl : MonoBehaviour
         }
 
         // Die
-        if (DeBufer_Hp <= 0 && gameManager.Skill_D_On == false)
+        if (DeBufer_Hp <= 0)
         {
             animator.SetBool("isDied", true);
             Ding = true;
@@ -162,6 +162,11 @@ public class DeBufer_Ctrl : MonoBehaviour
             if (NukBack_Time >= 1)
             {
                 spriteRenderer.color = new Color(1, 1, 1, 1);
+                
+            }
+
+            if (NukBack_Time >= 4)
+            {
                 NukBack_Time = 0;
                 SkillS_Hiting = false;
             }
@@ -228,7 +233,7 @@ public class DeBufer_Ctrl : MonoBehaviour
         {
             spriteRenderer.flipX = false;
             DeBufer_Attack.transform.localPosition = new Vector2(-0.6f, 0.9f);
-        }
+        }  
 
     }
     #endregion

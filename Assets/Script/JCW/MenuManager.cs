@@ -22,6 +22,7 @@ public class MenuManager : MonoBehaviour
     public void Menu_Back()
     {
         Menuwindow menu = GameObject.Find("Dark").GetComponent<Menuwindow>();
+        Time.timeScale = 1;
         menu.num = 0;
     }
     public void Sound_Back()
@@ -41,11 +42,13 @@ public class MenuManager : MonoBehaviour
     }
     public void Title_Yes()
     {
+        Time.timeScale = 1;
         SceneManager.LoadScene("Title");
     }
     public void Quit_Back()
     {
         QuitWindow Main = GameObject.Find("Quit_Dark").GetComponent<QuitWindow>();
+        Time.timeScale = 1;
         Main.num = 0;
     }
 

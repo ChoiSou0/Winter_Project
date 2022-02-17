@@ -10,6 +10,9 @@ public class Player_Control : MonoBehaviour
     private SpriteRenderer Player_Renderer;
     private Wolf_Control wolf_Control;
     private Bangtan_Ctrl bangtan_Ctrl;
+    private DeBufer_Ctrl deBufer_Ctrl;
+    private ADC_Ctrl adc_Ctrl;
+    private Chain_Ctrl chain_Ctrl;
     private Player_FallRange fallRange;
     private Animator ani;
     private GameManager gameManager;
@@ -57,10 +60,15 @@ public class Player_Control : MonoBehaviour
     public float DotDeal_Time;
     public float DotTime;
 
+    public bool Chaining;
+    public int X_cnt;
     // Skill
     public float Skill_A_Time;
     public float Skill_S_Time;
     public float Skill_D_Time;
+
+    public float SkillA_ani;
+    public float SkillS_ani;
 
     public bool Skill_A_On;
     public bool Skill_S_On;
@@ -79,6 +87,9 @@ public class Player_Control : MonoBehaviour
         ani = GetComponent<Animator>();
         wolf_Control = GameObject.Find("Wolf").GetComponent<Wolf_Control>();
         bangtan_Ctrl = GameObject.Find("Bangtan").GetComponent<Bangtan_Ctrl>();
+        deBufer_Ctrl = GameObject.Find("DeBufer").GetComponent<DeBufer_Ctrl>();
+        adc_Ctrl = GameObject.Find("ADC").GetComponent<ADC_Ctrl>();
+        chain_Ctrl = GameObject.Find("Chain").GetComponent<Chain_Ctrl>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         fallRange = GameObject.Find("Player_Fall_Range").GetComponent<Player_FallRange>();
 
@@ -111,6 +122,22 @@ public class Player_Control : MonoBehaviour
         //        Magic_ani = false;
         //    }
         //}
+
+        if (Skill_A_On == true && SkillA_ani <= 0.5f)
+        {
+            ani.SetBool("isSkillA", true);
+            SkillA_ani += Time.deltaTime;
+            if (SkillA_ani >= 0.5f)
+                ani.SetBool("isSkillA", false);
+        }
+
+        if (Skill_S_On == true && SkillS_ani <= 0.5f)
+        {
+            ani.SetBool("isSkillS", true);
+            SkillS_ani += Time.deltaTime;
+            if (SkillS_ani >= 0.5f)
+                ani.SetBool("isSkillS", false);
+        }
 
         // DeBuf
         if (DeBuf == true && DotDeal_Time <= 1)
@@ -152,7 +179,7 @@ public class Player_Control : MonoBehaviour
         // Move
         float h = Input.GetAxisRaw("Horizontal");
 
-        if (Skill_S_On == false)
+        if (Skill_S_On == false && Chaining == false)
         {
             Player_Rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
 
@@ -193,7 +220,7 @@ public class Player_Control : MonoBehaviour
         // Jump
         #region
         // Jump
-        if (Input.GetKeyDown(KeyCode.C) && Jump_Cnt > 0)
+        if (Input.GetKeyDown(KeyCode.C) && Jump_Cnt > 0 && Chaining == false)
         {
             ani.SetBool("isJump", true);
             if (this.transform.position.y > 0)
@@ -220,7 +247,7 @@ public class Player_Control : MonoBehaviour
             }
         }
 
-        if (Player_Jumping == true && fallRange.isGround == true)
+        if (Player_Jumping == true && fallRange.isGround == true )
         {
             ani.SetBool("isFall", true);
         }
@@ -261,7 +288,7 @@ public class Player_Control : MonoBehaviour
         #endregion
 
         // Skill(A)
-        if (Input.GetKeyDown(KeyCode.A) && Skill_A_Time >= 7)
+        if (Input.GetKeyDown(KeyCode.A) && Skill_A_Time >= 7 && Chaining == false)
         {
             Skill_A_Time = 0;
             if (Player_Renderer.flipX == false)
@@ -274,7 +301,7 @@ public class Player_Control : MonoBehaviour
         }
 
         // Skill(S)
-        if (Input.GetKeyDown(KeyCode.S) && Skill_S_Time >= 14)
+        if (Input.GetKeyDown(KeyCode.S) && Skill_S_Time >= 14 && Chaining == false)
         {
             Skill_S_Time = 0;
             if (Player_Renderer.flipX == false)
@@ -287,14 +314,29 @@ public class Player_Control : MonoBehaviour
         }
 
         // The World (Skill D)
-        if (Input.GetKeyDown(KeyCode.D) && Skill_D_Time >= 100)
+        if (Input.GetKeyDown(KeyCode.D) && Skill_D_Time >= 100 && Chaining == false)
         {
             Skill_D_Time = 0;
             gameManager.Skill_D_On = true;
         }
         
+        if (Chaining == true && X_cnt <= 10)
+        {
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                X_cnt -= 1;
 
-        if (Attacking == true && AttackTime <= 0.1f)
+            }
+
+            if (X_cnt == 0)
+            {
+                ani.SetBool("isRestraint", false);
+                Chaining = false;
+            }
+
+        }
+
+        if (Attacking == true && AttackTime <= 0.1f && Chaining == false)
         {
             AttackTime += Time.deltaTime;
 
@@ -312,7 +354,7 @@ public class Player_Control : MonoBehaviour
         }
 
         // Attack
-        if (Input.GetKeyDown(KeyCode.X) && DelTime >= ATK_Time)
+        if (Input.GetKeyDown(KeyCode.X) && DelTime >= ATK_Time && Chaining == false)
         {
             //RaycastHit2D Skill_A_hit = Physics2D.BoxCast(transform.position, 
             //    new Vector2(8, 1), 0, new Vector2(1, 0), 0);
@@ -358,13 +400,11 @@ public class Player_Control : MonoBehaviour
         {
             ani.SetBool("isJump", false);
             ani.SetBool("isFall", false);
-            Debug.Log("땅");
             Jump_Cnt = 2;
             Player_Jumping = false;
         }
         else
         {
-            Debug.Log("점프중");
             Player_Jumping = true;
         }
 
@@ -375,24 +415,63 @@ public class Player_Control : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bite" && Dashing == false)
         {
+            Debug.Log("맞음1");
+            ani.SetBool("isRestraint", false);
+            Chaining = false;
             Player_Hp -= wolf_Control.Wolf_Power;
         }
 
         if (collision.gameObject.tag == "Bangtan_Attack" && Dashing == false)
         {
+            Debug.Log("맞음2");
+            ani.SetBool("isRestraint", false);
+            Chaining = false;
             Player_Hp -= bangtan_Ctrl.Bangtan_Power;
         }  
 
         if (collision.gameObject.tag == "Bangtan_Rush" && Dashing == false)
         {
+            Debug.Log("맞음3");
+            ani.SetBool("isRestraint", false);
+            Chaining = false;
             Player_Hp -= 15;
         }
 
-        if (collision.gameObject.tag == "DeBufer_Magic")
+        if (collision.gameObject.tag == "ADC_Fire" && Dashing == false)
+        {
+            Debug.Log("맞음4");
+            ani.SetBool("isRestraint", false);
+            Chaining = false;
+            Player_Hp -= adc_Ctrl.ADC_Power;
+        }
+
+        if (collision.gameObject.tag == "Chain_Attack" && Dashing == false)
+        {
+            Debug.Log("맞음5");
+            ani.SetBool("isRestraint", false);
+            Chaining = false;
+            Player_Hp -= chain_Ctrl.Chain_Power;
+        }
+
+        if (collision.gameObject.tag == "DeBufer_Attack" && Dashing == false)
+        {
+            Debug.Log("맞음6");
+            ani.SetBool("isRestraint", false);
+            Chaining = false;
+            Player_Hp -= deBufer_Ctrl.DeBufer_Power;
+        }
+
+        if (collision.gameObject.tag == "DeBufer_Magic" && Dashing == false)
         {
             DeBuf_Damge = true;
             DeBuf = true;
-            Debug.Log("매직에 닿음");
+        }
+
+        if (collision.gameObject.tag == "Chain_Restruction" && Dashing == false)
+        {
+            ani.SetBool("isRestraint", true);
+            X_cnt = 10;
+            Chaining = true;
         }
     }
 
