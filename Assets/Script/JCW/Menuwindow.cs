@@ -25,7 +25,6 @@ public class Menuwindow : MonoBehaviour
         {
             case 0:
                 Rect.anchoredPosition = new Vector3(0, 1200, 0);
-                Time.timeScale = 1;
                 break;
             case 1:
                 Rect.anchoredPosition = new Vector3(0, 0, 0);

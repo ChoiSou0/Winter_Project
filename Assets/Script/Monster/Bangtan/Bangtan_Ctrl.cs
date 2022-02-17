@@ -32,22 +32,27 @@ public class Bangtan_Ctrl : MonoBehaviour
     public bool Ding;
     public bool SkillS_Hit;
 
-    private Bangtan_MoveRange moveRange;
+    
     private Bangtan_AttackRange attackRange;
-    private Bangtan_Dash_Range dash_Range;
+    private Bangtan_MoveRange moveRange;
+    private Bangtan_Dash_Range dashRange;
     private SpriteRenderer spriteRenderer;
-    private Player_Control player_Control;
+    private Player_Control player;
 
     // Start is called before the first frame update
     void Start()
     {
-        moveRange = GameObject.Find("Bangtan_Move_Range").GetComponent<Bangtan_MoveRange>();
-        attackRange = GameObject.Find("Bangtan_Attack_Range").GetComponent<Bangtan_AttackRange>();
-        dash_Range = GameObject.Find("Bangtan_Dash_Range").GetComponent <Bangtan_Dash_Range>();
-        player_Control = GameObject.Find("Player").GetComponent<Player_Control>();
+        player = GameManager.Instance.player;
+        gameManager = GameManager.Instance;
+        attackRange = GameManager.Instance.bangtan_AttackRange;
+        moveRange = GameManager.Instance.bangtan_MoveRange;
+        dashRange = GameManager.Instance.bangtan_DashbRange;
+
+        //Bangtan_Attack = GameManager.Instance.Bangtan_Attack;
+        //Bang
+        target = GameManager.Instance.target;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         RGB = 1;
     }
@@ -61,7 +66,8 @@ public class Bangtan_Ctrl : MonoBehaviour
         if (SkillS_Hit == true && SkillS_HitTime <= 1)
         {
             animator.SetBool("isHit", true);
-            transform.Translate(Vector2.right * SkillS_Vec * SkillS_HitPower * Time.deltaTime);
+            if (SkillS_HitTime <= 1)
+                transform.Translate(Vector2.right * SkillS_Vec * SkillS_HitPower * Time.deltaTime);
             SkillS_HitTime += Time.deltaTime;
             if (SkillS_HitTime >= 0.1f)
                 animator.SetBool("isHit", false);
@@ -69,6 +75,11 @@ public class Bangtan_Ctrl : MonoBehaviour
             if (SkillS_HitTime >= 1)
             {
                 spriteRenderer.color = new Color(1, 1, 1, 1);
+                
+            }
+
+            if (SkillS_HitTime >= 4)
+            {
                 SkillS_Hit = false;
                 SkillS_HitTime = 0;
             }
@@ -105,7 +116,7 @@ public class Bangtan_Ctrl : MonoBehaviour
         }
 
         // Rush
-        if (moveRange.isMove == true && dash_Range.Dashed == true && SkillS_Hit == false && gameManager.Skill_D_On == false)
+        if (moveRange.isMove == true && dashRange.Dashed == true && SkillS_Hit == false && gameManager.Skill_D_On == false)
         {
             if (DashTime >= 15)
             {
@@ -145,10 +156,11 @@ public class Bangtan_Ctrl : MonoBehaviour
 
             if (AttackTime >= 0.1f)
                 Bangtan_Attack.SetActive(false);
+            if (AttackTime >= 0.7f)
+
 
             if (AttackTime >= 1.5f)
             {
-                animator.SetBool("isAttack", false);
                 AttackTime = 0;
                 Attacking = false;
             }
@@ -167,7 +179,6 @@ public class Bangtan_Ctrl : MonoBehaviour
 
     void FollowPlayer()
     {
-        target = GameObject.Find("Player").transform;
         animator.SetBool("isIdle", false);
         animator.SetBool("isRun", true);
         
@@ -191,14 +202,14 @@ public class Bangtan_Ctrl : MonoBehaviour
         {
             spriteRenderer.color = new Color(1, 0, 0, 1);
             Hited = true;
-            Bangtan_Hp -= player_Control.Player_Power - Amur;
+            Bangtan_Hp -= player.Player_Power - Amur;
         }
 
         if (collision.gameObject.tag == "Skill_A")
         {
             spriteRenderer.color = new Color(1, 0, 0, 1);
             Hited = true;
-            Bangtan_Hp -= player_Control.SkillA_Power + player_Control.Player_Power - Amur;
+            Bangtan_Hp -= player.SkillA_Power + player.Player_Power - Amur;
         }
 
         if (collision.gameObject.tag == "Skill_S")
@@ -227,7 +238,7 @@ public class Bangtan_Ctrl : MonoBehaviour
 
             spriteRenderer.color = new Color(1, 0, 0, 1);
             SkillS_Hit = true;
-            Bangtan_Hp -= player_Control.SkillS_Power + player_Control.Player_Power - Amur;
+            Bangtan_Hp -= player.SkillS_Power + player.Player_Power - Amur;
         }
     }
 

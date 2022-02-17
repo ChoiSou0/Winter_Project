@@ -162,6 +162,11 @@ public class DeBufer_Ctrl : MonoBehaviour
             if (NukBack_Time >= 1)
             {
                 spriteRenderer.color = new Color(1, 1, 1, 1);
+                
+            }
+
+            if (NukBack_Time >= 4)
+            {
                 NukBack_Time = 0;
                 SkillS_Hiting = false;
             }

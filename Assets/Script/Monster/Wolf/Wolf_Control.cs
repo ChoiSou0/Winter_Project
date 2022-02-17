@@ -109,6 +109,11 @@ public class Wolf_Control : MonoBehaviour
             if (BackTime >= 1)
             {
                 spriteRenderer.color = new Color(1, 1, 1, 1);
+                
+            }
+
+            if (BackTime >= 4)
+            {
                 SkillS_Back = false;
                 BackTime = 0;
             }

@@ -40,6 +40,7 @@ public class SkillA_Ctrl : MonoBehaviour
             Destroy(this.gameObject);
             LifeTime = 0;
             player.Skill_A_On = false;
+            player.SkillA_ani = 0;
         }
 
     }
