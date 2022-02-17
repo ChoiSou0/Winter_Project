@@ -18,6 +18,7 @@ TagManager:
   - DeBufer_Magic
   - Chain_Attack
   - Chain_Restruction
+  - Door
   layers:
   - Default
   - TransparentFX
