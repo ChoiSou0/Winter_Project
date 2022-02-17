@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &13577925
 RectTransform:
   m_ObjectHideFlags: 0
@@ -696,6 +696,7 @@ GameObject:
   - component: {fileID: 178683849}
   - component: {fileID: 178683851}
   - component: {fileID: 178683850}
+  - component: {fileID: 178683852}
   m_Layer: 5
   m_Name: Clear_Time
   m_TagString: Untagged
@@ -764,6 +765,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 178683848}
   m_CullTransparentMesh: 1
+--- !u!114 &178683852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178683848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e115983fd81250f449f2233582432c62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGameClear: 0
+  isTimer: 0
+  isButton: 1
+  minute: 0
+  second: 0
 --- !u!1 &191213557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,6 +1157,7 @@ GameObject:
   - component: {fileID: 231825468}
   - component: {fileID: 231825470}
   - component: {fileID: 231825469}
+  - component: {fileID: 231825471}
   m_Layer: 5
   m_Name: Over_Window
   m_TagString: Untagged
@@ -1166,7 +1185,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -1630, y: 1392}
   m_SizeDelta: {x: 1500, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &231825469
@@ -1207,6 +1226,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 231825467}
   m_CullTransparentMesh: 1
+--- !u!114 &231825471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231825467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4e07463938dab45ae48eb5c9079451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGameOver: 0
+  isTimer: 0
+  isButton: 0
+  minute: 0
+  second: 0
 --- !u!1 &236003302
 GameObject:
   m_ObjectHideFlags: 0
@@ -1335,7 +1371,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &310241407
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1516,6 +1552,7 @@ GameObject:
   - component: {fileID: 360415783}
   - component: {fileID: 360415785}
   - component: {fileID: 360415784}
+  - component: {fileID: 360415786}
   m_Layer: 5
   m_Name: Clear_Time
   m_TagString: Untagged
@@ -1584,6 +1621,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360415782}
   m_CullTransparentMesh: 1
+--- !u!114 &360415786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360415782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4e07463938dab45ae48eb5c9079451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGameOver: 0
+  isTimer: 1
+  isButton: 0
+  minute: 0
+  second: 0
 --- !u!1 &364576979
 GameObject:
   m_ObjectHideFlags: 0
@@ -3077,7 +3131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &601871890
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3185,7 +3239,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -3338,7 +3392,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &825637328
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6457,9 +6511,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1520083808}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b6d2215bbe0cf458452423602941b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a4e07463938dab45ae48eb5c9079451, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameOver: 0
+  isTimer: 0
+  isButton: 1
+  minute: 0
+  second: 0
 --- !u!114 &1520083811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6505,8 +6564,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1520083810}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Quit_Yes
+        m_TargetAssemblyTypeName: OverWindow, Assembly-CSharp
+        m_MethodName: OverBack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6646,7 +6705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1568437432
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6801,7 +6860,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1586826316
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7045,6 +7104,7 @@ GameObject:
   - component: {fileID: 1606990108}
   - component: {fileID: 1606990110}
   - component: {fileID: 1606990109}
+  - component: {fileID: 1606990111}
   m_Layer: 5
   m_Name: Clear_Window
   m_TagString: Untagged
@@ -7113,6 +7173,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606990107}
   m_CullTransparentMesh: 1
+--- !u!114 &1606990111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606990107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e115983fd81250f449f2233582432c62, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGameClear: 0
+  isTimer: 0
+  isButton: 0
+  minute: 0
+  second: 0
 --- !u!1 &1749944406
 GameObject:
   m_ObjectHideFlags: 0
@@ -8060,9 +8137,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1843177266}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36b6d2215bbe0cf458452423602941b4, type: 3}
+  m_Script: {fileID: 11500000, guid: e115983fd81250f449f2233582432c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isGameClear: 0
+  isTimer: 0
+  isButton: 0
+  minute: 0
+  second: 0
 --- !u!114 &1843177269
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8108,8 +8190,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1843177268}
-        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
-        m_MethodName: Quit_Yes
+        m_TargetAssemblyTypeName: ClearWindow, Assembly-CSharp
+        m_MethodName: ClearBack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9570,7 +9652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2082478808
 RectTransform:
   m_ObjectHideFlags: 0
