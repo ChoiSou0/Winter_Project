@@ -37,10 +37,10 @@ public class Chain_Ctrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player").GetComponent<Player_Control>();
-        attackRange = GameObject.Find("Chain_Attack_Range").GetComponent<Chain_AttackRange>();
-        d = GameObject.Find("Chain_Restruction_Range").GetComponent<Chain_RestructionRange>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        player = GameManager.Instance.player;
+        attackRange = GameManager.Instance.chain_AttackRange;
+        d = GameManager.Instance.chain_RestructionRange;
+        gameManager = GameManager.Instance;
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
     }
@@ -90,6 +90,10 @@ public class Chain_Ctrl : MonoBehaviour
             {
                 animator.SetBool("isHit", false);
                 spriteRenderer.color = new Color(1, 1, 1, 1);
+            }
+
+            if (SkillS_HitTime >= 4)
+            {
                 SkillS_Hit = false;
                 SkillS_HitTime = 0;
             }

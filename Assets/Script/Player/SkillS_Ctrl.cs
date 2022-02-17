@@ -34,6 +34,7 @@ public class SkillS_Ctrl : MonoBehaviour
             Destroy(this.gameObject);
             SkillA_Scale = 1;
             player.Skill_S_On = false;
+            player.SkillS_ani = 0;
         }
     }
 }

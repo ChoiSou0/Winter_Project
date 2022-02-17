@@ -10,9 +10,10 @@ public class FireBall1_Ctrl : MonoBehaviour
     
     public float FollowPos;
 
-    public Vector2 v, w;
+    public Vector3 v, w;
     public float m_Angle;
-    public float Vec;
+    //public float Dot;
+    public Vector2 Vec;
     //public Vector2 FollowPos, player;
 
     public float LifeTime;
@@ -22,28 +23,37 @@ public class FireBall1_Ctrl : MonoBehaviour
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(m_Angle);
+        //Debug.Log(m_Angle);
+
+        if (gameManager.FireBall1_On == false)
+        {
+            Vec = (player.transform.position - this.transform.position).normalized;
+        }
 
         if (gameManager.FireBall1_On == true)
         {
-            m_Angle = Vector2.Angle(ADC.transform.position, player.transform.position);
-            
             Follow = true;
         }
 
-        if (Follow == true && LifeTime <= 5)
+        if (Follow == true && LifeTime <= 8)
         {
             LifeTime += Time.deltaTime;
-            
-            
+            transform.Translate(Vec * Speed * Time.deltaTime);
 
-            if (LifeTime >= 5)
+
+
+            if (LifeTime >= 8)
+            {
+                gameManager.FireBall1_On = false;
                 Destroy(gameObject);
+            }
+                
         }
 
     }
