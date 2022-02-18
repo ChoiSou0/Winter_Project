@@ -48,6 +48,7 @@ public class SPCount : MonoBehaviour
         StatusDark status = GameObject.Find("SP_Dark").GetComponent<StatusDark>();
         Wavecount wavecount = GameObject.Find("Wave_Count").GetComponent<Wavecount>();
         wavecount.Wave++;
+        Time.timeScale = 1;
         status.isStatus = false;
 
         a = 0;
