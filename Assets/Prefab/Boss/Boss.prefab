@@ -155,6 +155,8 @@ MonoBehaviour:
   Attacking: 0
   Bomb_Power: 20
   Fire_Power: 25
+  Boss_Hp: 5000
+  Boss_Amur: 20
   Unit_Paturn1: 0
   Unit_Paturn2: 0
   Attack_Paturn: 0
