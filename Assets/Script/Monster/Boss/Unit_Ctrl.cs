@@ -19,6 +19,7 @@ public class Unit_Ctrl : MonoBehaviour
     {
         if (Unit_Hp <= 0)
         {
+            Destroy(gameObject);
             gameManager.Ruin_Unit += 1;
         }
     }
@@ -27,16 +28,19 @@ public class Unit_Ctrl : MonoBehaviour
     {
         if (collision.gameObject.tag == "Attack")
         {
+            Debug.Log("맞음1");
             Unit_Hp -= player.Player_Power;
         }
 
-        if (collision.gameObject.tag == "SkillA")
+        if (collision.gameObject.tag == "Skill_A")
         {
+            Debug.Log("맞음2");
             Unit_Hp -= player.SkillA_Power + player.Player_Power;
         }
 
-        if (collision.gameObject.tag == "SkillS")
+        if (collision.gameObject.tag == "Skill_S")
         {
+            Debug.Log("맞음3");
             Unit_Hp -= player.SkillS_Power + player.Player_Power;
         }
 

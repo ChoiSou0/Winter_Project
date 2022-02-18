@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class FireBall1_Ctrl : MonoBehaviour
 {
+    private Animator animator;
     private GameManager gameManager;
     public GameObject player;
     public GameObject ADC;
     
     public float FollowPos;
+
+    public bool Hiting;
+    public float HitTime;
 
     public Vector3 v, w;
     public float m_Angle;
@@ -22,6 +26,7 @@ public class FireBall1_Ctrl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         player = GameObject.Find("Player");
     }
@@ -41,7 +46,7 @@ public class FireBall1_Ctrl : MonoBehaviour
             Follow = true;
         }
 
-        if (Follow == true && LifeTime <= 8)
+        if (Follow == true && LifeTime <= 8 && Hiting == false)
         {
             LifeTime += Time.deltaTime;
             transform.Translate(Vec * Speed * Time.deltaTime);
@@ -56,5 +61,22 @@ public class FireBall1_Ctrl : MonoBehaviour
                 
         }
 
+        if (Hiting == true && HitTime <= 0.5f)
+        {
+            HitTime += Time.deltaTime;
+            if (HitTime >= 0.5f)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            animator.SetBool("isHit", true);
+            Hiting = true;
+        }
     }
 }

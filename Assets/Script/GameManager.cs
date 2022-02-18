@@ -29,14 +29,14 @@ public class GameManager : Singleton<GameManager>
 
     public Boss_Ctrl boss_Ctrl;
     public Unit_Ctrl unit_Ctrl;
-
-    public TimeLine timeLine;
+    public Bomb_Ctrl bomb_Ctrl;
 
     public bool FireBall1_On;
     public bool FireBall2_On;
     public bool FireBall3_On;
 
 
+    public bool TimeLine_On;
     public bool Skill_D_On;
     public float TheWorldTime;
     public int Ruin_Unit;
@@ -70,8 +70,8 @@ public class GameManager : Singleton<GameManager>
 
         boss_Ctrl = FindObjectOfType<Boss_Ctrl>();
         unit_Ctrl = FindObjectOfType<Unit_Ctrl>();
+        bomb_Ctrl = FindObjectOfType<Bomb_Ctrl>();
 
-        timeLine = FindObjectOfType<TimeLine>();
     }
 
     // Update is called once per frame
@@ -90,6 +90,11 @@ public class GameManager : Singleton<GameManager>
             }
         }
 
+
+        if (player.Player_Hp <= 0)
+        {
+
+        }
     }
 
 }

@@ -21,6 +21,10 @@ TagManager:
   - Door
   - ADC_Fire
   - Boss_Sheild
+  - PastBack
+  - FutureBack
+  - Boss_Fire
+  - Boss_Bomb
   layers:
   - Default
   - TransparentFX

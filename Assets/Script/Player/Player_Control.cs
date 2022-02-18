@@ -13,6 +13,8 @@ public class Player_Control : MonoBehaviour
     private DeBufer_Ctrl deBufer_Ctrl;
     private ADC_Ctrl adc_Ctrl;
     private Chain_Ctrl chain_Ctrl;
+    private Boss_Ctrl boss_Ctrl;
+    private Bomb_Ctrl bomb_Ctrl;
     private Player_FallRange fallRange;
     private Animator ani;
     private GameManager gameManager;
@@ -90,6 +92,8 @@ public class Player_Control : MonoBehaviour
         deBufer_Ctrl = GameManager.Instance.deBufer_Ctrl;
         adc_Ctrl = GameManager.Instance.adc_Ctrl;
         chain_Ctrl = GameManager.Instance.chain_Ctrl;
+        boss_Ctrl = GameManager.Instance.boss_Ctrl;
+        bomb_Ctrl = GameManager.Instance.bomb_Ctrl;
         gameManager = GameManager.Instance;
         fallRange = GameObject.Find("Player_Fall_Range").GetComponent<Player_FallRange>();
 
@@ -415,7 +419,6 @@ public class Player_Control : MonoBehaviour
     {
         if (collision.gameObject.tag == "Bite" && Dashing == false)
         {
-            Debug.Log("맞음1");
             ani.SetBool("isRestraint", false);
             Chaining = false;
             Player_Hp -= wolf_Control.Wolf_Power;
@@ -423,7 +426,6 @@ public class Player_Control : MonoBehaviour
 
         if (collision.gameObject.tag == "Bangtan_Attack" && Dashing == false)
         {
-            Debug.Log("맞음2");
             ani.SetBool("isRestraint", false);
             Chaining = false;
             Player_Hp -= bangtan_Ctrl.Bangtan_Power;
@@ -431,7 +433,6 @@ public class Player_Control : MonoBehaviour
 
         if (collision.gameObject.tag == "Bangtan_Rush" && Dashing == false)
         {
-            Debug.Log("맞음3");
             ani.SetBool("isRestraint", false);
             Chaining = false;
             Player_Hp -= 15;
@@ -439,7 +440,6 @@ public class Player_Control : MonoBehaviour
 
         if (collision.gameObject.tag == "ADC_Fire" && Dashing == false)
         {
-            Debug.Log("맞음4");
             ani.SetBool("isRestraint", false);
             Chaining = false;
             Player_Hp -= adc_Ctrl.ADC_Power;
@@ -447,7 +447,6 @@ public class Player_Control : MonoBehaviour
 
         if (collision.gameObject.tag == "Chain_Attack" && Dashing == false)
         {
-            Debug.Log("맞음5");
             ani.SetBool("isRestraint", false);
             Chaining = false;
             Player_Hp -= chain_Ctrl.Chain_Power;
@@ -455,7 +454,6 @@ public class Player_Control : MonoBehaviour
 
         if (collision.gameObject.tag == "DeBufer_Attack" && Dashing == false)
         {
-            Debug.Log("맞음6");
             ani.SetBool("isRestraint", false);
             Chaining = false;
             Player_Hp -= deBufer_Ctrl.DeBufer_Power;
@@ -482,6 +480,27 @@ public class Player_Control : MonoBehaviour
             Dashing = false;
         }
 
+
+        if (collision.gameObject.tag == "PastBack")
+        {
+            gameManager.TimeLine_On = false;
+        }
+        if (collision.gameObject.tag == "FutureBack")
+        {
+            gameManager.TimeLine_On = true;
+        }
+
+        if (collision.gameObject.tag == "Boss_Fire" && Dashing == false)
+        {
+            Player_Hp -= boss_Ctrl.Fire_Power;
+            Chaining = false;
+        }
+
+        if (collision.gameObject.tag == "Boss_Bomb" && bomb_Ctrl.Pop == true && Dashing == false)
+        {
+            Player_Hp -= boss_Ctrl.Bomb_Power;
+            Chaining = false;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

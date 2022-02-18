@@ -169,7 +169,13 @@ public class ADC_Ctrl : MonoBehaviour
                 animator.SetBool("isAttack", false);
 
             if (Casting >= 9)
+            {
                 AttackTime = 0;
+                Casting = 0;
+                FireBall1_Spawn = false;
+                FireBall2_Spawn = false;
+                FireBall3_Spawn = false;
+            }
         }
 
         // see
