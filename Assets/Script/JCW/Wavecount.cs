@@ -17,6 +17,14 @@ public class Wavecount : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = "Wave." + Wave.ToString();
+
+        if (Wave == 8)
+        {
+            text.text = "Wave.Final";
+        }
+        else
+        {
+            text.text = "Wave." + Wave.ToString();
+        }
     }
 }

@@ -9,15 +9,12 @@ public class SPCount : MonoBehaviour
 
     Text text;
 
-    RectTransform Rect;
-
+    int a;
     
-
     // Start is called before the first frame update
     void Start()
     {
         text = GetComponent<Text>();
-        Rect = GetComponent<RectTransform>();
         SP = 5;
     }
 
@@ -30,7 +27,30 @@ public class SPCount : MonoBehaviour
         {
             SP = 5;
         }
+        if (SP == 0)
+        {
+            if (a == 0)
+            {
+                a = 1;
+                StartCoroutine(Sp_over());
+            }
+        }
 
         text.text = "SP:" + SP.ToString();
+    }
+
+    IEnumerator Sp_over()
+    {
+        Debug.Log("13");
+        yield return new WaitForSecondsRealtime(2);
+
+        Debug.Log("2222");
+        StatusDark status = GameObject.Find("SP_Dark").GetComponent<StatusDark>();
+        Wavecount wavecount = GameObject.Find("Wave_Count").GetComponent<Wavecount>();
+        wavecount.Wave++;
+        status.isStatus = false;
+
+        a = 0;
+        yield return 0;
     }
 }
