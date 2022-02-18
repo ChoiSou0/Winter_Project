@@ -15,17 +15,23 @@ public class Boss_Ctrl : MonoBehaviour
 
     public bool Grogy;
     public bool Spawn_Unit;
+    public bool Hiting;
     public bool Sheild_On;
     public bool Attacking;
+    public bool Backing;
 
     public int Bomb_Power;
     public int Fire_Power;
+    public int Boss_Hp;
+    public int Boss_Amur;
     public int Unit_Paturn1;
     public int Unit_Paturn2;
     public int Attack_Paturn;
     public float AttackTime;
     public float GrogyTime;
     public float DawnSpeed;
+    public float HitTime;
+    public float BackTime;
 
     // Start is called before the first frame update
     void Start()
@@ -46,20 +52,20 @@ public class Boss_Ctrl : MonoBehaviour
             AttackTime += Time.deltaTime;
         }
 
-        if (Spawn_Unit == true && gameManager.Skill_D_On == false)
+        if (Spawn_Unit == true && Backing == false && gameManager.Skill_D_On == false)
         {
             Sheild.SetActive(true);
             Spawn_Unit = false;
             Spawn();
         }
 
-        if (AttackTime >= 3 && Attacking == false && Grogy == false && gameManager.Skill_D_On == false)
+        if (AttackTime >= 3 && Attacking == false && Backing == false && Grogy == false && gameManager.Skill_D_On == false)
         {
             Attack();
             Attacking = true;
         }
 
-        if (Grogy == false && gameManager.Skill_D_On == false)
+        if (Grogy == false && Backing == false && gameManager.Skill_D_On == false)
         {
             Teling();
         }
@@ -67,9 +73,19 @@ public class Boss_Ctrl : MonoBehaviour
         if (gameManager.Ruin_Unit == 4 && gameManager.Skill_D_On == false)
         {
             Grogy = true;
-
         }
 
+        if (Backing == true && BackTime <= 3f)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, 13.2f), DawnSpeed * Time.deltaTime);
+            if (BackTime >= 3)
+            {
+                Backing = false;
+                Sheild.SetActive(true);
+                BackTime = 0;
+                Spawn_Unit = true;
+            }
+        }
 
         if (Grogy == true && GrogyTime <= 7 && gameManager.Skill_D_On == false)
         {
@@ -81,10 +97,15 @@ public class Boss_Ctrl : MonoBehaviour
             if (GrogyTime >= 7)
             {
                 gameManager.Ruin_Unit = 0;
+                Backing = true;
                 Grogy = false;
-                Spawn_Unit = true;
                 GrogyTime = 0;
             }
+        }
+
+        if (Hiting == true)
+        {
+            StartCoroutine("Hited");
         }
 
     }
@@ -202,5 +223,43 @@ public class Boss_Ctrl : MonoBehaviour
         {
             transform.position = new Vector2(-4.5f, 13.2f);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Attack" && Grogy == true)
+        {
+            Debug.Log("d");
+            Hiting = true;
+            if (player.Player_Power - Boss_Amur > 0)
+                Boss_Hp -= player.Player_Power - Boss_Amur;
+        }
+
+        if (collision.gameObject.tag == "Skill_A" && Grogy == true)
+        {
+            Debug.Log("d");
+            Hiting = true;
+            Boss_Hp -= player.SkillA_Power - Boss_Amur;
+        }
+
+        if (collision.gameObject.tag == "Skill_S" && Grogy == true)
+        {
+            Debug.Log("d");
+            Hiting = true;
+            Boss_Hp -= player.SkillS_Power - Boss_Amur;
+        }
+
+    }
+
+
+    IEnumerator Hited()
+    {
+        transform.position = new Vector2(transform.position.x + 0.3f, transform.position.y);
+        new WaitForSecondsRealtime(0.1f);
+        transform.position = new Vector2(transform.position.x - 0.6f, transform.position.y);
+        new WaitForSecondsRealtime(0.1f);
+        transform.position = new Vector2(transform.position.x + 0.3f, transform.position.y);
+        Hiting = false;
+        yield return null;
     }
 }
