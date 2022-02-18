@@ -19,6 +19,10 @@ public class Menuwindow : MonoBehaviour
     void Update()
     {
         if(Input.GetKey(KeyCode.Escape)){
+            if (num == 0)
+            {
+                SoundManager.Instance.Play("ESC");
+            }
             num = 1;
         }
         switch (num)
