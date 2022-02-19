@@ -40,7 +40,7 @@ public class Title : MonoBehaviour
         {
             CurTime += Time.deltaTime;
             image.color += new Color(0, 0, 0, OutSpeed * Time.deltaTime);
-            if (CurTime >= 2)
+            if (CurTime >= 3)
             {
                 SceneManager.LoadScene("Main");
             }
