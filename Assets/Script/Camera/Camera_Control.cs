@@ -24,7 +24,7 @@ public class Camera_Control : MonoBehaviour
     {
         if (moveRange.CameraMove == true && gameManager.GameOver == false)
         {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(Taget.transform.position.x, Taget.transform.position.y + 2, Taget.transform.position.z - 10), (player.Player_Speed + 5)* Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(Taget.transform.position.x, Taget.transform.position.y + 2, Taget.transform.position.z - 10), (player.Player_Speed + 7)* Time.deltaTime);
 
             if (this.transform.position.x > 60.02f)
                 transform.position = new Vector3(60.02f, transform.position.y , -10);

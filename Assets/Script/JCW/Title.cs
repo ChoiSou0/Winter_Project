@@ -32,6 +32,7 @@ public class Title : MonoBehaviour
             if (a == 0)
             {
                 SoundManager.Instance.Play("Game_Start");
+                a++;
             }
             isTitle = true;
         }
