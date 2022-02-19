@@ -17,8 +17,6 @@ public class ClearWindow : MonoBehaviour
 
     Text text;
 
-    public int a;
-
     public int minute;
     public int second;
 
@@ -45,13 +43,8 @@ public class ClearWindow : MonoBehaviour
                         Rect.anchoredPosition = new Vector3(0, 1200, 0);
                         break;
                     case 1:
-                        Time.timeScale = 0;
-                        if (a == 0)
-                        {
-                            SoundManager.Instance.Play("Clear");
-                            a++;
-                        }
                         Rect.anchoredPosition = new Vector3(0, 0, 0);
+                        Time.timeScale = 0;
                         break;
                 }
             }

@@ -26,29 +26,21 @@ public class StatusBar : MonoBehaviour
  //       Player_Control player = GameObject.Find("Player").GetComponent<Player_Control>();
         if(sP.SP > 0)
         {
-            if(GetComponentInChildren<Slider>().value >= GetComponentInChildren<Slider>().maxValue)
+ /*           switch (StatusNUM)
             {
-                SoundManager.Instance.Play("Nope");
-            }
-            else
-            {
-                SoundManager.Instance.Play("Button_Click");
-            }
-            /*           switch (StatusNUM)
-                       {
-                           case 1:
-                               player.Player_MaxHp += 10;
-                               break;
-                           case 2:
-                               player.Player_Power += 4;
-                               break;
-                           case 3:
-                               player.Player_Speed+= 0.5f;
-                               break;
-                           case 4:
-                               player.ATK_Time -= 0.07f;
-                               break;
-                       }*/
+                case 1:
+                    player.Player_MaxHp += 10;
+                    break;
+                case 2:
+                    player.Player_Power += 4;
+                    break;
+                case 3:
+                    player.Player_Speed+= 0.5f;
+                    break;
+                case 4:
+                    player.ATK_Time -= 0.07f;
+                    break;
+            }*/
             GetComponentInChildren<Slider>().value++;
             sP.SP--;
         }
