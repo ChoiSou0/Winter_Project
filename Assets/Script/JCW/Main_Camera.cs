@@ -22,7 +22,7 @@ public class Main_Camera : MonoBehaviour
     {
         if (moveRange.CameraMove == true)
         {
-            transform.position = Vector3.MoveTowards(transform.position, new Vector3(Taget.transform.position.x, 0, Taget.transform.position.z - 10), (player.Player_Speed + 5) * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(Taget.transform.position.x, 0, Taget.transform.position.z - 10), (player.Player_Speed + 7) * Time.deltaTime);
 
             if (this.transform.position.x >= 50.8f)
                 transform.position = new Vector3(50.8f, 0, -10);
