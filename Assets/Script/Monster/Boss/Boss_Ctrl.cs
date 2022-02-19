@@ -5,6 +5,7 @@ using UnityEngine;
 public class Boss_Ctrl : MonoBehaviour
 {
     private GameManager gameManager;
+    private Animator animator;
     private Transform target;
     private Player_Control player;
 
@@ -33,9 +34,11 @@ public class Boss_Ctrl : MonoBehaviour
     public float HitTime;
     public float BackTime;
 
+
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         player = GameManager.Instance.player;
         gameManager = GameManager.Instance;
         target = GameManager.Instance.target;
@@ -47,6 +50,13 @@ public class Boss_Ctrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Boss_Hp <= 0)
+        {
+            gameManager.GameClear = true;
+            animator.SetBool("isDied", true);
+            Invoke("Died", 1);
+        }
+
         if (Grogy == false && Attacking == false && gameManager.Skill_D_On == false)
         {
             AttackTime += Time.deltaTime;
@@ -75,30 +85,40 @@ public class Boss_Ctrl : MonoBehaviour
             Grogy = true;
         }
 
-        if (Backing == true && BackTime <= 3f)
+        if (Backing == true && Grogy == true)
         {
+            BackTime += Time.deltaTime;
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, 13.2f), DawnSpeed * Time.deltaTime);
             if (BackTime >= 3)
             {
                 Backing = false;
+                Grogy = false;
                 Sheild.SetActive(true);
                 BackTime = 0;
                 Spawn_Unit = true;
             }
+            
         }
 
-        if (Grogy == true && GrogyTime <= 7 && gameManager.Skill_D_On == false)
+        if (Grogy == true && GrogyTime <= 7 && Backing == false && gameManager.Skill_D_On == false)
         {
+            animator.SetBool("isIdle", false);
+            animator.SetBool("isFall", true);
             Sheild.SetActive(false);
             GrogyTime += Time.deltaTime;
             transform.position = Vector2.MoveTowards
                 (transform.position, new Vector2(transform.position.x, 3.7f), DawnSpeed * Time.deltaTime);
+            if (GrogyTime >= 2)
+                animator.SetBool("isDown", true);
 
             if (GrogyTime >= 7)
             {
+                animator.SetBool("isIdle", true);
+                animator.SetBool("isFall", false);
+                animator.SetBool("isDown", false);
                 gameManager.Ruin_Unit = 0;
                 Backing = true;
-                Grogy = false;
+                Grogy = true;
                 GrogyTime = 0;
             }
         }
@@ -170,7 +190,10 @@ public class Boss_Ctrl : MonoBehaviour
             Instantiate(Unit, new Vector2(-18.3f, 1.74f), Quaternion.identity);
         }
 
-        if (Unit_Paturn2 == 1 && Unit_Paturn1 != 1)
+        if (Unit_Paturn1 ==  Unit_Paturn2)
+            Unit_Paturn2 = Random.Range(1, 8);
+
+        if (Unit_Paturn2 <= 1 && Unit_Paturn1 != 1)
         {
             Instantiate(Unit, new Vector2(63.5f, 1.75f), Quaternion.identity);
             Instantiate(Unit, new Vector2(13.5f, 1.74f), Quaternion.identity);
@@ -261,5 +284,10 @@ public class Boss_Ctrl : MonoBehaviour
         transform.position = new Vector2(transform.position.x + 0.3f, transform.position.y);
         Hiting = false;
         yield return null;
+    }
+
+    void Died()
+    {
+        Destroy(gameObject);
     }
 }

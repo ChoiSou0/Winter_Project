@@ -499,7 +499,7 @@ public class Player_Control : MonoBehaviour
             Chaining = false;
         }
 
-        if (collision.gameObject.tag == "Boss_Bomb" && bomb_Ctrl.Pop == true && Dashing == false)
+        if (collision.gameObject.tag == "Boss_Bomb" && Dashing == false)
         {
             Player_Hp -= boss_Ctrl.Bomb_Power;
             Chaining = false;
