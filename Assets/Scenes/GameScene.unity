@@ -672,6 +672,7 @@ MonoBehaviour:
   Skill_D_On: 0
   TheWorldTime: 0
   Ruin_Unit: 0
+  GameOver: 0
   SkillD: {fileID: 2003290568}
 --- !u!4 &431562455
 Transform:

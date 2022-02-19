@@ -40,6 +40,7 @@ public class GameManager : Singleton<GameManager>
     public bool Skill_D_On;
     public float TheWorldTime;
     public int Ruin_Unit;
+    public bool GameOver;
 
     public GameObject SkillD;
 
@@ -93,7 +94,7 @@ public class GameManager : Singleton<GameManager>
 
         if (player.Player_Hp <= 0)
         {
-
+            GameOver = true;
         }
     }
 

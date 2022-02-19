@@ -104,295 +104,302 @@ public class Player_Control : MonoBehaviour
 
     void Update()
     {
-        Skill_A_Time += Time.deltaTime;
-        Skill_S_Time += Time.deltaTime;
-        Skill_D_Time += Time.deltaTime;
-        DelTime += Time.deltaTime;
-
-        //if (gameManager.Skill_D_On == true)
-        //{
-        //    Magic_ani = true;
-        //}
-
-        //if (Magic_ani_Time <= 0.1f && Magic_ani == true)
-        //{
-        //    Magic_ani_Time += Time.deltaTime;
-
-        //    if (Magic_ani_Time >= 0.1f)
-        //    {
-        //        ani.SetBool("isMagic", false);
-        //        ani.SetBool("isIdle", true);
-        //        Magic_ani_Time = 0;
-        //        Magic_ani = false;
-        //    }
-        //}
-
-        if (Skill_A_On == true && SkillA_ani <= 0.5f)
+        if (gameManager.GameOver == false)
         {
-            ani.SetBool("isSkillA", true);
-            SkillA_ani += Time.deltaTime;
-            if (SkillA_ani >= 0.5f)
-                ani.SetBool("isSkillA", false);
-        }
+            Skill_A_Time += Time.deltaTime;
+            Skill_S_Time += Time.deltaTime;
+            Skill_D_Time += Time.deltaTime;
+            DelTime += Time.deltaTime;
 
-        if (Skill_S_On == true && SkillS_ani <= 0.5f)
-        {
-            ani.SetBool("isSkillS", true);
-            SkillS_ani += Time.deltaTime;
-            if (SkillS_ani >= 0.5f)
-                ani.SetBool("isSkillS", false);
-        }
-
-        // DeBuf
-        if (DeBuf == true && DotDeal_Time <= 1)
-        {
-            Player_Speed = 2.5f;
-            DotDeal_Time += Time.deltaTime;
-            if (DotDeal_Time >= 1)
-            {
-                DotDeal_Time = 0;
-                Player_Hp -= 4;
-            }
-        }
-
-        if (DeBuf == false && DeBuf_Damge == true && DotTime <= 2)
-        {
-            DotDeal_Time += Time.deltaTime;
-            DotTime += Time.deltaTime;
-
-            if (DotDeal_Time >= 1)
-            {
-                DotDeal_Time = 0;
-                Player_Hp -= 4;
-            }
-
-            if (DotTime >= 2)
-            {
-                DotTime = 0;
-                DeBuf_Damge = false;
-                Player_Speed = 5;
-            }
-        }
-
-        // Died ¸¸µé¾î¾ßµÊ
-        #region
-        #endregion
-
-        // Move
-        #region
-        // Move
-        float h = Input.GetAxisRaw("Horizontal");
-
-        if (Skill_S_On == false && Chaining == false)
-        {
-            Player_Rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
-
-            if (Input.GetKey(KeyCode.RightArrow))
-            {
-                ani.SetBool("isRun", true);
-                ani.SetBool("isIdle", false);
-                Player_Renderer.flipX = false;
-                Attack.transform.localPosition = new Vector2(0.5f, 0.5f);
-                Player_MoveVec = 1;
-            }
-            else if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                ani.SetBool("isRun", true);
-                ani.SetBool("isIdle", false);
-                Player_Renderer.flipX = true;
-                Attack.transform.localPosition = new Vector2(-0.5f, 0.5f);
-                Player_MoveVec = -1;
-            }
-            else if (h == 0)
-            {
-                ani.SetBool("isIdle", true);
-                ani.SetBool("isRun", false);
-            }
-        }
-
-        if (Player_Rigid.velocity.x > Player_Speed)
-        {
-            Player_Rigid.velocity = new Vector2(Player_Speed, Player_Rigid.velocity.y);
-        }
-        else if (Player_Rigid.velocity.x < Player_Speed * (-1))
-        {
-            Player_Rigid.velocity = new Vector2(Player_Speed * (-1), Player_Rigid.velocity.y);
-        }
-
-        #endregion
-
-        // Jump
-        #region
-        // Jump
-        if (Input.GetKeyDown(KeyCode.C) && Jump_Cnt > 0 && Chaining == false)
-        {
-            ani.SetBool("isJump", true);
-            if (this.transform.position.y > 0)
-            {
-                Player_Jumping = true;
-                Jump_Cnt--;
-                Player_Rigid.AddForce(Vector2.up * Player_Jumpforce, ForceMode2D.Impulse);
-            }
-            else if (this.transform.position.y < 0)
-            {
-                Player_Jumping = true;
-                Jump_Cnt--;
-                Player_Rigid.AddForce(Vector2.down * Player_Jumpforce, ForceMode2D.Impulse);
-            }
-        }
-        
-        if (Player_Jumping == true && JumpTime <= 0.1f)
-        {
-            JumpTime += Time.deltaTime;
-
-            if (JumpTime >= 0.1f)
-            {
-                ani.SetBool("isJump", false);
-            }
-        }
-
-        if (Player_Jumping == true && fallRange.isGround == true )
-        {
-            ani.SetBool("isFall", true);
-        }
-        #endregion
-
-        // Dash
-        #region
-        // Dash
-        if (Input.GetKeyDown(KeyCode.Z) && Dash_Cnt > 0 && Chaining == false)
-        {
-            Dash_Cnt -= 1;
-            isDashing = true;
-            CurrentDashTimer = StartDashTimer;
-            Player_Rigid.velocity = Vector2.zero;
-            DashDirection = (int)h;
-
-            if (Dash_Cnt == 0)
-            {
-                Invoke("Dash_Full", Dash_FullTime);
-            }
-        }
-
-        if (isDashing)
-        {
-            ani.SetBool("isDash", true);
-            Dashing = true;
-            transform.Translate(Vector2.right * Player_MoveVec * DashForce * Time.deltaTime);
-
-            CurrentDashTimer -= Time.deltaTime;
-
-            if (CurrentDashTimer <= 0)
-            {
-                ani.SetBool("isDash", false);
-                isDashing = false;
-                Dashing = false;
-            }
-        }
-        #endregion
-
-        // Skill(A)
-        if (Input.GetKeyDown(KeyCode.A) && Skill_A_Time >= 7 && Chaining == false)
-        {
-            Skill_A_Time = 0;
-            if (Player_Renderer.flipX == false)
-                Player_Vec = 1;
-            else if (Player_Renderer.flipX == true)
-                Player_Vec = -1;
-
-            Instantiate(Skill_A, new Vector2(transform.localPosition.x, transform.localPosition.y + 1f), Quaternion.identity);
-            Skill_A_On = true;
-        }
-
-        // Skill(S)
-        if (Input.GetKeyDown(KeyCode.S) && Skill_S_Time >= 14 && Chaining == false)
-        {
-            Skill_S_Time = 0;
-            if (Player_Renderer.flipX == false)
-                Player_Vec = 1;
-            else if (Player_Renderer.flipX == true)
-                Player_Vec = -1;
-
-            Instantiate(SKill_S, new Vector2(transform.localPosition.x, transform.localPosition.y + 1f), Quaternion.identity);
-            Skill_S_On = true;
-        }
-
-        // The World (Skill D)
-        if (Input.GetKeyDown(KeyCode.D) && Skill_D_Time >= 100 && Chaining == false)
-        {
-            Skill_D_Time = 0;
-            gameManager.Skill_D_On = true;
-        }
-        
-        if (Chaining == true && X_cnt <= 10)
-        {
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                X_cnt -= 1;
-
-            }
-
-            if (X_cnt == 0)
-            {
-                ani.SetBool("isRestraint", false);
-                Chaining = false;
-            }
-
-        }
-
-        if (Attacking == true && AttackTime <= 0.1f && Chaining == false)
-        {
-            AttackTime += Time.deltaTime;
-
-            if (AttackTime >= 0.1f)
-            {
-                AttackTime = 0;
-                Attacking = false;
-                ani.SetBool("isAttack1", false);
-                ani.SetBool("isAttack2", false);
-                Attack.SetActive(false);
-
-                if (ATK_Motion == 3)
-                    ATK_Motion = 1;
-            }
-        }
-
-        // Attack
-        if (Input.GetKeyDown(KeyCode.X) && DelTime >= ATK_Time && Chaining == false)
-        {
-            //RaycastHit2D Skill_A_hit = Physics2D.BoxCast(transform.position, 
-            //    new Vector2(8, 1), 0, new Vector2(1, 0), 0);
-
-            //if (Skill_A_hit.transform != null && Skill_A_hit.transform.tag == "Enermy")
+            //if (gameManager.Skill_D_On == true)
             //{
-            //    Destroy(Skill_A_hit.transform.gameObject);
+            //    Magic_ani = true;
             //}
-            DelTime = 0;
 
-            if (Player_Renderer.flipX == false)
-                Player_Vec = 1;
-            else if (Player_Renderer.flipX == true)
-                Player_Vec = -1;
+            //if (Magic_ani_Time <= 0.1f && Magic_ani == true)
+            //{
+            //    Magic_ani_Time += Time.deltaTime;
 
-            Attack.gameObject.SetActive(true);
+            //    if (Magic_ani_Time >= 0.1f)
+            //    {
+            //        ani.SetBool("isMagic", false);
+            //        ani.SetBool("isIdle", true);
+            //        Magic_ani_Time = 0;
+            //        Magic_ani = false;
+            //    }
+            //}
 
-            if (Player_Renderer.flipX == false)
+            if (Skill_A_On == true && SkillA_ani <= 0.5f)
             {
-                Attack.transform.localPosition = new Vector2(0.5f, 0.5f);
+                ani.SetBool("isSkillA", true);
+                SkillA_ani += Time.deltaTime;
+                if (SkillA_ani >= 0.5f)
+                    ani.SetBool("isSkillA", false);
             }
-            else if (Player_Renderer.flipX == true)
+
+            if (Skill_S_On == true && SkillS_ani <= 0.5f)
             {
-                Attack.transform.localPosition = new Vector2(-0.5f, 0.5f);
+                ani.SetBool("isSkillS", true);
+                SkillS_ani += Time.deltaTime;
+                if (SkillS_ani >= 0.5f)
+                    ani.SetBool("isSkillS", false);
             }
 
-            if (ATK_Motion == 1)
-                ani.SetBool("isAttack1", true);
-            else if (ATK_Motion == 2)
-                ani.SetBool("isAttack2", true);
+            // DeBuf
+            if (DeBuf == true && DotDeal_Time <= 1)
+            {
+                Player_Speed = 2.5f;
+                DotDeal_Time += Time.deltaTime;
+                if (DotDeal_Time >= 1)
+                {
+                    DotDeal_Time = 0;
+                    Player_Hp -= 4;
+                }
+            }
 
-            ATK_Motion++;
+            if (DeBuf == false && DeBuf_Damge == true && DotTime <= 2)
+            {
+                DotDeal_Time += Time.deltaTime;
+                DotTime += Time.deltaTime;
 
-            Attacking = true;
+                if (DotDeal_Time >= 1)
+                {
+                    DotDeal_Time = 0;
+                    Player_Hp -= 4;
+                }
+
+                if (DotTime >= 2)
+                {
+                    DotTime = 0;
+                    DeBuf_Damge = false;
+                    Player_Speed = 5;
+                }
+            }
+
+            // Died ¸¸µé¾î¾ßµÊ
+            #region
+            #endregion
+
+            // Move
+            #region
+            // Move
+            float h = Input.GetAxisRaw("Horizontal");
+
+            if (Skill_S_On == false && Chaining == false)
+            {
+                Player_Rigid.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+
+                if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    ani.SetBool("isRun", true);
+                    ani.SetBool("isIdle", false);
+                    Player_Renderer.flipX = false;
+                    Attack.transform.localPosition = new Vector2(0.5f, 0.5f);
+                    Player_MoveVec = 1;
+                }
+                else if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    ani.SetBool("isRun", true);
+                    ani.SetBool("isIdle", false);
+                    Player_Renderer.flipX = true;
+                    Attack.transform.localPosition = new Vector2(-0.5f, 0.5f);
+                    Player_MoveVec = -1;
+                }
+                else if (h == 0)
+                {
+                    ani.SetBool("isIdle", true);
+                    ani.SetBool("isRun", false);
+                }
+            }
+
+            if (Player_Rigid.velocity.x > Player_Speed)
+            {
+                Player_Rigid.velocity = new Vector2(Player_Speed, Player_Rigid.velocity.y);
+            }
+            else if (Player_Rigid.velocity.x < Player_Speed * (-1))
+            {
+                Player_Rigid.velocity = new Vector2(Player_Speed * (-1), Player_Rigid.velocity.y);
+            }
+
+            #endregion
+
+            // Jump
+            #region
+            // Jump
+            if (Input.GetKeyDown(KeyCode.C) && Jump_Cnt > 0 && Chaining == false)
+            {
+                ani.SetBool("isJump", true);
+                if (this.transform.position.y > 0)
+                {
+                    Player_Jumping = true;
+                    Jump_Cnt--;
+                    Player_Rigid.AddForce(Vector2.up * Player_Jumpforce, ForceMode2D.Impulse);
+                }
+                else if (this.transform.position.y < 0)
+                {
+                    Player_Jumping = true;
+                    Jump_Cnt--;
+                    Player_Rigid.AddForce(Vector2.down * Player_Jumpforce, ForceMode2D.Impulse);
+                }
+            }
+
+            if (Player_Jumping == true && JumpTime <= 0.1f)
+            {
+                JumpTime += Time.deltaTime;
+
+                if (JumpTime >= 0.1f)
+                {
+                    ani.SetBool("isJump", false);
+                }
+            }
+
+            if (Player_Jumping == true && fallRange.isGround == true)
+            {
+                ani.SetBool("isFall", true);
+            }
+            #endregion
+
+            // Dash
+            #region
+            // Dash
+            if (Input.GetKeyDown(KeyCode.Z) && Dash_Cnt > 0 && Chaining == false)
+            {
+                Dash_Cnt -= 1;
+                isDashing = true;
+                CurrentDashTimer = StartDashTimer;
+                Player_Rigid.velocity = Vector2.zero;
+                DashDirection = (int)h;
+
+                if (Dash_Cnt == 0)
+                {
+                    Invoke("Dash_Full", Dash_FullTime);
+                }
+            }
+
+            if (isDashing)
+            {
+                ani.SetBool("isDash", true);
+                Dashing = true;
+                transform.Translate(Vector2.right * Player_MoveVec * DashForce * Time.deltaTime);
+
+                CurrentDashTimer -= Time.deltaTime;
+
+                if (CurrentDashTimer <= 0)
+                {
+                    ani.SetBool("isDash", false);
+                    isDashing = false;
+                    Dashing = false;
+                }
+            }
+            #endregion
+
+            // Skill(A)
+            if (Input.GetKeyDown(KeyCode.A) && Skill_A_Time >= 7 && Chaining == false)
+            {
+                Skill_A_Time = 0;
+                if (Player_Renderer.flipX == false)
+                    Player_Vec = 1;
+                else if (Player_Renderer.flipX == true)
+                    Player_Vec = -1;
+
+                Instantiate(Skill_A, new Vector2(transform.localPosition.x, transform.localPosition.y + 1f), Quaternion.identity);
+                Skill_A_On = true;
+            }
+
+            // Skill(S)
+            if (Input.GetKeyDown(KeyCode.S) && Skill_S_Time >= 14 && Chaining == false)
+            {
+                Skill_S_Time = 0;
+                if (Player_Renderer.flipX == false)
+                    Player_Vec = 1;
+                else if (Player_Renderer.flipX == true)
+                    Player_Vec = -1;
+
+                Instantiate(SKill_S, new Vector2(transform.localPosition.x, transform.localPosition.y + 1f), Quaternion.identity);
+                Skill_S_On = true;
+            }
+
+            // The World (Skill D)
+            if (Input.GetKeyDown(KeyCode.D) && Skill_D_Time >= 100 && Chaining == false)
+            {
+                Skill_D_Time = 0;
+                gameManager.Skill_D_On = true;
+            }
+
+            if (Chaining == true && X_cnt <= 10)
+            {
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    X_cnt -= 1;
+
+                }
+
+                if (X_cnt == 0)
+                {
+                    ani.SetBool("isRestraint", false);
+                    Chaining = false;
+                }
+
+            }
+
+            if (Attacking == true && AttackTime <= 0.1f && Chaining == false)
+            {
+                AttackTime += Time.deltaTime;
+
+                if (AttackTime >= 0.1f)
+                {
+                    AttackTime = 0;
+                    Attacking = false;
+                    ani.SetBool("isAttack1", false);
+                    ani.SetBool("isAttack2", false);
+                    Attack.SetActive(false);
+
+                    if (ATK_Motion == 3)
+                        ATK_Motion = 1;
+                }
+            }
+
+            // Attack
+            if (Input.GetKeyDown(KeyCode.X) && DelTime >= ATK_Time && Chaining == false)
+            {
+                //RaycastHit2D Skill_A_hit = Physics2D.BoxCast(transform.position, 
+                //    new Vector2(8, 1), 0, new Vector2(1, 0), 0);
+
+                //if (Skill_A_hit.transform != null && Skill_A_hit.transform.tag == "Enermy")
+                //{
+                //    Destroy(Skill_A_hit.transform.gameObject);
+                //}
+                DelTime = 0;
+
+                if (Player_Renderer.flipX == false)
+                    Player_Vec = 1;
+                else if (Player_Renderer.flipX == true)
+                    Player_Vec = -1;
+
+                Attack.gameObject.SetActive(true);
+
+                if (Player_Renderer.flipX == false)
+                {
+                    Attack.transform.localPosition = new Vector2(0.5f, 0.5f);
+                }
+                else if (Player_Renderer.flipX == true)
+                {
+                    Attack.transform.localPosition = new Vector2(-0.5f, 0.5f);
+                }
+
+                if (ATK_Motion == 1)
+                    ani.SetBool("isAttack1", true);
+                else if (ATK_Motion == 2)
+                    ani.SetBool("isAttack2", true);
+
+                ATK_Motion++;
+
+                Attacking = true;
+            }
+        }
+        else
+        {
+            ani.SetBool("isDied", true);
         }
 
         

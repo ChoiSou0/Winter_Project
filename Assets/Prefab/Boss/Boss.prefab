@@ -151,8 +151,10 @@ MonoBehaviour:
   Bomb: {fileID: 2372942522861365273, guid: 4facce4988809704f87f21d0b817b671, type: 3}
   Grogy: 0
   Spawn_Unit: 0
+  Hiting: 0
   Sheild_On: 0
   Attacking: 0
+  Backing: 0
   Bomb_Power: 20
   Fire_Power: 25
   Boss_Hp: 5000
@@ -163,6 +165,8 @@ MonoBehaviour:
   AttackTime: 0
   GrogyTime: 0
   DawnSpeed: 4
+  HitTime: 0
+  BackTime: 0
 --- !u!1 &1663430317986264994
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +240,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 08278856ca9daef488b2ab9e4fb78a9b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
