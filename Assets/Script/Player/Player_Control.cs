@@ -228,19 +228,11 @@ public class Player_Control : MonoBehaviour
             // Jump
             if (Input.GetKeyDown(KeyCode.C) && Jump_Cnt > 0 && Chaining == false)
             {
+                SoundManager.Instance.Play("Jump");
                 ani.SetBool("isJump", true);
-                if (this.transform.position.y > 0)
-                {
-                    Player_Jumping = true;
-                    Jump_Cnt--;
-                    Player_Rigid.AddForce(Vector2.up * Player_Jumpforce, ForceMode2D.Impulse);
-                }
-                else if (this.transform.position.y < 0)
-                {
-                    Player_Jumping = true;
-                    Jump_Cnt--;
-                    Player_Rigid.AddForce(Vector2.down * Player_Jumpforce, ForceMode2D.Impulse);
-                }
+                Player_Jumping = true;
+                Jump_Cnt--;
+                Player_Rigid.AddForce(Vector2.up * Player_Jumpforce, ForceMode2D.Impulse);
             }
 
             if (Player_Jumping == true && JumpTime <= 0.1f)
@@ -264,6 +256,7 @@ public class Player_Control : MonoBehaviour
             // Dash
             if (Input.GetKeyDown(KeyCode.Z) && Dash_Cnt > 0 && Chaining == false)
             {
+                SoundManager.Instance.Play("Dash");
                 Dash_Cnt -= 1;
                 isDashing = true;
                 CurrentDashTimer = StartDashTimer;
@@ -296,6 +289,7 @@ public class Player_Control : MonoBehaviour
             // Skill(A)
             if (Input.GetKeyDown(KeyCode.A) && Skill_A_Time >= 7 && Chaining == false)
             {
+                SoundManager.Instance.Play("Slash");
                 Skill_A_Time = 0;
                 if (Player_Renderer.flipX == false)
                     Player_Vec = 1;
@@ -309,6 +303,7 @@ public class Player_Control : MonoBehaviour
             // Skill(S)
             if (Input.GetKeyDown(KeyCode.S) && Skill_S_Time >= 14 && Chaining == false)
             {
+                SoundManager.Instance.Play("Knock_Back");
                 Skill_S_Time = 0;
                 if (Player_Renderer.flipX == false)
                     Player_Vec = 1;
@@ -322,6 +317,7 @@ public class Player_Control : MonoBehaviour
             // The World (Skill D)
             if (Input.GetKeyDown(KeyCode.D) && Skill_D_Time >= 100 && Chaining == false)
             {
+                SoundManager.Instance.Play("Time_Stop");
                 Skill_D_Time = 0;
                 gameManager.Skill_D_On = true;
             }
@@ -331,7 +327,7 @@ public class Player_Control : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.X))
                 {
                     X_cnt -= 1;
-
+                    
                 }
 
                 if (X_cnt == 0)
@@ -370,7 +366,7 @@ public class Player_Control : MonoBehaviour
                 //    Destroy(Skill_A_hit.transform.gameObject);
                 //}
                 DelTime = 0;
-
+                SoundManager.Instance.Play("Attack");
                 if (Player_Renderer.flipX == false)
                     Player_Vec = 1;
                 else if (Player_Renderer.flipX == true)
