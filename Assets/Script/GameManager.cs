@@ -26,6 +26,7 @@ public class GameManager : Singleton<GameManager>
     public DeBufer_AttackRange deBufer_AttackRange;
     public DeBufer_MoveRange deBufer_MoveRange;
     public DeBufer_TelRange deBufer_TelRange;
+    public Wavecount wavecount;
 
     public ADC_Ctrl adc_Ctrl;
 
@@ -80,11 +81,13 @@ public class GameManager : Singleton<GameManager>
         bomb_Ctrl = FindObjectOfType<Bomb_Ctrl>();
 
         camera = FindObjectOfType<Camera_Control>();
+        wavecount = FindObjectOfType<Wavecount>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Timer timer = GameObject.Find("Timer").GetComponent<Timer>();
         if (Skill_D_On == true && TheWorldTime <= 9)
         {
             SkillD.SetActive(true);
@@ -99,9 +102,11 @@ public class GameManager : Singleton<GameManager>
         }
 
 
-        if (player.Player_Hp <= 0)
+        if (player.Player_Hp <= 0 || timer.isTimeUP)
         {
+            SoundManager.Instance.StopBGM();
             GameOver = true;
+            StartCoroutine(Over());
         }
 
         if (GameClear == true && ClearTime <= 5f)
@@ -110,9 +115,17 @@ public class GameManager : Singleton<GameManager>
 
             if (ClearTime >= 5)
             {
-
+                SoundManager.Instance.StopBGM();
+                ClearWindow clear = GameObject.Find("Clear_Window").GetComponent<ClearWindow>();
+                clear.isGameClear =1;
             }
         }
     }
-
+    IEnumerator Over()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        OverWindow over = GameObject.Find("Over_Dark").GetComponent<OverWindow>();
+        over.isGameOver = 1;
+        yield return 0;
+    }
 }

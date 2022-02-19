@@ -6,11 +6,13 @@ using UnityEngine.UI;
 public class Wavecount : MonoBehaviour
 {
     Text text;
-    public int Wave;
+    public int Wave =1;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        SoundManager.Instance.Play("Ingame", SOUND.BGM);
+        SoundManager.Instance.Play("Ingame", SOUND.BGM);
         text = GetComponent<Text>(); 
     }
 

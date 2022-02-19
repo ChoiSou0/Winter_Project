@@ -7,6 +7,10 @@ public class Timer : MonoBehaviour
 {
     Text text;
 
+    private GameManager gameManager;
+
+    public bool isTimeUP;
+
     public int minute = 4; // 분 
     public int second_10; // 십의자리 초
     public int second_0; // 일의자리 초
@@ -15,6 +19,7 @@ public class Timer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameManager.Instance;
         text = GetComponent<Text>();
         StartCoroutine("Timer_Start");
     }
@@ -29,29 +34,33 @@ public class Timer : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(1);
-            if (!(minute == 0 && second_10 == 0 && second_0 == 0))
+            if (!gameManager.Skill_D_On)
             {
-                yield return 0;
-                // 여기 게임오버
-            }
-            if (second_0 == 0)
-            {
-                if (second_10 == 0)
+                if (minute == 0 && second_10 == 0 && second_0 == 0)
                 {
-                    minute--;
-                    CurTime++;
-                    second_10 = 5;
+                    isTimeUP = true;
+                    break;
+                }
+                if (second_0 == 0)
+                {
+                    if (second_10 == 0)
+                    {
+                        minute--;
+                        CurTime++;
+                        second_10 = 5;
+                        second_0 = 9;
+                        continue;
+                    }
+                    second_10--;
                     second_0 = 9;
+                    CurTime++;
                     continue;
                 }
-                second_10--;
-                second_0 = 9;
+                second_0--;
                 CurTime++;
-                continue;
             }
-            second_0--;
-            CurTime++;
+            yield return new WaitForSeconds(1);
         }
+        yield return 0;
     }
 }

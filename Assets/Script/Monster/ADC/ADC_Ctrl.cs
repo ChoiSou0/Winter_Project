@@ -108,7 +108,7 @@ public class ADC_Ctrl : MonoBehaviour
         }
         #endregion
 
-        
+
         // casting
         if (Casting <= 9 && Cast == true && AttackTime >= 3)
         {
@@ -150,7 +150,7 @@ public class ADC_Ctrl : MonoBehaviour
                 gameManager.FireBall1_On = true;
             }
             if (Casting >= 6.5f)
-                animator.SetBool("isAttack", false);
+            animator.SetBool("isAttack", false);
 
             if (Casting >= 7)
             {
@@ -158,7 +158,7 @@ public class ADC_Ctrl : MonoBehaviour
                 gameManager.FireBall2_On = true;
             }
             if (Casting >= 7.5f)
-                animator.SetBool("isAttack", false);
+            animator.SetBool("isAttack", false);
 
             if (Casting >= 8)
             {
@@ -166,7 +166,7 @@ public class ADC_Ctrl : MonoBehaviour
                 gameManager.FireBall3_On = true;
             }
             if (Casting >= 8.5f)
-                animator.SetBool("isAttack", false);
+            animator.SetBool("isAttack", false);
 
             if (Casting >= 9)
             {

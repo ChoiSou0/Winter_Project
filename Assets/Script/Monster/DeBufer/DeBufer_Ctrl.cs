@@ -91,6 +91,7 @@ public class DeBufer_Ctrl : MonoBehaviour
         // Magic
         if (MagicTime >= 60 && Magicing == false && moveRange.isMove == true && gameManager.Skill_D_On == false)
         {
+            SoundManager.Instance.Play("Magic_circle");
             animator.SetBool("isMagic", true);
             Invoke("MagicDel", 0.1f);
             MagicTime = 0;

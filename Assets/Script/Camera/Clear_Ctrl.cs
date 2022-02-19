@@ -25,7 +25,7 @@ public class Clear_Ctrl : MonoBehaviour
     {
         if (gameManager.GameClear == true)
         {
-            RGB += Time.deltaTime;
+            RGB += Time.deltaTime * 0.25f;
             image.color = new Color(1, 1, 1, RGB);
         }
 

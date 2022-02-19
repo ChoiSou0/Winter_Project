@@ -99,6 +99,8 @@ public class Player_Control : MonoBehaviour
 
         Attack.SetActive(false);
 
+        Time.timeScale = 1;
+
         ATK_Motion = 1;
     }
 

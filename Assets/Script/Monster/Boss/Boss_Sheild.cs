@@ -16,6 +16,5 @@ public class Boss_Sheild : MonoBehaviour
     void Update()
     {
         this.transform.position = new Vector2(boss_Ctrl.transform.position.x, boss_Ctrl.transform.position.y);
-
     }
 }

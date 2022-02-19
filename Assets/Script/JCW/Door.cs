@@ -18,7 +18,6 @@ public class Door : MonoBehaviour
     void Start()
     {
         image = GetComponent<Image>();
-        SoundManager.Instance.Play("Main", SOUND.BGM);
     }
 
     // Update is called once per frame

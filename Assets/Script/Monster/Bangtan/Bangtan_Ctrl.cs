@@ -120,6 +120,7 @@ public class Bangtan_Ctrl : MonoBehaviour
         {
             if (DashTime >= 15)
             {
+                SoundManager.Instance.Play("Rush");
                 animator.SetBool("isRush", true);
                 DashTime = 0;
                 Dashing = true;

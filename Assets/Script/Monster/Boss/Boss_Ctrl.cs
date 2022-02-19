@@ -45,6 +45,7 @@ public class Boss_Ctrl : MonoBehaviour
 
         Sheild_On = true;
         Spawn_Unit = true;
+        SoundManager.Instance.Play("Climax", SOUND.BGM);
     }
 
     // Update is called once per frame
@@ -125,6 +126,7 @@ public class Boss_Ctrl : MonoBehaviour
 
         if (Hiting == true)
         {
+            SoundManager.Instance.Play("Hit");
             StartCoroutine("Hited");
         }
 

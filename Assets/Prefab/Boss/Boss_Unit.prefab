@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Unit_Hp: 200
+  LifeTime: 0
 --- !u!50 &6097680895457495145
 Rigidbody2D:
   serializedVersion: 4
