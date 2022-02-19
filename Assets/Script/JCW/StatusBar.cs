@@ -32,9 +32,9 @@ public class StatusBar : MonoBehaviour
             }
             else
             {
-                SoundManager.Instance.Play("Button_Click");
-            }
-            /*           switch (StatusNUM)
+                GetComponentInChildren<Slider>().value++;
+                sP.SP--;
+                /*           switch (StatusNUM)
                        {
                            case 1:
                                player.Player_MaxHp += 10;
@@ -49,10 +49,8 @@ public class StatusBar : MonoBehaviour
                                player.ATK_Time -= 0.07f;
                                break;
                        }*/
-            GetComponentInChildren<Slider>().value++;
-            sP.SP--;
+                SoundManager.Instance.Play("Button_Click");
+            }
         }
-        
-
     } 
 }
