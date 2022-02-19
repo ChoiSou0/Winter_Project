@@ -5,13 +5,16 @@ using UnityEngine;
 public class Unit_Ctrl : MonoBehaviour
 {
     private GameManager gameManager;
+    private Animator animatior;
     private Player_Control player;
     public int Unit_Hp;
+    public float LifeTime;
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameManager.Instance;
         player = GameManager.Instance.player;
+        animatior = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -19,8 +22,14 @@ public class Unit_Ctrl : MonoBehaviour
     {
         if (Unit_Hp <= 0)
         {
-            Destroy(gameObject);
-            gameManager.Ruin_Unit += 1;
+            animatior.SetBool("isDestroy", true);
+            LifeTime += Time.deltaTime;
+
+            if (LifeTime >= 0.5f)
+            {
+                gameManager.Ruin_Unit += 1;
+                Destroy(gameObject);
+            }
         }
     }
 
