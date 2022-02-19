@@ -24,6 +24,7 @@ public class Bomb_Ctrl : MonoBehaviour
         boss = GameManager.Instance.boss_Ctrl;
         Pop = false;
         this.transform.position = new Vector2(player.transform.position.x, player.transform.position.y);
+        gameObject.tag = "Untagged";
     }
 
     // Update is called once per frame
@@ -33,11 +34,13 @@ public class Bomb_Ctrl : MonoBehaviour
         {
             LifeTime += Time.deltaTime;
             if(LifeTime <= 0.4f)
+            {
                 transform.Translate(Vector2.up * Speed * Time.deltaTime);
+            }
 
             if (LifeTime >= 0.4f)
             {
-                Pop = true;
+                gameObject.tag = "Boss_Bomb";
                 spriteRenderer.sprite = Boss_EX;
                 Bomb_transform.localScale = new Vector3
                     (this.transform.localScale.x + Speed * Time.deltaTime, this.transform.localScale.y + Speed * Time.deltaTime);
