@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    public SpriteRenderer spriteRenderer;
     public Player_Control player;
+    public Camera_Control camera;
     public Transform target;
 
     public Bangtan_Ctrl bangtan_Ctrl;
@@ -41,12 +43,16 @@ public class GameManager : Singleton<GameManager>
     public float TheWorldTime;
     public int Ruin_Unit;
     public bool GameOver;
+    public bool GameClear;
+    public float ClearTime;
 
     public GameObject SkillD;
+    public GameObject Clear;
 
     // Start is called before the first frame update
     void Start()
     {
+        spriteRenderer = GetComponent<SpriteRenderer>();
         player = FindObjectOfType<Player_Control>();
 
         bangtan_Ctrl = FindObjectOfType<Bangtan_Ctrl>();
@@ -73,6 +79,7 @@ public class GameManager : Singleton<GameManager>
         unit_Ctrl = FindObjectOfType<Unit_Ctrl>();
         bomb_Ctrl = FindObjectOfType<Bomb_Ctrl>();
 
+        camera = FindObjectOfType<Camera_Control>();
     }
 
     // Update is called once per frame
@@ -95,6 +102,16 @@ public class GameManager : Singleton<GameManager>
         if (player.Player_Hp <= 0)
         {
             GameOver = true;
+        }
+
+        if (GameClear == true && ClearTime <= 5f)
+        {
+            ClearTime += Time.deltaTime;
+
+            if (ClearTime >= 5)
+            {
+
+            }
         }
     }
 
