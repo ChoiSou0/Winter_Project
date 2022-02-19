@@ -416,3 +416,11 @@ Received Import Request.
 Start importing Assets/Source/JCW/Skills_Icon1.png using Guid(54c04d425edb3df4f8d32c4c09902642) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5cc9059ff337e1e8d682eadcdf9150e5') in 0.066167 seconds 
   Import took 0.069426 seconds .
 
+========================================================================
+Received Import Request.
+  Time since last request: 754.337258 seconds.
+  path: Assets/Source/JCW/title.png
+  artifactKey: Guid(f6d11850b3d55864b8b23e10ccd4671a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Source/JCW/title.png using Guid(f6d11850b3d55864b8b23e10ccd4671a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2a4838abba4838a75b00f4ef29bb2fc9') in 0.020209 seconds 
+  Import took 0.062440 seconds .
+
