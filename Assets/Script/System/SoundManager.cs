@@ -64,7 +64,6 @@ public class SoundManager : MonoBehaviour
             return _Instance;
         }
     }
-
     public void Play(string soundName, SOUND sound = SOUND.SFX, float pitch = 1f)
     {
         int i = (int)sound;
@@ -93,4 +92,3 @@ public class SoundManager : MonoBehaviour
         audioSources[(int)sound].volume = _volume;
     }
 }
-
